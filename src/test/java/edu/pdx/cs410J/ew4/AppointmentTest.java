@@ -25,6 +25,7 @@ public class AppointmentTest {
     appointment.setEndTimeString("13:00");
     assertThat(appointment.getEndTimeString(), is("13:00"));
   }
+
   @Test
   public void getEndTimeStringNeedsReturnsNullWhenObjectIsCreatedWithNoArguments() {
     Appointment appointment = new Appointment();
@@ -56,19 +57,19 @@ public class AppointmentTest {
     assertThat(appointment.getDescription(), is("After Modification"));
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void setAppointmentBeginTimeWithNullArgumentThrowsException() {
     Appointment appointment = makeTestAppointment();
     appointment.setBeginTimeString(null);
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void setAppointmentEndTimeWithNullArgumentThrowsException() {
     Appointment appointment = makeTestAppointment();
     appointment.setEndTimeString(null);
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void setAppointmentDescriptionTimeWithNullArgumentThrowsException() {
     Appointment appointment = makeTestAppointment();
     appointment.setDescription(null);
