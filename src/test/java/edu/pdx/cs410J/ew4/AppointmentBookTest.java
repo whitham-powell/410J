@@ -5,6 +5,8 @@
 package edu.pdx.cs410J.ew4;
 
 
+import edu.pdx.cs410J.AbstractAppointment;
+import edu.pdx.cs410J.AbstractAppointmentBook;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -16,13 +18,19 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class AppointmentBookTest {
   @Test
   public void getOwnerNameReturnsSameOwnerIfUnspecified() {
-    AppointmentBook appointmentBook = new AppointmentBook();
+    AbstractAppointmentBook<AbstractAppointment> appointmentBook = new AppointmentBook();
     assertThat(appointmentBook.getOwnerName(), is("< unspecified >"));
   }
 
   @Test
   public void verifyThatOwnerOfAppointmentBookCreatedViaConstructorCanBeRetrieved() {
-    AppointmentBook appointmentBook = new AppointmentBook("Test Owner");
+    AbstractAppointmentBook<AbstractAppointment> appointmentBook = new AppointmentBook("Test Owner");
     assertThat(appointmentBook.getOwnerName(), is("Test Owner"));
+  }
+
+  @Test
+  public void canAnAppointmentBeAddedToTheAppointmentCollection() {
+    AbstractAppointmentBook<AbstractAppointment> appointmentBook = new AppointmentBook("Test Owner");
+
   }
 }

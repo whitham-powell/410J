@@ -1,6 +1,7 @@
 package edu.pdx.cs410J.ew4;
 
 
+import edu.pdx.cs410J.AbstractAppointment;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -13,7 +14,7 @@ public class AppointmentTest {
 
   @Test
   public void getBeginTimeStringNeedsReturnsNullWhenObjectIsCreatedWithNoArguments() {
-    Appointment appointment = new Appointment();
+    AbstractAppointment appointment = new Appointment();
     assertThat(appointment.getBeginTimeString(), is(nullValue()));
   }
 
@@ -28,25 +29,25 @@ public class AppointmentTest {
 
   @Test
   public void getEndTimeStringNeedsReturnsNullWhenObjectIsCreatedWithNoArguments() {
-    Appointment appointment = new Appointment();
+    AbstractAppointment appointment = new Appointment();
     assertThat(appointment.getEndTimeString(), is(nullValue()));
   }
 
   @Test
   public void initiallyAllAppointmentsHaveTheSameDescription() {
-    Appointment appointment = new Appointment();
+    AbstractAppointment appointment = new Appointment();
     assertThat(appointment.getDescription(), containsString("< empty >"));
   }
 
   @Test
   public void forProject1ItIsOkayIfGetBeginTimeReturnsNull() {
-    Appointment appointment = new Appointment();
+    AbstractAppointment appointment = new Appointment();
     assertThat(appointment.getBeginTime(), is(nullValue()));
   }
 
   @Test
   public void appointmentsCanBeCreatedByConstructor() {
-    Appointment appointment = makeTestAppointment();
+    AbstractAppointment appointment = makeTestAppointment();
     assertThat(appointment.getDescription(), is("Test description"));
   }
 
