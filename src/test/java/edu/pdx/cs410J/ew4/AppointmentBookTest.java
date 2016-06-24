@@ -1,6 +1,4 @@
 //AppointmentBookTests
-//        -TODO getAppointments()
-//        -TODO addAppointments()
 
 package edu.pdx.cs410J.ew4;
 
@@ -29,8 +27,16 @@ public class AppointmentBookTest {
   }
 
   @Test
+  public void getAppointmentsFromEmptyAppointmentBookReturnsNull() {
+    AbstractAppointmentBook<AbstractAppointment> appointmentBook = new AppointmentBook("Test Owner");
+    assertThat(appointmentBook.getAppointments(), is(nullValue()));
+  }
+
+  @Test
   public void canAnAppointmentBeAddedToTheAppointmentCollection() {
     AbstractAppointmentBook<AbstractAppointment> appointmentBook = new AppointmentBook("Test Owner");
-
+    AbstractAppointment appointment = new Appointment("Test appointment description", "10:30", "14:40");
+    appointmentBook.addAppointment(appointment);
+    assertThat(appointmentBook.getAppointments(), is(notNullValue()));
   }
 }

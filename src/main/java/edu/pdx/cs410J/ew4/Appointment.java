@@ -1,3 +1,4 @@
+// TODO indicate that begin and end times include dates
 package edu.pdx.cs410J.ew4;
 
 import edu.pdx.cs410J.AbstractAppointment;

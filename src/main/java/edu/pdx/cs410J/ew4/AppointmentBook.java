@@ -1,4 +1,7 @@
-
+// AppoinmentBook
+// TODO Document getOwnerName
+// TODO Document addAppointments
+// TODO Document getAppointsments
 
 
 package edu.pdx.cs410J.ew4;
@@ -6,6 +9,7 @@ package edu.pdx.cs410J.ew4;
 import edu.pdx.cs410J.AbstractAppointment;
 import edu.pdx.cs410J.AbstractAppointmentBook;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 
@@ -14,7 +18,7 @@ import java.util.Collection;
  */
 public class AppointmentBook extends AbstractAppointmentBook {
   private String ownerName = "< unspecified >";
-  private Collection<AbstractAppointment> appointments;
+  final private Collection<AbstractAppointment> appointments = new ArrayList<>();
 
   public AppointmentBook() {
     super();
@@ -37,7 +41,11 @@ public class AppointmentBook extends AbstractAppointmentBook {
 
   @Override
   public Collection getAppointments() {
-    return this.appointments;
+    if(appointments.isEmpty()) {
+      return null;
+    } else {
+      return this.appointments;
+    }
   }
 
   @Override
