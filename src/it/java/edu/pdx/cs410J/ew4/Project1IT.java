@@ -12,6 +12,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class Project1IT extends InvokeMainTestCase {
 
+  public static final String README = "usage: java edu.pdx.edu.cs410J.<login-id>.Project1 [options] <args>\n";
+
   /**
    * Invokes the main method of {@link Project1} with the given arguments.
    */
@@ -27,6 +29,13 @@ public class Project1IT extends InvokeMainTestCase {
     MainMethodResult result = invokeMain();
     assertThat(result.getExitCode(), equalTo(1));
     assertThat(result.getErr(), containsString("Missing command line arguments"));
+  }
+
+  @Test
+  public void testOnlyReadMeCommand() {
+    MainMethodResult result = invokeMain("-README");
+    assertThat(result.getExitCode(), equalTo(1));
+    assertThat(result.getOut(), result.getOut().equalsIgnoreCase(README));
   }
 
 }

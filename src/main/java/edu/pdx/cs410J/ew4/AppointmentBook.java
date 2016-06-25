@@ -18,10 +18,10 @@ import java.util.Collection;
  */
 public class AppointmentBook extends AbstractAppointmentBook<AbstractAppointment> {
   private String ownerName = "< unspecified >";
-  final private Collection<AbstractAppointment> appointments = new ArrayList<>();
+  final private Collection<AbstractAppointment> appointments;
 
   public AppointmentBook() {
-    super();
+    appointments = new ArrayList<>();
   }
 
   /**
@@ -30,8 +30,8 @@ public class AppointmentBook extends AbstractAppointmentBook<AbstractAppointment
    *          The name of the owner of <code>AppointmentBook</code>. Of type <code>String</code>
    */
   public AppointmentBook(String ownerName) {
-    super();
     this.ownerName = ownerName;
+    appointments = new ArrayList<>();
   }
 
   @Override

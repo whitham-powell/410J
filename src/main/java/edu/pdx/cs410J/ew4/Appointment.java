@@ -12,7 +12,6 @@ public class Appointment extends AbstractAppointment {
   private String endTimeString;
 
   public Appointment() {
-    super();
   }
 
   /**
@@ -23,7 +22,6 @@ public class Appointment extends AbstractAppointment {
    * @param endTimeString   The time the appointment ends as a <code>String</code>.
    */
   public Appointment(String description, String beginTimeString, String endTimeString) {
-    super();
     this.description = description;
     this.beginTimeString = beginTimeString;
     this.endTimeString = endTimeString;
