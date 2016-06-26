@@ -2,8 +2,9 @@ package edu.pdx.cs410J.ew4;
 
 import edu.pdx.cs410J.AbstractAppointment;
 import edu.pdx.cs410J.AbstractAppointmentBook;
+//import org.apache.commons.cli.Options;
+//import org.apache.commons.cli.Option;
 
-import java.util.List;
 
 /**
  * The main class for the CS410J appointment book Project
@@ -21,9 +22,14 @@ public class Project1 {
           "\t\t-README Prints a README for this project and exits\n" +
           "\tDate and time should be in the format: mm/dd/yyyy hh:mm\n";
 
-//  public static final String[] options =
+//  public static final String[] options
+//  private Options options = new Options();
+//  Option readME = new Option("-README", "Prints this help message");
+//  Option print = new Option("-print", "Prints the newly added appointment");
+//  options.addOption();
 
   public static void main(String[] args) {
+
     //TODO WHAT IS THIS .CLASS BUSINESS?
     Class c = AbstractAppointmentBook.class;  // Refer to one of Dave's classes so that we can be sure it is on the classpath
     if (args.length == 0) {

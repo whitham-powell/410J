@@ -53,9 +53,10 @@ public class Project1IT extends InvokeMainTestCase {
   }
 
   @Test
-  public void testNotEnoughCommandLineArguments() {
+  public void testNotEnoughCommandLineArgumentsIssuesAnErrorAndDisplaysReadme() {
     MainMethodResult result = invokeMain("Steve", "06/29/2016", "14:00", "06/29/2016", "16:00");
     assertThat(result.getExitCode(), equalTo(1));
+    assertThat(result.getErr(), containsString("Missing command line arguments: 5 provided"));
   }
 
   @Test
