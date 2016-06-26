@@ -21,6 +21,8 @@ public class Project1 {
           "\t\t-print Prints a description of the new appointment\n" +
           "\t\t-README Prints a README for this project and exits\n" +
           "\tDate and time should be in the format: mm/dd/yyyy hh:mm\n";
+  private static AbstractAppointmentBook<AbstractAppointment> appointmentBook;
+  private static String[] appointmentInfo;
 
 //  public static final String[] options
 //  private Options options = new Options();
@@ -54,11 +56,18 @@ public class Project1 {
         String appointmentOwner = args[1];
         String[] appointmentInfo = new String[ args.length - 2 ];
         System.arraycopy(args,2,appointmentInfo,0,(args.length - 2));
-        AbstractAppointmentBook<AbstractAppointment> appointmentBook = new AppointmentBook(appointmentOwner);
+        appointmentBook = new AppointmentBook(appointmentOwner);
         AbstractAppointment appointment = new Appointment(appointmentInfo);
         //TODO add the appointment to the book
         System.out.println(appointmentBook.getOwnerName());
         System.out.println(appointment);
+      } else {
+        String appointmentOwner = args[0];
+        appointmentInfo = new String[ args.length - 1 ];
+        System.arraycopy(args, 1, appointmentInfo, 0, (args.length -1));
+        appointmentBook = new AppointmentBook(appointmentOwner);
+        AbstractAppointment appointment = new Appointment(appointmentInfo);
+        appointmentBook.addAppointment(appointment);
       }
       System.exit(0);
     }
