@@ -1,4 +1,4 @@
-// AppoinmentBook
+// AppointmentBook
 // TODO Document getOwnerName
 // TODO Document addAppointments
 // TODO Document getAppointments

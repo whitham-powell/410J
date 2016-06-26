@@ -38,5 +38,6 @@ public class AppointmentBookTest {
     AbstractAppointment appointment = new Appointment("Test appointment description", "10:30", "14:40");
     appointmentBook.addAppointment(appointment);
     assertThat(appointmentBook.getAppointments(), is(notNullValue()));
+    assertThat(appointmentBook.getAppointments().toString(), containsString("Test appointment description"));
   }
 }

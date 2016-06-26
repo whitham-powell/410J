@@ -76,6 +76,15 @@ public class AppointmentTest {
     appointment.setDescription(null);
   }
 
+  @Test
+  public void ConstructorCanTakeAndParseAnArrayOfStringsItSelf () {
+    String [] arrayOfStrings = {"Test Description", "06/29/2016", "10:00", "06/29/2016", "14:00"};
+    Appointment appointment = new Appointment(arrayOfStrings);
+    assertThat(appointment.toString(), containsString("Test Description"));
+    assertThat(appointment.getBeginTimeString(), is("06/29/2016 10:00"));
+    assertThat(appointment.getEndTimeString(), is("06/29/2016 14:00"));
+  }
+
   private Appointment makeTestAppointment() {
     return new Appointment("Test description", "10:00", "14:00");
   }
