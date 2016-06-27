@@ -1,9 +1,3 @@
-// AppointmentBook
-// TODO Document getOwnerName
-// TODO Document addAppointments
-// TODO Document getAppointments
-
-
 package edu.pdx.cs410J.ew4;
 
 import edu.pdx.cs410J.AbstractAppointment;
@@ -35,11 +29,18 @@ public class AppointmentBook extends AbstractAppointmentBook<AbstractAppointment
   }
 
   @Override
+  /**
+   * Returns the the owner of the <code>AppointmentBook</code> as a <code>String</code>
+   */
   public String getOwnerName() {
     return this.ownerName;
   }
 
   @Override
+  /**
+   * Returns the collection of <code>AbstractAppointments</code> if it is not empty otherwise
+   * returns <code>null</code>
+   */
   public Collection<AbstractAppointment> getAppointments() {
     if(appointments.isEmpty()) {
       return null;
@@ -49,6 +50,10 @@ public class AppointmentBook extends AbstractAppointmentBook<AbstractAppointment
   }
 
   @Override
+  /**
+   * Adds an <code>AbstractAppointment</code> object to the collection of appointments.
+   * @param appointment - an <code>AbstractAppointment</code> object to be added to the collection.
+   */
   public void addAppointment(AbstractAppointment appointment) {
     appointments.add(appointment);
   }

@@ -2,8 +2,6 @@ package edu.pdx.cs410J.ew4;
 
 import edu.pdx.cs410J.AbstractAppointment;
 import edu.pdx.cs410J.AbstractAppointmentBook;
-//import org.apache.commons.cli.Options;
-//import org.apache.commons.cli.Option;
 
 
 /**
@@ -32,7 +30,6 @@ public class Project1 {
 
   public static void main(String[] args) {
 
-    //TODO WHAT IS THIS .CLASS BUSINESS?
     Class c = AbstractAppointmentBook.class;  // Refer to one of Dave's classes so that we can be sure it is on the classpath
     if (args.length == 0) {
       System.err.println("Missing command line arguments: None Provided");
@@ -54,21 +51,22 @@ public class Project1 {
     } else {
       if(args[0].equalsIgnoreCase("-print")) {
         String appointmentOwner = args[1];
-        String[] appointmentInfo = new String[ args.length - 2 ];
-        System.arraycopy(args,2,appointmentInfo,0,(args.length - 2));
-        appointmentBook = new AppointmentBook(appointmentOwner);
-        AbstractAppointment appointment = new Appointment(appointmentInfo);
-        //TODO add the appointment to the book
-        System.out.println(appointmentBook.getOwnerName());
-        System.out.println(appointment);
-      } else {
-        String appointmentOwner = args[0];
-        appointmentInfo = new String[ args.length - 1 ];
-        System.arraycopy(args, 1, appointmentInfo, 0, (args.length -1));
+        appointmentInfo = new String[ args.length - 2 ];
+        System.arraycopy(args,2,appointmentInfo,0,( args.length - 2 ));
         appointmentBook = new AppointmentBook(appointmentOwner);
         AbstractAppointment appointment = new Appointment(appointmentInfo);
         appointmentBook.addAppointment(appointment);
+        System.out.println(appointmentBook.getOwnerName());
+        System.out.println(appointment);
+        System.exit(0);
+      } else {
+        String appointmentOwner = args[0];
+        appointmentInfo = new String[ args.length - 1 ];
+        System.arraycopy(args, 1, appointmentInfo, 0, ( args.length -1 ));
+        appointmentBook = new AppointmentBook(appointmentOwner);
       }
+      AbstractAppointment appointment = new Appointment(appointmentInfo);
+      appointmentBook.addAppointment(appointment);
       System.exit(0);
     }
   }

@@ -1,4 +1,3 @@
-// TODO indicate that begin and end times include dates
 package edu.pdx.cs410J.ew4;
 
 import edu.pdx.cs410J.AbstractAppointment;
@@ -27,8 +26,8 @@ public class Appointment extends AbstractAppointment {
    * Creates a new <code>Appointment</code>
    *
    * @param description     The appointment description, defaults to <code>" empty "</code>
-   * @param beginTimeString The time the appointment begins as a <code>String</code>.
-   * @param endTimeString   The time the appointment ends as a <code>String</code>.
+   * @param beginTimeString The time and date the appointment begins as a <code>String</code>.
+   * @param endTimeString   The time and date the appointment ends as a <code>String</code>.
    */
   public Appointment(String description, String beginTimeString, String endTimeString) {
     this.description = description;
@@ -38,7 +37,7 @@ public class Appointment extends AbstractAppointment {
 
   @Override
   /**
-   * Returns the beginning time of an <code>Appointment</code> as a <code>String</code>
+   * Returns the beginning time and date of an <code>Appointment</code> as a <code>String</code>
    * @param none
    * @return      <code>this.beginTimeString</code>
    */
@@ -60,7 +59,7 @@ public class Appointment extends AbstractAppointment {
 
   @Override
   /**
-   * Returns the ending time of an <code>Appointment</code> as a <code>String</code>
+   * Returns the ending time and date of an <code>Appointment</code> as a <code>String</code>
    * @param none
    * @return      <code>this.endTimeString</code>
    */
