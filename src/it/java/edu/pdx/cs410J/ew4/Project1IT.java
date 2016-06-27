@@ -1,6 +1,7 @@
 package edu.pdx.cs410J.ew4;
 
 import edu.pdx.cs410J.InvokeMainTestCase;
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.containsString;
@@ -12,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class Project1IT extends InvokeMainTestCase {
 
-  public static final String README = "usage: java edu.pdx.edu.cs410J.<login-id>.Project1 [options] <args>\n" +
+  private static final String README = "usage: java edu.pdx.edu.cs410J.<login-id>.Project1 [options] <args>\n" +
           "\targs are (in this order): \n" +
           "\t\towner The person whose owns the appt book\n" +
           "\t\tdescription A description of the appointment\n" +
@@ -76,4 +77,66 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getOut(), containsString("06/29/2016 16:00"));
   }
 
+  @Test
+  public void MainClassRejectsBadlyFormattedDates () {
+    String[] testArgs = {"-print", "Steve", "Test Description", "6/29/16", "14:00", "06/29/16", "16:00"};
+    MainMethodResult result = invokeMain(testArgs);
+    assertThat(result.getExitCode(), equalTo(1));
+    assertThat(result.getErr(), containsString("Bad formatting: "));
+    assertThat(result.getErr(), containsString(" Date - beginTime"));
+    assertThat(result.getErr(), containsString(" Date - endTime"));
+    assertThat(result.getErr(), CoreMatchers.not(containsString(" Time")));
+  }
+
+  @Test
+  public void MainClassRejectsBadlyFormattedBeginDate () {
+    String[] testArgs = {"-print", "Steve", "Test Description", "06/29/16", "14:00", "6/29/2016", "16:00"};
+    MainMethodResult result = invokeMain(testArgs);
+    assertThat(result.getExitCode(), equalTo(1));
+    assertThat(result.getErr(), containsString("Bad formatting:"));
+    assertThat(result.getErr(), containsString("Date - beginTime"));
+    assertThat(result.getErr(), CoreMatchers.not(containsString(" endTime")));
+  }
+
+  @Test
+  public void MainClassRejectsBadlyFormattedEndDate () {
+    String[] testArgs = {"-print", "Steve", "Test Description", "6/29/2016", "14:00", "06/29/16", "16:00"};
+    MainMethodResult result = invokeMain(testArgs);
+    assertThat(result.getExitCode(), equalTo(1));
+    assertThat(result.getErr(), containsString("Bad formatting:"));
+    assertThat(result.getErr(), containsString(" Date - endTime"));
+    assertThat(result.getErr(), CoreMatchers.not(containsString(" beginTime")));
+  }
+
+  @Test
+  public void MainClassRejectsBadlyFormattedTimes () {
+    String[] testArgs = {"-print", "Steve", "Test Description", "06/29/2016", "400", "06/29/2016", "1600"};
+    MainMethodResult result = invokeMain(testArgs);
+    assertThat(result.getExitCode(), equalTo(1));
+    assertThat(result.getErr(), containsString("Bad formatting:"));
+    assertThat(result.getErr(), containsString(" Time - beginTime"));
+    assertThat(result.getErr(), containsString(" Time - endTime"));
+    assertThat(result.getErr(), CoreMatchers.not(containsString(" Date")));
+  }
+
+  @Test
+  public void MainClassRejectsBadlyFormattedEndTime () {
+    String[] testArgs = {"-print", "Steve", "Test Description", "06/29/2016", "4:00", "06/29/2016", "1600"};
+    MainMethodResult result = invokeMain(testArgs);
+    assertThat(result.getExitCode(), equalTo(1));
+    assertThat(result.getErr(), containsString("Bad formatting:"));
+    assertThat(result.getErr(), containsString(" Time - endTime"));
+    assertThat(result.getErr(), CoreMatchers.not(containsString(" Date")));
+  }
+
+  @Test
+  public void MainClassRejectsBadlyFormattedBeginTime () {
+    String[] testArgs = {"-print", "Steve", "Test Description", "06/29/2016", "400", "06/29/2016", "16:00"};
+    MainMethodResult result = invokeMain(testArgs);
+    assertThat(result.getExitCode(), equalTo(1));
+    assertThat(result.getErr(), containsString("Bad formatting:"));
+    assertThat(result.getErr(), containsString(" Time - beginTime"));
+    assertThat(result.getErr(), CoreMatchers.not(containsString(" Date")));
+  }
 }
+
