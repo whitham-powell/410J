@@ -1,5 +1,4 @@
 package edu.pdx.cs410J.ew4;
-
 import edu.pdx.cs410J.AbstractAppointment;
 
 /**
@@ -51,7 +50,7 @@ public class Appointment extends AbstractAppointment {
    * @param beginTimeString - the time of an <code>Appointment</code> as a <code>String</code>
    * @throws IllegalArgumentException - if a null is passed in it raises exception.
    */
-  public void setBeginTimeString(String beginTimeString) {
+  void setBeginTimeString(String beginTimeString) {
     if (beginTimeString == null)
       throw new IllegalArgumentException("beginTimeString cannot be null");
     this.beginTimeString = beginTimeString;
@@ -73,7 +72,7 @@ public class Appointment extends AbstractAppointment {
    * @param endTimeString - the end time of an <code>Appointment</code> as a <code>String</code>
    * @throws IllegalArgumentException - if a null is passed in it raises exception.
    */
-  public void setEndTimeString(String endTimeString) {
+  void setEndTimeString(String endTimeString) {
     if (endTimeString == null)
       throw new IllegalArgumentException("beginTimeString cannot be null");
     this.endTimeString = endTimeString;
@@ -95,7 +94,7 @@ public class Appointment extends AbstractAppointment {
    * @param description - the description of an <code>Appointment</code> as a <code>String</code>
    * @throws IllegalArgumentException - if a null is passed in it raises exception.
    */
-  public void setDescription(String description) {
+  void setDescription(String description) {
     if (description == null)
       throw new IllegalArgumentException("beginTimeString cannot be null");
     this.description = description;
