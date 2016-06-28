@@ -60,7 +60,7 @@ public class Project1 {
 
     boolean doReadMe = false;
     boolean doPrint = false;
-    int exitCode;
+    int exitCode = 0;
     String appointmentOwner = null;
     String[] appointmentInfo = null;
     ArrayList<String> providedOptions = new ArrayList<>();
@@ -70,11 +70,11 @@ public class Project1 {
     AbstractAppointmentBook<AbstractAppointment> appointmentBook = null;
     AbstractAppointment appointment = null;
 
-    for(String arg : args) {
-      if(arg.startsWith("-")) {
+    // Commandline Argument Parsing
+    for (String arg : args) {
+      if (arg.startsWith("-")) {
         providedOptions.add(arg);
-      }
-      else {
+      } else {
         providedArgs.add(arg);
       }
     }
@@ -85,51 +85,48 @@ public class Project1 {
 //        providedOptions.remove(option);
 //      }
 //    }
-//    if(providedOptions.contains("-print")) {
-//      doPrint = true;
-//    }
 
-//    if(providedOptions.contains("-README")) {
-//      doReadMe = true;
-//    }
+    if (providedOptions.contains("-print")) {
+      doPrint = true;
+    }
 
+    if (providedOptions.contains("-README")) {
+      doReadMe = true;
+    }
 
-    // Commandline Argument Parsing
-    if (providedOptions.isEmpty() && providedArgs.isEmpty()) {
+    if (providedArgs.isEmpty() && providedOptions.isEmpty()) {
       System.err.println("Missing command line arguments: None Provided");
       doReadMe = true;
       exitCode = 1;
-    } else {
-      if (providedArgs.size() < 6) {
-        if (providedOptions.contains("-README")) {
-          doReadMe = true;
-          // TODO FIX testOnlyReadMe && mainClassDetectsMultipleArguments
-          exitCode = 0;
-//        }
-        } else {
-          System.err.println("Missing command line arguments: " + args.length + " provided: \n");
-          for (String arg : args) {
-            System.out.println("\t"+ arg + "\n");
-          }
-          doReadMe = true;
-          exitCode = 1;
-        }
-      } else if(providedOptions.contains("-print")) {
-        doPrint = true;
-        appointmentOwner = providedArgs.get(0);
-        appointmentInfo = providedArgs.subList(1, 6).toArray(new String[providedArgs.size()]);
-        exitCode = appointmentInfoValidator(appointmentInfo);
-      } else if(providedOptions.contains("-README")) {
-        doReadMe = true;
-        appointmentOwner = providedArgs.get(0);
-        appointmentInfo = providedArgs.subList(1, 6).toArray(new String[providedArgs.size()]);
-        exitCode = appointmentInfoValidator(appointmentInfo);
-      } else {
-        appointmentOwner = providedArgs.get(0);
-        appointmentInfo = providedArgs.subList(1, 6).toArray(new String[providedArgs.size()]);
-        exitCode = appointmentInfoValidator(appointmentInfo);
-      }
     }
+
+    if (providedArgs.size() < 6) {
+      if (providedOptions.size() != 1 || !providedOptions.contains("-README")) {
+        System.err.println("Missing command line arguments: " + args.length + " provided: \n");
+        for (String arg : args) {
+          System.out.println("\t" + arg + "\n");
+        }
+        exitCode = 1;
+      } else {
+        exitCode = 0;
+      }
+      doReadMe = true;
+    }
+
+//    if(providedArgs.size() > 6) {
+//      doReadMe = true;
+//      exitCode = 1;
+//      System.err.println("Too many command line arguments: " + args.length + " provided: \n");
+//      for (String arg : args) {
+//        System.out.println("\t"+ arg + "\n");
+//      }
+//    }
+    if (providedArgs.size() == 6) {
+      appointmentOwner = providedArgs.get(0);
+      appointmentInfo = providedArgs.subList(1, 6).toArray(new String[providedArgs.size()]);
+      exitCode = appointmentInfoValidator(appointmentInfo);
+    }
+
 
     // Carrying out routine based on argument parse
     if (doReadMe) {

@@ -49,9 +49,9 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getOut(), containsString(README));
   }
 
-  @Test
-  public void mainClassCanDetectCorrectNumberOfArguments() {
-  }
+//  @Test
+//  public void mainClassCanDetectCorrectNumberOfArguments() {
+//  }
 
   @Test
   public void testNotEnoughCommandLineArgumentsIssuesAnErrorAndDisplaysReadme() {
@@ -150,5 +150,16 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getOut(), containsString("06/29/2016 16:00"));
     assertThat(result.getOut(), containsString(README));
   }
+
+  /* \
+  Unnecessary Test
+  @Test
+  public void theNumberOfProvidedOptionsAndArgumentsSumsToSizeOfArgList () {
+    String[] testArgs = {"-print", "-README", "Steve", "Test Description", "06/29/2016", "14:00", "06/29/2016", "16:00"};
+    MainMethodResult result = invokeMain(testArgs);
+    assertThat(result.getOut(), containsString("8"));
+  }
+  */
+
 }
 
