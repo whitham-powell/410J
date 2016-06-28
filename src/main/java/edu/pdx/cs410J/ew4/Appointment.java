@@ -1,4 +1,5 @@
 package edu.pdx.cs410J.ew4;
+
 import edu.pdx.cs410J.AbstractAppointment;
 
 /**
@@ -14,6 +15,7 @@ public class Appointment extends AbstractAppointment {
 
   /**
    * Creates a new <code>Appointment</code>
+   *
    * @param appointmentInfo - an array of strings that will be stored into data fields
    */
   public Appointment(String[] appointmentInfo) {
@@ -21,6 +23,7 @@ public class Appointment extends AbstractAppointment {
     this.beginTimeString = appointmentInfo[1] + " " + appointmentInfo[2];
     this.endTimeString = appointmentInfo[3] + " " + appointmentInfo[4];
   }
+
   /**
    * Creates a new <code>Appointment</code>
    *

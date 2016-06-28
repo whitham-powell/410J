@@ -50,7 +50,7 @@ public class Project1IT extends InvokeMainTestCase {
   }
 
   @Test
-  public void MainClassCanDetectCorrectNumberOfArguments() {
+  public void mainClassCanDetectCorrectNumberOfArguments() {
   }
 
   @Test
@@ -67,7 +67,7 @@ public class Project1IT extends InvokeMainTestCase {
   }
 
   @Test
-  public void MainClassCanPrintANewlyAddedAppointmentWithThePRINTCommand() {
+  public void mainClassCanPrintANewlyAddedAppointmentWithThePRINTCommand() {
     String[] testArgs = {"-print", "Steve", "Test Description", "06/29/2016", "14:00", "06/29/2016", "16:00"};
     MainMethodResult result = invokeMain(testArgs);
     assertThat(result.getExitCode(), equalTo(0));
@@ -78,7 +78,7 @@ public class Project1IT extends InvokeMainTestCase {
   }
 
   @Test
-  public void MainClassRejectsBadlyFormattedDates () {
+  public void mainClassRejectsBadlyFormattedDates () {
     String[] testArgs = {"-print", "Steve", "Test Description", "6/29/16", "14:00", "06/29/16", "16:00"};
     MainMethodResult result = invokeMain(testArgs);
     assertThat(result.getExitCode(), equalTo(1));
@@ -89,7 +89,7 @@ public class Project1IT extends InvokeMainTestCase {
   }
 
   @Test
-  public void MainClassRejectsBadlyFormattedBeginDate () {
+  public void mainClassRejectsBadlyFormattedBeginDate() {
     String[] testArgs = {"-print", "Steve", "Test Description", "06/29/16", "14:00", "6/29/2016", "16:00"};
     MainMethodResult result = invokeMain(testArgs);
     assertThat(result.getExitCode(), equalTo(1));
@@ -99,7 +99,7 @@ public class Project1IT extends InvokeMainTestCase {
   }
 
   @Test
-  public void MainClassRejectsBadlyFormattedEndDate () {
+  public void mainClassRejectsBadlyFormattedEndDate() {
     String[] testArgs = {"-print", "Steve", "Test Description", "6/29/2016", "14:00", "06/29/16", "16:00"};
     MainMethodResult result = invokeMain(testArgs);
     assertThat(result.getExitCode(), equalTo(1));
@@ -109,7 +109,7 @@ public class Project1IT extends InvokeMainTestCase {
   }
 
   @Test
-  public void MainClassRejectsBadlyFormattedTimes () {
+  public void mainClassRejectsBadlyFormattedTimes() {
     String[] testArgs = {"-print", "Steve", "Test Description", "06/29/2016", "400", "06/29/2016", "1600"};
     MainMethodResult result = invokeMain(testArgs);
     assertThat(result.getExitCode(), equalTo(1));
@@ -120,7 +120,7 @@ public class Project1IT extends InvokeMainTestCase {
   }
 
   @Test
-  public void MainClassRejectsBadlyFormattedEndTime () {
+  public void mainClassRejectsBadlyFormattedEndTime() {
     String[] testArgs = {"-print", "Steve", "Test Description", "06/29/2016", "4:00", "06/29/2016", "1600"};
     MainMethodResult result = invokeMain(testArgs);
     assertThat(result.getExitCode(), equalTo(1));
@@ -130,13 +130,25 @@ public class Project1IT extends InvokeMainTestCase {
   }
 
   @Test
-  public void MainClassRejectsBadlyFormattedBeginTime () {
+  public void mainClassRejectsBadlyFormattedBeginTime() {
     String[] testArgs = {"-print", "Steve", "Test Description", "06/29/2016", "400", "06/29/2016", "16:00"};
     MainMethodResult result = invokeMain(testArgs);
     assertThat(result.getExitCode(), equalTo(1));
     assertThat(result.getErr(), containsString("Bad formatting:"));
     assertThat(result.getErr(), containsString(" Time - beginTime"));
     assertThat(result.getErr(), CoreMatchers.not(containsString(" Date")));
+  }
+
+  @Test
+  public void mainClassDetectsMultipleOptionsArguments() {
+    String[] testArgs = {"-print", "-README", "Steve", "Test Description", "06/29/2016", "14:00", "06/29/2016", "16:00"};
+    MainMethodResult result = invokeMain(testArgs);
+    assertThat(result.getExitCode(), equalTo(0));
+    assertThat(result.getOut(), containsString("Steve"));
+    assertThat(result.getOut(), containsString("Test Description"));
+    assertThat(result.getOut(), containsString("06/29/2016 14:00"));
+    assertThat(result.getOut(), containsString("06/29/2016 16:00"));
+    assertThat(result.getOut(), containsString(README));
   }
 }
 
