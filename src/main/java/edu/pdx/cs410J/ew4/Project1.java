@@ -113,14 +113,15 @@ public class Project1 {
       doReadMe = true;
     }
 
-//    if(providedArgs.size() > 6) {
-//      doReadMe = true;
-//      exitCode = 1;
-//      System.err.println("Too many command line arguments: " + args.length + " provided: \n");
-//      for (String arg : args) {
-//        System.out.println("\t"+ arg + "\n");
-//      }
-//    }
+    if(providedArgs.size() > 6) {
+      doReadMe = true;
+      exitCode = 1;
+      System.err.println("Too many command line arguments: " + args.length + " provided: \n");
+      for (String arg : args) {
+        System.out.println("\t"+ arg + "\n");
+      }
+    }
+
     if (providedArgs.size() == 6) {
       appointmentOwner = providedArgs.get(0);
       appointmentInfo = providedArgs.subList(1, 6).toArray(new String[providedArgs.size()]);

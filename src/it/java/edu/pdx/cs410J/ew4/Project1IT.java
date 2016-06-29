@@ -140,7 +140,29 @@ public class Project1IT extends InvokeMainTestCase {
   }
 
   @Test
-  public void mainClassDetectsMultipleOptionsArguments() {
+  public void tooManyArgumentsProvidedGetsRejected() {
+    String[] testArgs = {"Steve", "Test", "Description", "06/29/2016", "400", "06/29/2016", "16:00"};
+    MainMethodResult result = invokeMain(testArgs);
+    assertThat(result.getExitCode(), equalTo(1));
+    assertThat(result.getErr(), containsString("Too many command line arguments: 7 provided: "));
+  }
+
+
+//  @Test
+//  public void mainClassDetectsMultipleOptionsArguments() {
+//    String[] testArgs = {"-print", "-README", "Steve", "Test Description", "06/29/2016", "14:00", "06/29/2016", "16:00"};
+//    MainMethodResult result = invokeMain(testArgs);
+//    assertThat(result.getExitCode(), equalTo(0));
+//    assertThat(result.getOut(), containsString("Steve"));
+//    assertThat(result.getOut(), containsString("Test Description"));
+//    assertThat(result.getOut(), containsString("06/29/2016 14:00"));
+//    assertThat(result.getOut(), containsString("06/29/2016 16:00"));
+//    assertThat(result.getOut(), containsString(README));
+//  }
+/*
+  Unnecessary Test
+  @Test
+  public void theNumberOfProvidedOptionsAndArgumentsSumsToSizeOfArgList () {
     String[] testArgs = {"-print", "-README", "Steve", "Test Description", "06/29/2016", "14:00", "06/29/2016", "16:00"};
     MainMethodResult result = invokeMain(testArgs);
     assertThat(result.getExitCode(), equalTo(0));
@@ -150,5 +172,9 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getOut(), containsString("06/29/2016 16:00"));
     assertThat(result.getOut(), containsString(README));
   }
+*/
+
 }
+
+
 
