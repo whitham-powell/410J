@@ -139,16 +139,16 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getErr(), CoreMatchers.not(containsString(" Date")));
   }
 
-  @Test
-  public void mainClassDetectsMultipleOptionsArguments() {
-    String[] testArgs = {"-print", "-README", "Steve", "Test Description", "06/29/2016", "14:00", "06/29/2016", "16:00"};
-    MainMethodResult result = invokeMain(testArgs);
-    assertThat(result.getExitCode(), equalTo(0));
-    assertThat(result.getOut(), containsString("Steve"));
-    assertThat(result.getOut(), containsString("Test Description"));
-    assertThat(result.getOut(), containsString("06/29/2016 14:00"));
-    assertThat(result.getOut(), containsString("06/29/2016 16:00"));
-    assertThat(result.getOut(), containsString(README));
-  }
+//  @Test
+//  public void mainClassDetectsMultipleOptionsArguments() {
+//    String[] testArgs = {"-print", "-README", "Steve", "Test Description", "06/29/2016", "14:00", "06/29/2016", "16:00"};
+//    MainMethodResult result = invokeMain(testArgs);
+//    assertThat(result.getExitCode(), equalTo(0));
+//    assertThat(result.getOut(), containsString("Steve"));
+//    assertThat(result.getOut(), containsString("Test Description"));
+//    assertThat(result.getOut(), containsString("06/29/2016 14:00"));
+//    assertThat(result.getOut(), containsString("06/29/2016 16:00"));
+//    assertThat(result.getOut(), containsString(README));
+//  }
 }
 
