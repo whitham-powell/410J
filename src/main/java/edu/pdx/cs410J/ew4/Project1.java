@@ -6,6 +6,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 /**
@@ -70,8 +71,10 @@ public class Project1 {
     String[] appointmentInfo = null;
     ArrayList<String> providedOptions = new ArrayList<>();
     ArrayList<String> providedArgs = new ArrayList<>();
-//    String[] validOptions = {"-print", "-README"};
+
+    // Build ArrayList of valid options
     ArrayList<String> validOptions = new ArrayList<>();
+    Collections.addAll(validOptions, "-print", "-README");
 
     AbstractAppointmentBook<AbstractAppointment> appointmentBook = null;
     AbstractAppointment appointment = null;
@@ -85,20 +88,22 @@ public class Project1 {
       }
     }
 
+    // Clean up options
+    providedOptions.retainAll(validOptions);
+    providedOptions.trimToSize();
 
-//    for (String option : validOptions) {
-//      if(!providedOptions.contains(option)) {
-//        providedOptions.remove(option);
-//      }
-//    }
+    // Check options to execute after cleaning
+    if (providedOptions.contains("-README")) {
+      doReadMe = true;
+      // Special case to exit if -README is provided, ignoring everything else
+      System.out.print(README);
+      System.exit(0);
+    }
 
     if (providedOptions.contains("-print")) {
       doPrint = true;
     }
 
-    if (providedOptions.contains("-README")) {
-      doReadMe = true;
-    }
 
     if (providedArgs.isEmpty() && providedOptions.isEmpty()) {
       System.err.println("Missing command line arguments: None Provided");
@@ -119,12 +124,12 @@ public class Project1 {
       doReadMe = true;
     }
 
-    if(providedArgs.size() > 6) {
+    if (providedArgs.size() > 6) {
       doReadMe = true;
       exitCode = 1;
       System.err.println("Too many command line arguments: " + args.length + " provided: \n");
       for (String arg : args) {
-        System.out.println("\t"+ arg + "\n");
+        System.out.println("\t" + arg + "\n");
       }
     }
 
@@ -133,7 +138,6 @@ public class Project1 {
       appointmentInfo = providedArgs.subList(1, 6).toArray(new String[providedArgs.size()]);
       exitCode = appointmentInfoValidator(appointmentInfo);
     }
-
 
     // Carrying out routine based on argument parse
     if (doReadMe) {

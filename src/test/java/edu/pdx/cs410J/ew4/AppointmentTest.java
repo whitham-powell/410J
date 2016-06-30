@@ -70,6 +70,7 @@ public class AppointmentTest {
     appointment.setEndTimeString(null);
   }
 
+
   @Test(expected = IllegalArgumentException.class)
   public void setAppointmentDescriptionTimeWithNullArgumentThrowsException() {
     Appointment appointment = makeTestAppointment();
@@ -85,7 +86,52 @@ public class AppointmentTest {
     assertThat(appointment.getEndTimeString(), is("06/29/2016 14:00"));
   }
 
-  private Appointment makeTestAppointment() {
+  @Test
+  public void setAppointmentBeginTimeWithNullArgumentThrowsExceptionWithCorrectMessage() {
+    Appointment appointment = makeTestAppointment();
+    boolean thrown = false;
+    String exception = "";
+    try {
+      appointment.setBeginTimeString(null);
+    } catch (IllegalArgumentException e) {
+      exception = e.getMessage();
+      thrown = true;
+    }
+    assert (thrown);
+    assertThat(exception, containsString("beginTimeString cannot be null"));
+  }
+
+  @Test
+  public void setAppointmentEndTimeWithNullArgumentThrowsExceptionWithCorrectMessage() {
+    Appointment appointment = makeTestAppointment();
+    boolean thrown = false;
+    String exception = "";
+    try {
+      appointment.setEndTimeString(null);
+    } catch (IllegalArgumentException e) {
+      exception = e.getMessage();
+      thrown = true;
+    }
+    assert (thrown);
+    assertThat(exception, containsString("endTimeString cannot be null"));
+  }
+
+  @Test
+  public void setAppointmentDescriptionTimeWithNullArgumentThrowsExceptionWithCorrectMessage() {
+    Appointment appointment = makeTestAppointment();
+    boolean thrown = false;
+    String exception = "";
+    try {
+      appointment.setDescription(null);
+    } catch (IllegalArgumentException e) {
+      exception = e.getMessage();
+      thrown = true;
+    }
+    assert (thrown);
+    assertThat(exception, containsString("description cannot be null"));
+  }
+
+    private Appointment makeTestAppointment() {
     return new Appointment("Test description", "10:00", "14:00");
   }
 }

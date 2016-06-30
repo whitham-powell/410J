@@ -77,7 +77,7 @@ public class Appointment extends AbstractAppointment {
    */
   void setEndTimeString(String endTimeString) {
     if (endTimeString == null)
-      throw new IllegalArgumentException("beginTimeString cannot be null");
+      throw new IllegalArgumentException("endTimeString cannot be null");
     this.endTimeString = endTimeString;
   }
 
@@ -99,7 +99,7 @@ public class Appointment extends AbstractAppointment {
    */
   void setDescription(String description) {
     if (description == null)
-      throw new IllegalArgumentException("beginTimeString cannot be null");
+      throw new IllegalArgumentException("description cannot be null");
     this.description = description;
   }
 }
