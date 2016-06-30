@@ -2,6 +2,8 @@ package edu.pdx.cs410J.ew4;
 
 import edu.pdx.cs410J.AbstractAppointment;
 import edu.pdx.cs410J.AbstractAppointmentBook;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
 
 import java.util.ArrayList;
 
@@ -55,6 +57,9 @@ public class Project1 {
   }
 
   public static void main(String[] args) {
+//    Options options = new Options();
+//    Option option = new Option("-print", false, "prints the appointment added");
+//    options.addOption(option);
 
     Class c = AbstractAppointmentBook.class;  // Refer to one of Dave's classes so that we can be sure it is on the classpath
 
@@ -66,6 +71,7 @@ public class Project1 {
     ArrayList<String> providedOptions = new ArrayList<>();
     ArrayList<String> providedArgs = new ArrayList<>();
 //    String[] validOptions = {"-print", "-README"};
+    ArrayList<String> validOptions = new ArrayList<>();
 
     AbstractAppointmentBook<AbstractAppointment> appointmentBook = null;
     AbstractAppointment appointment = null;
