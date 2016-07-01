@@ -141,10 +141,20 @@ public class Project1IT extends InvokeMainTestCase {
 
   @Test
   public void tooManyArgumentsProvidedGetsRejected() {
-    String[] testArgs = {"Steve", "Test", "Description", "06/29/2016", "400", "06/29/2016", "16:00"};
+    String[] testArgs = {"Steve", "Test", "Description", "06/29/2016", "4:00", "06/29/2016", "16:00"};
     MainMethodResult result = invokeMain(testArgs);
     assertThat(result.getExitCode(), equalTo(1));
     assertThat(result.getErr(), containsString("Too many command line arguments: 7 provided: "));
+  }
+
+  @Test
+  public void appointmentDateAndTimeGoInAsOneOrTwoDigitsAndComeOutAsTwo () {
+    MainMethodResult result = invokeMain("-print","Steve", "Test Description", "6/29/2016", "4:00", "06/29/2016", "16:00");
+    assertThat(result.getExitCode(), equalTo(0));
+    assertThat(result.getOut(), containsString("Steve"));
+    assertThat(result.getOut(), containsString("Test Description"));
+    assertThat(result.getOut(), containsString("06/29/2016 04:00"));
+    assertThat(result.getOut(), containsString("06/29/2016 16:00"));
   }
 
 

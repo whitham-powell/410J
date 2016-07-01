@@ -55,6 +55,25 @@ public class Project1 {
     return err;
   }
 
+  private static void appointmentCleaner(String sDate, String sTime) {
+    // The date provided is correct but we want it to be consistent
+    if (!sDate.matches("\\d{2}\\/\\d{2}\\/\\d{4}")){
+      String[] split = sDate.split("\\/");
+      split[0]= "0" + split[0];
+
+    }
+
+    if(!sTime.matches("\\d{2}\\:\\d{2}")) {
+      String[] split = sTime.split("\\:");
+      split[0]= "0" + split[0];
+    }
+//TODO join strings return that instead of array
+  }
+
+  /**
+   *  TODO document the main method of project1
+   * @param args
+   */
   public static void main(String[] args) {
 
     Class c = AbstractAppointmentBook.class;  // Refer to one of Dave's classes so that we can be sure it is on the classpath
