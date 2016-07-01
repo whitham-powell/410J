@@ -2,6 +2,11 @@ package edu.pdx.cs410J.ew4;
 
 import edu.pdx.cs410J.AbstractAppointment;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * This class extends <code>AbstractAppointment</code>
  */
@@ -102,4 +107,32 @@ public class Appointment extends AbstractAppointment {
       throw new IllegalArgumentException("description cannot be null");
     this.description = description;
   }
+
+//  @Override
+//  public Date getBeginTime() {
+//    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+//    try {
+//      Date date;
+//      date = df.parse(this.beginTimeString);
+//      return date;
+//    } catch (ParseException e) {
+//      e.printStackTrace();
+//      return null;
+//    }
+//  }
+//
+//  @Override
+//  public Date getEndTime() {
+//    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+//    try {
+//      Date date;
+//      date = df.parse(this.endTimeString);
+//      return date;
+//    } catch (ParseException e) {
+//      e.printStackTrace();
+//      return null;
+//    }
+//  }
+
+
 }

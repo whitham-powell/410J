@@ -49,9 +49,9 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getOut(), containsString(README));
   }
 
-  @Test
-  public void mainClassCanDetectCorrectNumberOfArguments() {
-  }
+//  @Test
+//  public void mainClassCanDetectCorrectNumberOfArguments() {
+//  }
 
   @Test
   public void testNotEnoughCommandLineArgumentsIssuesAnErrorAndDisplaysReadme() {
