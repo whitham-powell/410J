@@ -4,6 +4,7 @@ import edu.pdx.cs410J.AbstractAppointment;
 import edu.pdx.cs410J.AbstractAppointmentBook;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 
 
@@ -25,33 +26,35 @@ public class Project1 {
 
 
   private static int appointmentInfoValidator(String[] appointmentInfo) {
-    StringBuilder errMessage = new StringBuilder("Bad formatting: \n");
+    StringBuilder errReason = new StringBuilder();
     int err = 0;
+
     // Check date formatting of beginTimeString
     if (!appointmentInfo[1].matches("\\d{1,2}\\/\\d{1,2}\\/\\d{4}")) {
-      errMessage.append(" Date - beginTime");
+      errReason.append(" Date - beginTime\n");
       err = 1;
     }
 
     // Check time formatting of beginTimeString
     if (!appointmentInfo[2].matches("\\d{1,2}\\:\\d{2}")) {
-      errMessage.append(" Time - beginTime");
+      errReason.append(" Time - beginTime\n");
       err = 1;
     }
 
     // Check date formatting of endTimeString
     if (!appointmentInfo[3].matches("\\d{1,2}\\/\\d{1,2}\\/\\d{4}")) {
-      errMessage.append(" Date - endTime");
+      errReason.append(" Date - endTime\n");
       err = 1;
     }
 
     // Check time formatting of endTimeString
     if (!appointmentInfo[4].matches("\\d{1,2}\\:\\d{2}")) {
-      errMessage.append(" Time - endTime");
+      errReason.append(" Time - endTime\n");
       err = 1;
     }
-
-    System.err.println(errMessage.toString());
+    if(err == 1){
+      System.err.println("Bad formatting: \n" + errReason.toString());
+    }
     return err;
   }
 
@@ -84,7 +87,11 @@ public class Project1 {
     String appointmentOwner = null;
     String[] appointmentInfo = null;
     ArrayList<String> providedOptions = new ArrayList<>();
+    ArrayList<String> providedInfo = new ArrayList<>();
     ArrayList<String> providedArgs = new ArrayList<>();
+
+    // Convert String[] args to ArrayList
+    Collections.addAll(providedArgs, args);
 
     // Build ArrayList of valid options
     ArrayList<String> validOptions = new ArrayList<>();
@@ -95,9 +102,9 @@ public class Project1 {
 
     // Commandline Argument Parsing
     int i = 0;
-    int argsLength = args.length;
+    int argsLength = providedArgs.size();
     for (; i < 2 && i < argsLength; i++) {
-      String arg = args[i];
+      String arg = providedArgs.get(i);
       if (arg.startsWith("-")) {
         providedOptions.add(arg);
       } else {
@@ -105,7 +112,7 @@ public class Project1 {
       }
     }
     for (; i < args.length; i++) {
-        providedArgs.add(args[i]);
+        providedInfo.add(providedArgs.get(i));
     }
 
     // Clean up options
@@ -113,7 +120,7 @@ public class Project1 {
     providedOptions.trimToSize();
 
 
-    if (providedArgs.isEmpty() && providedOptions.isEmpty()) {
+    if (providedInfo.isEmpty() && providedOptions.isEmpty()) {
       System.err.println("Missing command line arguments: None Provided");
       doReadMe = true;
       exitCode = 1;
@@ -133,7 +140,7 @@ public class Project1 {
 
 
 
-    if (providedArgs.size() < 6) {
+    if (providedInfo.size() < 6) {
 //      if (providedOptions.size() != 1 || !providedOptions.contains("-README")) {
         System.err.println("Missing command line arguments: " + args.length + " provided: \n");
         for (String arg : args) {
@@ -147,7 +154,7 @@ public class Project1 {
       doReadMe = true;
     }
 
-    if (providedArgs.size() > 6) {
+    if (providedInfo.size() > 6) {
       doReadMe = true;
       exitCode = 1;
       System.err.println("Too many command line arguments: " + args.length + " provided: \n");
@@ -156,9 +163,9 @@ public class Project1 {
       }
     }
 
-    if (providedArgs.size() == 6) {
-      appointmentOwner = providedArgs.get(0);
-      appointmentInfo = providedArgs.subList(1, 6).toArray(new String[providedArgs.size()]);
+    if (providedInfo.size() == 6) {
+      appointmentOwner = providedInfo.get(0);
+      appointmentInfo = providedInfo.subList(1, 6).toArray(new String[providedInfo.size()]);
       exitCode = appointmentInfoValidator(appointmentInfo);
     }
 

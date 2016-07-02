@@ -77,7 +77,7 @@ import java.util.Collections;
 //  }
 
 public class CommandLineParser {
-  private String[] args;
+  private ArrayList<String> toParse;
   private ArrayList<String> providedOptions;
   private ArrayList<String> providedArgs;
   private ArrayList<String> validOptions;
@@ -85,7 +85,7 @@ public class CommandLineParser {
   private int validNumberOfArguments;
 
   public CommandLineParser(String [] args) {
-    this.args = args;
+    Collections.addAll(this.toParse, args);
     this.providedOptions = new ArrayList<>();
     this.providedArgs = new ArrayList<>();
     this.validOptions = new ArrayList<>();
@@ -160,7 +160,7 @@ public class CommandLineParser {
 
   private void grabProvided(ArrayList<String> providedOptions, ArrayList<String> providedArgs) {
     // Commandline Argument Parsing
-    for (String arg : args) {
+    for (String arg : toParse) {
       if (arg.startsWith("-")) {
         providedOptions.add(arg);
       } else {
