@@ -95,12 +95,12 @@ public class Project1 {
 
     // Commandline Argument Parsing
     int i = 0;
-    for (; i < 2 && i < args.length; i++) {
+    int argsLength = args.length;
+    for (; i < 2 && i < argsLength; i++) {
       String arg = args[i];
       if (arg.startsWith("-")) {
         providedOptions.add(arg);
       } else {
-//        providedArgs.add(arg);
         break;
       }
     }
