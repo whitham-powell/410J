@@ -94,18 +94,30 @@ public class Project1 {
     AbstractAppointment appointment = null;
 
     // Commandline Argument Parsing
-    for (String arg : args) {
+    int i = 0;
+    for (; i < 2 && i < args.length; i++) {
+      String arg = args[i];
       if (arg.startsWith("-")) {
         providedOptions.add(arg);
       } else {
-        providedArgs.add(arg);
+//        providedArgs.add(arg);
+        break;
       }
+    }
+    for (; i < args.length; i++) {
+        providedArgs.add(args[i]);
     }
 
     // Clean up options
     providedOptions.retainAll(validOptions);
     providedOptions.trimToSize();
 
+
+    if (providedArgs.isEmpty() && providedOptions.isEmpty()) {
+      System.err.println("Missing command line arguments: None Provided");
+      doReadMe = true;
+      exitCode = 1;
+    }
     // Check options to execute after cleaning
     if (providedOptions.contains("-README")) {
       doReadMe = true;
@@ -119,22 +131,19 @@ public class Project1 {
     }
 
 
-    if (providedArgs.isEmpty() && providedOptions.isEmpty()) {
-      System.err.println("Missing command line arguments: None Provided");
-      doReadMe = true;
-      exitCode = 1;
-    }
+
 
     if (providedArgs.size() < 6) {
-      if (providedOptions.size() != 1 || !providedOptions.contains("-README")) {
+//      if (providedOptions.size() != 1 || !providedOptions.contains("-README")) {
         System.err.println("Missing command line arguments: " + args.length + " provided: \n");
         for (String arg : args) {
           System.out.println("\t" + arg + "\n");
         }
         exitCode = 1;
-      } else {
-        exitCode = 0;
-      }
+//      }
+//      } else {
+//        exitCode = 0;
+//      }
       doReadMe = true;
     }
 
