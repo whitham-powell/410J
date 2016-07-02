@@ -3,9 +3,10 @@ package edu.pdx.cs410J.ew4;
 import edu.pdx.cs410J.AbstractAppointment;
 import edu.pdx.cs410J.AbstractAppointmentBook;
 
-import java.text.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 
@@ -55,7 +56,7 @@ public class Project1 {
       errReason.append(" Time - endTime\n");
       err = 1;
     }
-    if(err == 1){
+    if (err == 1) {
       System.err.println("Bad formatting: \n" + errReason.toString());
     }
     return err;
@@ -67,7 +68,7 @@ public class Project1 {
       Date date;
       date = df.parse(timeAndDate);
       return df.format(date);
-    } catch (ParseException e){
+    } catch (ParseException e) {
       e.printStackTrace();
       return null;
     }
@@ -88,7 +89,8 @@ public class Project1 {
 //  }
 
   /**
-   *  TODO document the main method of project1
+   * TODO document the main method of project1
+   *
    * @param args
    */
   public static void main(String[] args) {
@@ -126,11 +128,17 @@ public class Project1 {
       }
     }
     for (; i < argsLength; i++) {
-        providedInfo.add(providedArgs.get(i));
+      providedInfo.add(providedArgs.get(i));
     }
 
-    // Clean up options
-    providedOptions.retainAll(validOptions);
+    // Clean up options and if this is needed exit and print invalid option error
+    if (providedOptions.retainAll(validOptions)) {
+      System.err.println("Invalid option: ");
+      for (String option: providedArgs) {
+        System.out.println(option);
+      }
+      System.exit(1);
+    }
     providedOptions.trimToSize();
 
 
@@ -139,6 +147,7 @@ public class Project1 {
       doReadMe = true;
       exitCode = 1;
     }
+
     // Check options to execute after cleaning
     if (providedOptions.contains("-README")) {
       doReadMe = true;
@@ -152,15 +161,13 @@ public class Project1 {
     }
 
 
-
-
     if (providedInfo.size() < 6) {
 //      if (providedOptions.size() != 1 || !providedOptions.contains("-README")) {
-        System.err.println("Missing command line arguments: " + args.length + " provided: \n");
-        for (String arg : args) {
-          System.out.println("\t" + arg + "\n");
-        }
-        exitCode = 1;
+      System.err.println("Missing command line arguments: " + args.length + " provided: \n");
+      for (String arg : args) {
+        System.out.println("\t" + arg + "\n");
+      }
+      exitCode = 1;
 //      }
 //      } else {
 //        exitCode = 0;

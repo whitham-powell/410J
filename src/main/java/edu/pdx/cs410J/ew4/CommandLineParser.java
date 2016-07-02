@@ -111,6 +111,21 @@ public class CommandLineParser {
 
   public void invoke() {
 
+    // Commandline Argument Parsing
+    int i = 0;
+    int argsLength = toParse.size();
+    for (; i < 2 && i < argsLength; i++) {
+      String arg = toParse.get(i);
+      if (arg.startsWith("-")) {
+        providedOptions.add(arg);
+      } else {
+        break;
+      }
+    }
+    for (; i < argsLength; i++) {
+        providedArgs.add(toParse.get(i));
+    }
+
     grabProvided(providedOptions, providedArgs);
 
 

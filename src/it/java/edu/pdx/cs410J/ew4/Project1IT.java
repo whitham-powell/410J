@@ -27,7 +27,7 @@ public class Project1IT extends InvokeMainTestCase {
    * Invokes the main method of {@link Project1} with the given arguments.
    */
   private MainMethodResult invokeMain(String... args) {
-    return invokeMain( Project1.class, args );
+    return invokeMain(Project1.class, args);
   }
 
   /**
@@ -78,7 +78,7 @@ public class Project1IT extends InvokeMainTestCase {
   }
 
   @Test
-  public void mainClassRejectsBadlyFormattedDates () {
+  public void mainClassRejectsBadlyFormattedDates() {
     String[] testArgs = {"Steve", "Test Description", "6/29/16", "14:00", "06/29/16", "16:00"};
     MainMethodResult result = invokeMain(testArgs);
     assertThat(result.getExitCode(), equalTo(1));
@@ -149,15 +149,15 @@ public class Project1IT extends InvokeMainTestCase {
 
 
   @Test
-  public void failsIfPrintIsAtEndOfValidArguments(){
+  public void failsIfPrintIsAtEndOfValidArguments() {
     MainMethodResult result = invokeMain("Steve", "Test Description", "06/29/2016", "4:00", "06/29/2016", "16:00", "-print");
     assertThat(result.getExitCode(), equalTo(1));
     assertThat(result.getErr(), containsString("Too many command line arguments:"));
   }
 
   @Test
-  public void appointmentDateAndTimeGoInAsOneOrTwoDigitsAndComeOutAsTwo () {
-    MainMethodResult result = invokeMain("-print","Steve", "Test Description", "6/29/2016", "4:00", "6/29/2016", "6:00");
+  public void appointmentDateAndTimeGoInAsOneOrTwoDigitsAndComeOutAsTwo() {
+    MainMethodResult result = invokeMain("-print", "Steve", "Test Description", "6/29/2016", "4:00", "6/29/2016", "6:00");
     assertThat(result.getExitCode(), equalTo(0));
     assertThat(result.getOut(), containsString("Steve"));
     assertThat(result.getOut(), containsString("Test Description"));
@@ -165,7 +165,13 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getOut(), containsString("06/29/2016 06:00"));
   }
 
-
+  @Test
+  public void invalidOptionsResultInExitCodeOneAndErrOutput() {
+    MainMethodResult result = invokeMain("-bad", "Steve", "Test Description", "06/29/2016", "04:00", "06/29/2016", "12:00");
+    assertThat(result.getExitCode(), equalTo(1));
+    assertThat(result.getErr(), containsString("Invalid option:"));
+    assertThat(result.getOut(), containsString("-bad"));
+  }
 //  @Test
 //  public void mainClassDetectsMultipleOptionsArguments() {
 //    String[] testArgs = {"-print", "-README", "Steve", "Test Description", "06/29/2016", "14:00", "06/29/2016", "16:00"};
