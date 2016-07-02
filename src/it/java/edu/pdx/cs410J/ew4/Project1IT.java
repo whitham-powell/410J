@@ -153,7 +153,7 @@ public class Project1IT extends InvokeMainTestCase {
     MainMethodResult result = invokeMain("Steve", "Test Description", "06/29/2016", "4:00", "06/29/2016", "16:00", "-print");
     assertThat(result.getExitCode(), equalTo(1));
     assertThat(result.getErr(), containsString("Too many command line arguments:"));
-  };
+  }
 
 //  @Test
 //  public void appointmentDateAndTimeGoInAsOneOrTwoDigitsAndComeOutAsTwo () {
