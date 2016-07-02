@@ -3,9 +3,11 @@ package edu.pdx.cs410J.ew4;
 import edu.pdx.cs410J.AbstractAppointment;
 import edu.pdx.cs410J.AbstractAppointmentBook;
 
+import java.text.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 
 
 /**
@@ -13,6 +15,7 @@ import java.util.Collections;
  */
 public class Project1 {
   // TODO can i make this a method?
+  // TODO add a brief description of the project including name
   private static final String README = "usage: java edu.pdx.edu.cs410J.<login-id>.Project1 [options] <args>\n" +
           "\targs are (in this order): \n" +
           "\t\towner The person whose owns the appt book\n" +
@@ -58,20 +61,31 @@ public class Project1 {
     return err;
   }
 
-  private static void appointmentCleaner(String sDate, String sTime) {
-    // The date provided is correct but we want it to be consistent
-    if (!sDate.matches("\\d{2}\\/\\d{2}\\/\\d{4}")){
-      String[] split = sDate.split("\\/");
-      split[0]= "0" + split[0];
-
+  private static String appointmentCleaner(String timeAndDate) {
+    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+    try {
+      Date date;
+      date = df.parse(timeAndDate);
+      return df.format(date);
+    } catch (ParseException e){
+      e.printStackTrace();
+      return null;
     }
-
-    if(!sTime.matches("\\d{2}\\:\\d{2}")) {
-      String[] split = sTime.split("\\:");
-      split[0]= "0" + split[0];
-    }
-//TODO join strings return that instead of array
   }
+//  private static void appointmentCleaner(String sDate, String sTime) {
+//    // The date provided is correct but we want it to be consistent
+//    if (!sDate.matches("\\d{2}\\/\\d{2}\\/\\d{4}")){
+//      String[] split = sDate.split("\\/");
+//      split[0]= "0" + split[0];
+//
+//    }
+//
+//    if(!sTime.matches("\\d{2}\\:\\d{2}")) {
+//      String[] split = sTime.split("\\:");
+//      split[0]= "0" + split[0];
+//    }
+////TODO join strings return that instead of array
+//  }
 
   /**
    *  TODO document the main method of project1
@@ -111,7 +125,7 @@ public class Project1 {
         break;
       }
     }
-    for (; i < args.length; i++) {
+    for (; i < argsLength; i++) {
         providedInfo.add(providedArgs.get(i));
     }
 
@@ -182,7 +196,13 @@ public class Project1 {
       try {
         appointment = new Appointment(appointmentInfo);
       } catch (NullPointerException e) {
-        System.err.println(e.getMessage() + "appointmentInfo String[] failed to copy correctly");
+        System.err.println(e.getMessage() + " appointmentInfo String[] failed to copy correctly");
+      }
+      try {
+        ((Appointment) appointment).setBeginTimeString(appointmentCleaner(appointment.getBeginTimeString()));
+        ((Appointment) appointment).setEndTimeString(appointmentCleaner(appointment.getEndTimeString()));
+      } catch (NullPointerException e) {
+        System.err.println(e.getMessage() + " appointment date and time string was null before cleaning date and time");
       }
       if (appointmentBook != null && appointment != null) {
         if (doPrint) {

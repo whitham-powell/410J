@@ -155,15 +155,15 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getErr(), containsString("Too many command line arguments:"));
   }
 
-//  @Test
-//  public void appointmentDateAndTimeGoInAsOneOrTwoDigitsAndComeOutAsTwo () {
-//    MainMethodResult result = invokeMain("-print","Steve", "Test Description", "6/29/2016", "4:00", "06/29/2016", "16:00");
-//    assertThat(result.getExitCode(), equalTo(0));
-//    assertThat(result.getOut(), containsString("Steve"));
-//    assertThat(result.getOut(), containsString("Test Description"));
-//    assertThat(result.getOut(), containsString("06/29/2016 04:00"));
-//    assertThat(result.getOut(), containsString("06/29/2016 16:00"));
-//  }
+  @Test
+  public void appointmentDateAndTimeGoInAsOneOrTwoDigitsAndComeOutAsTwo () {
+    MainMethodResult result = invokeMain("-print","Steve", "Test Description", "6/29/2016", "4:00", "6/29/2016", "6:00");
+    assertThat(result.getExitCode(), equalTo(0));
+    assertThat(result.getOut(), containsString("Steve"));
+    assertThat(result.getOut(), containsString("Test Description"));
+    assertThat(result.getOut(), containsString("06/29/2016 04:00"));
+    assertThat(result.getOut(), containsString("06/29/2016 06:00"));
+  }
 
 
 //  @Test
