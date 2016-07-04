@@ -4,4 +4,34 @@ CS410J
 Project 1
 Plan of Attack
 
+    For this project my plan of attack was to first implement the smallest building block of the project which I
+considered that base for the entire project. Using test driven development I began writing tests that I knew would fail
+centering around the Appointment class. The Appointment class is fairly straight forward and requires very little
+functionality. I did decide to allow the setting of its private date members, and protected against the setting of those
+members to null using IllegalArgument exceptions. The ability to set the data is used in order to sanitize the appointment
+start and end times to a uniform format of "MM/DD/YYYY and HH:mm" which I believe will aid in later projects using the
+Appointment class. Also for convenience I implemented a construct that takes an Array of Strings which made parsing the
+commandline arguments simpler later in the project.
 
+    After the Appointment class I decided that next most basic object was the AppointmentBook class. This class was also
+very straight forward and relied on the Java API Collection class. I chose to use an ArrayList as the type of collection
+because it seemed to fit closest to how appointments are managed. The only responsibilities the AppointmentBook class has
+is to track the owner of the AppointmentBook and their associated Appointments. So it only needs to add Appointments to
+its collection. It does have a construct that takes an owners name as a String parameter. It can also allow access
+to view the ArrayList of appointments.
+
+    The last and most complicated part to implement was parsing the commandline arguments correctly and ensuring each
+test case would pass and be accounted for. At first my approach was to take the whole argument list and pull out anything
+a '-' flag indicating it was an option and storing them together. Then after ignoring all the invalid options provided
+carry out the tasks specified by the optional flags. This I realized could be a problem if a future user did not know
+that they were using nonexistent options they may think that the software is doing something that it is not actually
+able to or designed to do. So instead the program notifies the user of the error and displays the arguments they provided
+along with the correct usage output.
+
+    This became how I would handle other erroneous input. Not only indicate that something
+went wrong but also what exactly went wrong. For example, if the user attempts to create an appointment using dates and
+times that are not in the correct format, the program exits with an error and indicates whether it was the beginning
+or ending dates or times or any combination. Another example, is if too many arguments are provided, the program outputs
+list of arguments provided along with the usage in order to better indicate the problem with the provided input.
+
+    For the future, I plan to refactor the command line parsing and usage information into its own more generalized class.

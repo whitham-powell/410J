@@ -8,7 +8,7 @@ import java.util.Collection;
 
 
 /**
- * This class extends <code>AbstractAppointmentBook</code>
+ * This class extends <code>AbstractAppointmentBook</code> and implements a concrete <code>AppointmentBook</code>
  */
 public class AppointmentBook extends AbstractAppointmentBook<AbstractAppointment> {
   private String ownerName = "< unspecified >";

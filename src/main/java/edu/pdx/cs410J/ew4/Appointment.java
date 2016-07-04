@@ -3,7 +3,7 @@ package edu.pdx.cs410J.ew4;
 import edu.pdx.cs410J.AbstractAppointment;
 
 /**
- * This class extends <code>AbstractAppointment</code>
+ * This class extends <code>AbstractAppointment</code> and implements a concrete <code>Appointment</code>.
  */
 public class Appointment extends AbstractAppointment {
   private String description = "< empty >";
