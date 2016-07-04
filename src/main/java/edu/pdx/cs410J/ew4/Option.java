@@ -51,4 +51,8 @@ public class Option {
       return sb.toString();
     }
   }
+
+  public boolean hasArgs() {
+    return this.hasArgs;
+  }
 }

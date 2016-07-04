@@ -1,7 +1,10 @@
 package edu.pdx.cs410J.ew4;
 
-/** TODO Document Class Methods
- *
+import java.util.ArrayList;
+import java.util.Collections;
+
+/**
+ * TODO Document Class Methods
  */
 
 
@@ -9,25 +12,47 @@ public class CommandLineParser {
   private String usage;
   private String readMe;
 
-  //  private ArrayList<String> toParse;
-//  private ArrayList<String> providedOptions;
-//  private ArrayList<String> providedArgs;
-//  private ArrayList<String> validOptions;
-//  private ArrayList<String> validOptionsWithArgs;
-//  private int validNumberOfArguments = 6;
-//  private int maxOptionListSize = 0;
-//
-//  public CommandLineParser() {}
-//
-//  public CommandLineParser(String [] args) {
-//    Collections.addAll(this.toParse, args);
-//    this.providedOptions = new ArrayList<>();
-//    this.providedArgs = new ArrayList<>();
-//    this.validOptions = new ArrayList<>();
-//    this.validOptionsWithArgs = new ArrayList<>();
-////    this.validNumberOfArguments = 6;
-//  }
-//
+  private ArrayList<String> toParse;
+  private ArrayList<String> providedOptions;
+  private ArrayList<String> providedArgs;
+  private int validNumberOfArgs;
+  private Options validOptions;
+
+  public CommandLineParser(Options validOptions, String[] args) {
+    this.validOptions = validOptions;
+    toParse = new ArrayList<>();
+    Collections.addAll(this.toParse, args);
+    this.providedOptions = new ArrayList<>();
+    this.providedArgs = new ArrayList<>();
+  }
+
+  public void parse(int maxNumberOfOptions, int validNumberOfArgs) {
+    // Commandline Argument Parsing
+    int i = 0;
+    int argsLength = toParse.size();
+    for (; i < maxNumberOfOptions && i < argsLength; i++) {
+      String arg = toParse.get(i);
+      if (arg.startsWith("-")) {
+        providedOptions.add(arg.substring(1));
+      } else {
+        break;
+      }
+    }
+    for (; i < argsLength; i++) {
+      providedArgs.add(toParse.get(i));
+    }
+    this.validNumberOfArgs = validNumberOfArgs;
+  }
+
+  public ArrayList<String> getProvidedArgs() {
+    return providedArgs;
+  }
+
+  public ArrayList<String> getProvidedOptions() {
+    return providedOptions;
+  }
+
+}
 //  public boolean addValidOption(String option, boolean hasArgs) {
 //    if(hasArgs) {
 //      return validOptionsWithArgs.add(option) && validOptions.add(option);
@@ -120,17 +145,7 @@ public class CommandLineParser {
 ////    }
 //  }
 //
-//  private void grabProvided(ArrayList<String> providedOptions, ArrayList<String> providedArgs) {
-//    // Commandline Argument Parsing
-//    for (String arg : toParse) {
-//      if (arg.startsWith("-")) {
-//        providedOptions.add(arg);
-//      } else {
-//        providedArgs.add(arg);
-//      }
-//    }
-//  }
-}
+
 
 
 

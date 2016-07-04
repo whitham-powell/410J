@@ -67,4 +67,10 @@ public class OptionTest {
     Option optionTwo = new Option("testFoo");
     assertThat(optionTwo.hashCode(), is(optionOne.hashCode()));
   }
+
+  @Test
+  public void optionHasArgsReturnsTrueOrFalse() {
+    assertThat(optionWithOutArgs.hasArgs(), is(false));
+    assertThat(optionWithArgs.hasArgs(), is(true));
+  }
 }

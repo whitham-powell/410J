@@ -40,4 +40,12 @@ public class OptionsTest {
     assertThat(emptyOptionsList.count(), is(0));
     assertThat(options.count(), is(3));
   }
+
+  @Test
+  public void canAddOptionsViaMethodAddOptions() {
+    Options options = new Options();
+    options.addOption(optionWithArg);
+    options.addOption("option", true, "description of 'option'");
+    assertThat(options.count(), is(2));
+  }
 }

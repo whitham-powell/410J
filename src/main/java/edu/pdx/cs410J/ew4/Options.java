@@ -28,8 +28,16 @@ class Options {
     }
   }
 
-
   public int count() {
     return this.validOptions.size();
   }
+
+  public boolean addOption(String option, boolean hasArg, String description) {
+    return validOptions.add(new Option(option, hasArg, description));
+  }
+
+  public boolean addOption(Option option) {
+    return validOptions.add(option);
+  }
+
 }
