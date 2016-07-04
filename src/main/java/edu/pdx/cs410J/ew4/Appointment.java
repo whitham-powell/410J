@@ -2,11 +2,6 @@ package edu.pdx.cs410J.ew4;
 
 import edu.pdx.cs410J.AbstractAppointment;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
  * This class extends <code>AbstractAppointment</code>
  */

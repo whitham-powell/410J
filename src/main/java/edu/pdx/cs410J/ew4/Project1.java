@@ -134,9 +134,10 @@ public class Project1 {
     // Clean up options and if this is needed exit and print invalid option error
     if (providedOptions.retainAll(validOptions)) {
       System.err.println("Invalid option: ");
-      for (String option: providedArgs) {
-        System.out.println(option);
-      }
+      providedArgs.forEach(System.out::println);
+//      for (String option: providedArgs) {
+//        System.out.println(option);
+//      }
       System.exit(1);
     }
     providedOptions.trimToSize();
