@@ -30,6 +30,7 @@ public class Project1 {
   // TODO add a brief description of the project including name
   private static final String README = "" + USAGE;
 
+// TODO document appointmentInfoValidator
   private static int appointmentInfoValidator(String[] appointmentInfo) {
     StringBuilder errReason = new StringBuilder();
     int err = 0;
@@ -62,7 +63,7 @@ public class Project1 {
     }
     return err;
   }
-
+// TODO document appointmentCleaner helper function
   private static String appointmentCleaner(String timeAndDate) {
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
     try {
@@ -145,16 +146,11 @@ public class Project1 {
 
 
     if (providedInfo.size() < 6) {
-//      if (providedOptions.size() != 1 || !providedOptions.contains("-README")) {
       System.err.println("Missing command line arguments: " + args.length + " provided: \n");
       for (String arg : args) {
         System.out.println("\t" + arg + "\n");
       }
       exitCode = 1;
-//      }
-//      } else {
-//        exitCode = 0;
-//      }
       doReadMe = true;
     }
 

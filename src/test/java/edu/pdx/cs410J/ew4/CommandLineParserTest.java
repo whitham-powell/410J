@@ -7,7 +7,7 @@ import org.junit.Test;
  */
 public class CommandLineParserTest {
   @Test
-  public void canAddOptionsToTheValidOptionsList() {
+  public void canAddOptionsToTheValidOptionsList(){
 //    CommandLineParser = new CommandLineParser().addValidOption("-print");
   }
 }
