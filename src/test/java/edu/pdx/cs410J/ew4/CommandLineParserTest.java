@@ -32,4 +32,12 @@ public class CommandLineParserTest {
     assertThat(clp.getProvidedOptions().contains("another"), is(true));
     assertThat(clp.getProvidedOptions().contains("help"), is(true));
   }
+
+  //TODO not enough arguments
+
+  //TODO too many arguments
+
+  //TODO invalid options
+
+  //TODO empty argument list
 }

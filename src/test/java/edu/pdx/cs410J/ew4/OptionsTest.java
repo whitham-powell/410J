@@ -48,4 +48,6 @@ public class OptionsTest {
     options.addOption("option", true, "description of 'option'");
     assertThat(options.count(), is(2));
   }
+
+  //TODO print out list of options in the form of a usage list
 }

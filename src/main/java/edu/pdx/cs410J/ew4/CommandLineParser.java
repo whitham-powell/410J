@@ -9,8 +9,8 @@ import java.util.Collections;
 
 
 public class CommandLineParser {
-  private String usage;
-  private String readMe;
+//  private String usage;
+//  private String readMe;
 
   private ArrayList<String> toParse;
   private ArrayList<String> providedOptions;
@@ -52,18 +52,11 @@ public class CommandLineParser {
     return providedOptions;
   }
 
+  public ArrayList<String> getToParse() {
+    return toParse;
+  }
 }
-//  public boolean addValidOption(String option, boolean hasArgs) {
-//    if(hasArgs) {
-//      return validOptionsWithArgs.add(option) && validOptions.add(option);
-//    } else {
-//      return validOptions.add(option);
-//    }
-//  }
-//
-//  public boolean isOptionValid(String option){
-//    return validOptions.contains(option);
-//  }
+
 //
 //  public boolean isReadMe() {
 //    return providedOptions.contains("-README");
@@ -73,32 +66,8 @@ public class CommandLineParser {
 //    return providedOptions.contains("-print");
 //  }
 //
-//  public ArrayList<String> getValidOptions() {
-//    return validOptions;
-//  }
-//
-//  public ArrayList<String> getValidOptionsWithArgs() {
-//    return validOptionsWithArgs;
-//  }
 //
 //  public void invoke() {
-//
-//    // Commandline Argument Parsing
-//    int i = 0;
-//    int argsLength = toParse.size();
-//    for (; i < 2 && i < argsLength; i++) {
-//      String arg = toParse.get(i);
-//      if (arg.startsWith("-")) {
-//        providedOptions.add(arg);
-//      } else {
-//        break;
-//      }
-//    }
-//    for (; i < argsLength; i++) {
-//        providedArgs.add(toParse.get(i));
-//    }
-//
-//    grabProvided(providedOptions, providedArgs);
 //
 //
 //    // Clean up options
