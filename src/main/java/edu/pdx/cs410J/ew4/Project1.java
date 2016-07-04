@@ -124,7 +124,9 @@ public class Project1 {
     if (providedOptions.retainAll(validOptions)) {
       System.err.println("Invalid option: ");
       providedArgs.forEach(System.out::println);
-      System.exit(1);
+//      System.exit(1);
+      doReadMe = true;
+      exitCode = 1;
     }
 
     if (providedInfo.isEmpty() && providedOptions.isEmpty()) {
@@ -146,7 +148,7 @@ public class Project1 {
     }
 
 
-    if (providedInfo.size() < 6) {
+    if (providedInfo.size() < 6 && providedInfo.size() > 0) {
       System.err.println("Missing command line arguments: " + args.length + " provided: \n");
       for (String arg : args) {
         System.out.println("\t" + arg + "\n");
@@ -167,7 +169,7 @@ public class Project1 {
     if (providedInfo.size() == 6) {
       appointmentOwner = providedInfo.get(0);
       appointmentInfo = providedInfo.subList(1, 6).toArray(new String[providedInfo.size()]);
-      exitCode = appointmentInfoValidator(appointmentInfo);
+      exitCode += appointmentInfoValidator(appointmentInfo);
     }
 
     // Carrying out routine based on argument parse
