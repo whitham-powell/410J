@@ -1,7 +1,7 @@
 package edu.pdx.cs410J.ew4;
 
-/**
- * The main class for the CS410J appointment book Project
+/** TODO Document Class Methods
+ *
  */
 
 

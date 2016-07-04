@@ -2,7 +2,7 @@ package edu.pdx.cs410J.ew4;
 
 import java.util.Objects;
 
-/**
+/** TODO Document Class Methods
  * Created by edub629 on 7/3/16.
  */
 public class Option {

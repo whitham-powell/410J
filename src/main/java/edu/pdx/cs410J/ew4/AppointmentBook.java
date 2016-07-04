@@ -9,6 +9,7 @@ import java.util.Collection;
 
 /**
  * This class extends <code>AbstractAppointmentBook</code> and implements a concrete <code>AppointmentBook</code>
+ * @author Elijah Whitham-Powell
  */
 public class AppointmentBook extends AbstractAppointmentBook<AbstractAppointment> {
   private String ownerName = "< unspecified >";

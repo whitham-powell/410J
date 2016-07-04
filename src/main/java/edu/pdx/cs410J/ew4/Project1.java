@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.Date;
 
 
-/**
+/**TODO Document the class
  * The main class for the CS410J appointment book Project
  */
 public class Project1 {

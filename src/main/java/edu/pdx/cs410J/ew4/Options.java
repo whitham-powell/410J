@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-/**
+/** TODO Document Class Methods
  * Created by edub629 on 7/3/16.
  */
 class Options {

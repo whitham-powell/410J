@@ -4,6 +4,7 @@ import edu.pdx.cs410J.AbstractAppointment;
 
 /**
  * This class extends <code>AbstractAppointment</code> and implements a concrete <code>Appointment</code>.
+ * @author Elijah Whitham-Powell
  */
 public class Appointment extends AbstractAppointment {
   private String description = "< empty >";
