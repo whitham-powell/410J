@@ -28,6 +28,7 @@ class Options {
     }
   }
 
+
   public int count() {
     return this.validOptions.size();
   }
