@@ -16,8 +16,7 @@ import java.util.Date;
  */
 public class Project1 {
   // TODO can i make this a method?
-  // TODO add a brief description of the project including name
-  private static final String README = "usage: java edu.pdx.edu.cs410J.<login-id>.Project1 [options] <args>\n" +
+  private static final String USAGE = "usage: java edu.pdx.edu.cs410J.<login-id>.Project1 [options] <args>\n" +
           "\targs are (in this order): \n" +
           "\t\towner The person whose owns the appt book\n" +
           "\t\tdescription A description of the appointment\n" +
@@ -28,6 +27,8 @@ public class Project1 {
           "\t\t-README Prints a README for this project and exits\n" +
           "\tDate and time should be in the format: mm/dd/yyyy hh:mm\n";
 
+  // TODO add a brief description of the project including name
+  private static final String README = "" + USAGE;
 
   private static int appointmentInfoValidator(String[] appointmentInfo) {
     StringBuilder errReason = new StringBuilder();
@@ -73,20 +74,6 @@ public class Project1 {
       return null;
     }
   }
-//  private static void appointmentCleaner(String sDate, String sTime) {
-//    // The date provided is correct but we want it to be consistent
-//    if (!sDate.matches("\\d{2}\\/\\d{2}\\/\\d{4}")){
-//      String[] split = sDate.split("\\/");
-//      split[0]= "0" + split[0];
-//
-//    }
-//
-//    if(!sTime.matches("\\d{2}\\:\\d{2}")) {
-//      String[] split = sTime.split("\\:");
-//      split[0]= "0" + split[0];
-//    }
-////TODO join strings return that instead of array
-//  }
 
   /**
    * TODO document the main method of project1
@@ -135,13 +122,8 @@ public class Project1 {
     if (providedOptions.retainAll(validOptions)) {
       System.err.println("Invalid option: ");
       providedArgs.forEach(System.out::println);
-//      for (String option: providedArgs) {
-//        System.out.println(option);
-//      }
       System.exit(1);
     }
-    providedOptions.trimToSize();
-
 
     if (providedInfo.isEmpty() && providedOptions.isEmpty()) {
       System.err.println("Missing command line arguments: None Provided");
