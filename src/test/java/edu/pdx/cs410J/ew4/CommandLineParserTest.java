@@ -40,4 +40,6 @@ public class CommandLineParserTest {
   //TODO invalid options
 
   //TODO empty argument list
+
+  //TODO usage printer
 }

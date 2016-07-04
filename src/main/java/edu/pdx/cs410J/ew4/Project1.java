@@ -11,24 +11,33 @@ import java.util.Collections;
 import java.util.Date;
 
 
-/**TODO Document the class
+/**
+ * TODO Document the class
  * The main class for the CS410J appointment book Project
  */
 public class Project1 {
-  // TODO can i make this a method?
-  private static final String USAGE = "usage: java edu.pdx.edu.cs410J.<login-id>.Project1 [options] <args>\n" +
-          "\targs are (in this order): \n" +
-          "\t\towner The person whose owns the appt book\n" +
-          "\t\tdescription A description of the appointment\n" +
-          "\t\tbeginTime When the appt begins (24-hour time)\n" +
-          "\t\tendTime When the appt ends (24-hour time)\n" +
-          "\toptions are (options may appear in any order):\n" +
-          "\t\t-print Prints a description of the new appointment\n" +
-          "\t\t-README Prints a README for this project and exits\n" +
-          "\tDate and time should be in the format: mm/dd/yyyy hh:mm\n";
 
-  // TODO add a brief description of the project including name
-  private static final String README = "" + USAGE;
+  private static final String USAGE =
+          "usage: java edu.pdx.edu.cs410J.<login-id>.Project1 [options] <args>\n" +
+                  "\targs are (in this order): \n" +
+                  "\t\towner The person whose owns the appt book\n" +
+                  "\t\tdescription A description of the appointment\n" +
+                  "\t\tbeginTime When the appt begins (24-hour time)\n" +
+                  "\t\tendTime When the appt ends (24-hour time)\n" +
+                  "\toptions are (options may appear in any order):\n" +
+                  "\t\t-print Prints a description of the new appointment\n" +
+                  "\t\t-README Prints a README for this project and exits\n" +
+                  "\tDate and time should be in the format: mm/dd/yyyy hh:mm\n";
+
+  private static final String README =
+          "CS410J Project 1: Designing an Appointment Book Application\n" +
+                  "Author: Elijah Whitham-Powell\n" +
+                  "Date Completed: July 6th, 2016\n" +
+                  "Description: This project is a commandline application that creates an Appointment\n" +
+                  "\t\t\t and adds it to an AppointmentBook based on the arguments provided via the\n" +
+                  "\t\t\t command line. Appointment descriptions should be provided in double quotes. \n" +
+                  "\t\t\t The rest of the arguments should be provided separated by spaces.\n"
+                  + USAGE;
 
   // TODO document appointmentInfoValidator
   private static int appointmentInfoValidator(String[] appointmentInfo) {
@@ -86,7 +95,7 @@ public class Project1 {
 
     Class c = AbstractAppointmentBook.class;  // Refer to one of Dave's classes so that we can be sure it is on the classpath
 
-    boolean doReadMe = false;
+    boolean doUsage = false;
     boolean doPrint = false;
     int exitCode = 0;
     String appointmentOwner = null;
@@ -124,20 +133,19 @@ public class Project1 {
     if (providedOptions.retainAll(validOptions)) {
       System.err.println("Invalid option: ");
       providedArgs.forEach(System.out::println);
-//      System.exit(1);
-      doReadMe = true;
+      doUsage = true;
       exitCode = 1;
     }
 
     if (providedInfo.isEmpty() && providedOptions.isEmpty()) {
       System.err.println("Missing command line arguments: None Provided");
-      doReadMe = true;
+      doUsage = true;
       exitCode = 1;
     }
 
     // Check options to execute after cleaning
     if (providedOptions.contains("-README")) {
-      doReadMe = true;
+      doUsage = true;
       // Special case to exit if -README is provided, ignoring everything else
       System.out.print(README);
       System.exit(0);
@@ -147,18 +155,17 @@ public class Project1 {
       doPrint = true;
     }
 
-
     if (providedInfo.size() < 6 && providedInfo.size() > 0) {
       System.err.println("Missing command line arguments: " + args.length + " provided: \n");
       for (String arg : args) {
         System.out.println("\t" + arg + "\n");
       }
       exitCode = 1;
-      doReadMe = true;
+      doUsage = true;
     }
 
     if (providedInfo.size() > 6) {
-      doReadMe = true;
+      doUsage = true;
       exitCode = 1;
       System.err.println("Too many command line arguments: " + args.length + " provided: \n");
       for (String arg : args) {
@@ -173,8 +180,8 @@ public class Project1 {
     }
 
     // Carrying out routine based on argument parse
-    if (doReadMe) {
-      System.out.print(README);
+    if (doUsage) {
+      System.out.print(USAGE);
     }
     if (exitCode == 0) {
       try {
