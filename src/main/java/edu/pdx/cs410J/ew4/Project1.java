@@ -30,7 +30,7 @@ public class Project1 {
   // TODO add a brief description of the project including name
   private static final String README = "" + USAGE;
 
-// TODO document appointmentInfoValidator
+  // TODO document appointmentInfoValidator
   private static int appointmentInfoValidator(String[] appointmentInfo) {
     StringBuilder errReason = new StringBuilder();
     int err = 0;
@@ -63,7 +63,8 @@ public class Project1 {
     }
     return err;
   }
-// TODO document appointmentCleaner helper function
+
+  // TODO document appointmentCleaner helper function
   private static String appointmentCleaner(String timeAndDate) {
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
     try {
