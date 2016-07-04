@@ -65,7 +65,7 @@ public class Project1 {
   }
 
   // TODO document appointmentCleaner helper function
-  private static String appointmentCleaner(String timeAndDate) {
+  private static String appointmentCleaner(String timeAndDate) throws ParseException {
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
     try {
       Date date;
@@ -192,6 +192,8 @@ public class Project1 {
         ((Appointment) appointment).setEndTimeString(appointmentCleaner(appointment.getEndTimeString()));
       } catch (NullPointerException e) {
         System.err.println(e.getMessage() + " appointment date and time string was null before cleaning date and time");
+      } catch (ParseException e) {
+        System.err.println(e.getMessage() + " error attempting to clean appointment times");
       }
       if (appointmentBook != null && appointment != null) {
         if (doPrint) {
