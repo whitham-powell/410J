@@ -12,8 +12,10 @@ import java.util.Date;
 
 
 /**
- * TODO Document the class
- * The main class for the CS410J appointment book Project
+ * @author Elijah Whitham-Powell
+ *
+ * The main class for the CS410J appointment book Project takes in command line arguments and
+ * builds an {@link Appointment} and {@link AppointmentBook} based on the supplied arguments.
  */
 public class Project1 {
 
@@ -39,7 +41,13 @@ public class Project1 {
                   "\t\t\t The rest of the arguments should be provided separated by spaces.\n"
                   + USAGE;
 
-  // TODO document appointmentInfoValidator
+  /**
+   * Takes in an array of appointment dates and times as strings and verifies
+   * their formatting.
+   *
+   * @param appointmentInfo - array of Strings to validate.
+   * @return int error code used to determine.
+   */
   private static int appointmentInfoValidator(String[] appointmentInfo) {
     StringBuilder errReason = new StringBuilder();
     int err = 0;
@@ -73,7 +81,13 @@ public class Project1 {
     return err;
   }
 
-  // TODO document appointmentCleaner helper function
+
+  /**
+   * Formats a supplied time and date string.
+   * @param timeAndDate - date and time to format/clean
+   * @return String - correctly formatted
+   * @throws ParseException
+   */
   private static String appointmentCleaner(String timeAndDate) throws ParseException {
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
     try {
@@ -87,9 +101,8 @@ public class Project1 {
   }
 
   /**
-   * TODO document the main method of project1
-   *
-   * @param args
+   * Interprets and parses the command line arguments to do the work.
+   * @param args - Command Line supplied arguments.
    */
   public static void main(String[] args) {
 
