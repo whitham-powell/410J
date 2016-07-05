@@ -64,7 +64,9 @@ public class CommandLineParserTest {
     validOptions.addOption("option", false, "option description");
     validOptions.addOption("another", false, "another option description");
     CommandLineParser clp = new CommandLineParser(validOptions, args);
-    assertThat(clp.parse(3, 2).hasError(), is(true));
+    Commands line = clp.parse(3, 2);
+    assertThat(line.hasError(), is(true));
+    assertThat(line.getErrorMessage(), containsString("help <-Invalid"));
   }
 
   @Test
@@ -77,7 +79,6 @@ public class CommandLineParserTest {
     assertThat(clp.parse(1, 2).hasError(), is(true));
     assertThat(clp.parse(1, 2).getErrorMessage(), containsString("Missing command line arguments: "));
   }
-
 
   //TODO usage printer
 

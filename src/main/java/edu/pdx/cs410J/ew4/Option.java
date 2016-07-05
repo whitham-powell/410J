@@ -26,6 +26,11 @@ public class Option {
     this.description = description;
   }
 
+  public Option(boolean hasArgs, String name) {
+    this.hasArgs = hasArgs;
+    this.name = name;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

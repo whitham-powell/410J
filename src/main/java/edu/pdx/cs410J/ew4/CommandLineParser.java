@@ -15,6 +15,7 @@ public class CommandLineParser {
   private ArrayList<String> toParse;
   private ArrayList<String> providedOptions;
   private ArrayList<String> providedArgs;
+  private ArrayList<String> invalidOptions;
   private int validNumberOfArgs;
   private Options validOptions;
 
@@ -24,6 +25,7 @@ public class CommandLineParser {
     Collections.addAll(this.toParse, args);
     this.providedOptions = new ArrayList<>();
     this.providedArgs = new ArrayList<>();
+    this.invalidOptions = new ArrayList<>();
   }
 
   /**
@@ -52,7 +54,8 @@ public class CommandLineParser {
     if (toParse.isEmpty()) {
       return new Commands(true, "Missing command line arguments: None Provided");
     }
-    if (providedOptions.retainAll(validOptions.getList())) {
+    findInvalidOptions();
+    if (!invalidOptions.isEmpty()) {
       return new Commands(true, "Invalid option detected: \n" + errOut());
     }
     if (providedArgs.size() < this.validNumberOfArgs) {
@@ -67,12 +70,41 @@ public class CommandLineParser {
     return new Commands(true, "unknown error");
   }
 
-  // TODO docutment errOut()
+  // TODO document findInvalidOptions()
+  private void findInvalidOptions() {
+    for (String option : providedOptions) {
+      if (validOptions.getList().contains(option)) {
+        continue;
+      } else {
+        invalidOptions.add(option);
+      }
+    }
+  }
+
+  // TODO document errOut()
   private String errOut() {
-    StringBuilder errMsg = new StringBuilder("Detected:\n\t\t");
-    providedArgs.forEach(arg -> errMsg.append(arg).append("\n\t\t"));
-    errMsg.append("From parsed command line:\n\t\t");
-    toParse.forEach(parsed -> errMsg.append(parsed).append("\n\t\t"));
+    StringBuilder errMsg = new StringBuilder("Detected:");
+    errMsg.append("\n\tOptions:");
+    providedOptions
+            .forEach(option -> errMsg
+                    .append("\n\t\t")
+                    .append(option)
+                    .append(invalidOptions.contains(option) ? " <-Invalid" : ""));
+
+    errMsg.append("\n\tArguments: Expected ").append(this.validNumberOfArgs)
+            .append("Found: ").append(providedArgs.size());
+
+    providedArgs
+            .forEach(arg -> errMsg
+                    .append("\n\t\t").append(arg));
+
+    errMsg.append("\n\tFrom parsed command line:");
+    toParse
+            .forEach(parsed -> errMsg
+                    .append("\n\t\t")
+                    .append(parsed));
+
+    errMsg.append("\n");
     return errMsg.toString();
   }
 
