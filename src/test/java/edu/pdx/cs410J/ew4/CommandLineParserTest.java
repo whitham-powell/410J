@@ -5,7 +5,8 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
-/**TODO Document
+/**
+ * TODO Document
  * Created by edub629 on 7/3/16.
  */
 public class CommandLineParserTest {
@@ -33,13 +34,52 @@ public class CommandLineParserTest {
     assertThat(clp.getProvidedOptions().contains("help"), is(true));
   }
 
-  //TODO not enough arguments
+  @Test
+  public void notEnoughArgumentsReturnsAnError() {
+    String[] args = {"-option", "-another", "an argument", "notAnOption"};
+    validOptions = new Options();
+    validOptions.addOption("option", false, "option description");
+    validOptions.addOption("another", false, "another option description");
+    CommandLineParser clp = new CommandLineParser(validOptions, args);
+    assertThat(clp.parse(2, 6).hasError(), is(true));
+    assertThat(clp.parse(2, 6).getErrorMessage(), containsString("Not enough arguments provided"));
+  }
 
-  //TODO too many arguments
 
-  //TODO invalid options
+  @Test
+  public void tooManyArgumentsProvided() {
+    String[] args = {"-option", "-another", "-help", "an argument", "notAnOption"};
+    validOptions = new Options();
+    validOptions.addOption("option", false, "option description");
+    validOptions.addOption("another", false, "another option description");
+    validOptions.addOption("help", false, "prints help/usage");
+    CommandLineParser clp = new CommandLineParser(validOptions, args);
+    assertThat(clp.parse(3, 1).hasError(), is(true));
+  }
 
-  //TODO empty argument list
+  @Test
+  public void invalidOptionsAreDetectedAndResultInAnError() {
+    String[] args = {"-option", "-another", "-help", "an argument", "notAnOption"};
+    validOptions = new Options();
+    validOptions.addOption("option", false, "option description");
+    validOptions.addOption("another", false, "another option description");
+    CommandLineParser clp = new CommandLineParser(validOptions, args);
+    assertThat(clp.parse(3, 2).hasError(), is(true));
+  }
+
+  @Test
+  public void emptyArgumentListResultsInError() {
+    String[] args = {};
+    validOptions = new Options();
+    validOptions.addOption("option", false, "option description");
+    validOptions.addOption("another", false, "another option description");
+    CommandLineParser clp = new CommandLineParser(validOptions, args);
+    assertThat(clp.parse(1, 2).hasError(), is(true));
+    assertThat(clp.parse(1, 2).getErrorMessage(), containsString("Missing command line arguments: "));
+  }
+
 
   //TODO usage printer
+
+  //TODO if parser is successful return a set of commands?
 }

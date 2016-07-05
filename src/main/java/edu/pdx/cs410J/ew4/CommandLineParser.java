@@ -26,7 +26,14 @@ public class CommandLineParser {
     this.providedArgs = new ArrayList<>();
   }
 
-  public void parse(int maxNumberOfOptions, int validNumberOfArgs) {
+  /**
+   * TODO Document parse function
+   *
+   * @param maxNumberOfOptions
+   * @param validNumberOfArgs
+   * @return
+   */
+  public Commands parse(int maxNumberOfOptions, int validNumberOfArgs) {
     // Commandline Argument Parsing
     int i = 0;
     int argsLength = toParse.size();
@@ -42,6 +49,31 @@ public class CommandLineParser {
       providedArgs.add(toParse.get(i));
     }
     this.validNumberOfArgs = validNumberOfArgs;
+    if (toParse.isEmpty()) {
+      return new Commands(true, "Missing command line arguments: None Provided");
+    }
+    if (providedOptions.retainAll(validOptions.getList())) {
+      return new Commands(true, "Invalid option detected: \n" + errOut());
+    }
+    if (providedArgs.size() < this.validNumberOfArgs) {
+      return new Commands(true, "Not enough arguments provided: \n" + errOut());
+    }
+    if (providedArgs.size() > this.validNumberOfArgs)
+      return new Commands(true, "Too many arguments provided: \n" + errOut());
+    if (providedArgs.size() == this.validNumberOfArgs) {
+      return new Commands(false, "no error");
+    }
+    // Unknown error catcher
+    return new Commands(true, "unknown error");
+  }
+
+  // TODO docutment errOut()
+  private String errOut() {
+    StringBuilder errMsg = new StringBuilder("Detected:\n\t\t");
+    providedArgs.forEach(arg -> errMsg.append(arg).append("\n\t\t"));
+    errMsg.append("From parsed command line:\n\t\t");
+    toParse.forEach(parsed -> errMsg.append(parsed).append("\n\t\t"));
+    return errMsg.toString();
   }
 
   public ArrayList<String> getProvidedArgs() {
@@ -70,49 +102,10 @@ public class CommandLineParser {
 //  public void invoke() {
 //
 //
-//    // Clean up options
-//    providedOptions.retainAll(validOptions);
-//    providedOptions.trimToSize();
+//    if (providedOptions.contains("-print")) {
+//      doPrint = true;
+//    }
 //
-////    if (providedOptions.contains("-print")) {
-////      doPrint = true;
-////    }
-////
-////
-////    if (providedArgs.isEmpty() && providedOptions.isEmpty()) {
-////      System.err.println("Missing command line arguments: None Provided");
-////      doReadMe = true;
-////      exitCode = 1;
-////    }
-////
-////    if (providedArgs.size() < validNumberOfArguments) {
-////      if (providedOptions.size() != 1 || !providedOptions.contains("-README")) {
-////        System.err.println("Missing command line arguments: " + args.length + " provided: \n");
-////        for (String arg : args) {
-////          System.out.println("\t" + arg + "\n");
-////        }
-////        exitCode = 1;
-////      } else {
-////        exitCode = 0;
-////      }
-////      doReadMe = true;
-////    }
-////
-////    if (providedArgs.size() > validNumberOfArguments) {
-////      doReadMe = true;
-////      exitCode = 1;
-////      System.err.println("Too many command line arguments: " + args.length + " provided: \n");
-////      for (String arg : args) {
-////        System.out.println("\t" + arg + "\n");
-////      }
-////    }
-////
-////    if (providedArgs.size() == validNumberOfArguments) {
-////      appointmentOwner = providedArgs.get(0);
-////      appointmentInfo = providedArgs.subList(1, validNumberOfArguments).toArray(new String[providedArgs.size()]);
-////      exitCode = appointmentInfoValidator(appointmentInfo);
-////    }
-//  }
 //
 
 

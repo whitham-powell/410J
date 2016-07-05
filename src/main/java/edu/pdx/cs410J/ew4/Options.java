@@ -20,11 +20,13 @@ class Options {
     Collections.addAll(this.validOptions, options);
   }
 
-  public Collection<Option> getList() {
+  public Collection<String> getList() {
+    Collection<String> listOfOptionsString = new ArrayList<>();
     if (validOptions.isEmpty()) {
-      return null;
+      return listOfOptionsString;
     } else {
-      return validOptions;
+      validOptions.forEach(validOption -> listOfOptionsString.add(validOption.getName()));
+      return listOfOptionsString;
     }
   }
 

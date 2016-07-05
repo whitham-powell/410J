@@ -55,4 +55,8 @@ public class Option {
   public boolean hasArgs() {
     return this.hasArgs;
   }
+
+  public String getName() {
+    return name;
+  }
 }
