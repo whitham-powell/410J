@@ -1,14 +1,13 @@
 package edu.pdx.cs410J.ew4;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 /** TODO Document Class Methods
  * Created by edub629 on 7/3/16.
  */
 class Options {
-  private Collection<Option> validOptions;
+  private ArrayList<Option> validOptions;
 
   public Options () {
     validOptions = new ArrayList<Option>();
@@ -16,16 +15,18 @@ class Options {
 
 
   public Options(Option... options) {
-    validOptions = new ArrayList<Option>();
+    this.validOptions = new ArrayList<Option>();
     Collections.addAll(this.validOptions, options);
   }
 
-  public Collection<String> getList() {
-    Collection<String> listOfOptionsString = new ArrayList<>();
-    if (validOptions.isEmpty()) {
+  public ArrayList<String> getList() {
+    ArrayList<String> listOfOptionsString = new ArrayList<>();
+    if (this.validOptions.isEmpty()) {
       return listOfOptionsString;
     } else {
-      validOptions.forEach(validOption -> listOfOptionsString.add(validOption.getName()));
+      for (Option thatValid : this.validOptions) {
+        listOfOptionsString.add(thatValid.getName());
+      }
       return listOfOptionsString;
     }
   }
@@ -42,4 +43,8 @@ class Options {
     return validOptions.add(option);
   }
 
+  public Option getOption(String s) {
+    int index = validOptions.indexOf(new Option(s));
+    return validOptions.get(index);
+  }
 }

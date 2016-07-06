@@ -64,7 +64,19 @@ public class CommandLineParser {
     if (providedArgs.size() > this.validNumberOfArgs)
       return new Commands(true, "Too many arguments provided: \n" + errOut());
     if (providedArgs.size() == this.validNumberOfArgs) {
-      return new Commands(false, "no error");
+      Commands commands = new Commands(false, "no error");
+      Option fromOptions;
+      Command toCommands = null;
+      for (i = 0; i < providedOptions.size(); ++i) {
+        fromOptions = validOptions.getOption(providedOptions.get(i));
+        if (fromOptions.hasArgs()) {
+          toCommands = new Command(fromOptions.getName(), fromOptions.hasArgs(), toParse.get(i + 1));
+        } else {
+          toCommands = new Command(fromOptions.getName(), fromOptions.hasArgs());
+        }
+        commands.add(toCommands);
+      }
+      return commands;
     }
     // Unknown error catcher
     return new Commands(true, "unknown error");

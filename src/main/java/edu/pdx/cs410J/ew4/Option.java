@@ -20,15 +20,15 @@ public class Option {
     this.name = optionName;
   }
 
-  public Option(String name, boolean hasArgs, String description) {
-    this.name = name;
+  public Option(String optionName, boolean hasArgs, String description) {
+    this.name = optionName;
     this.hasArgs = hasArgs;
     this.description = description;
   }
 
-  public Option(boolean hasArgs, String name) {
+  public Option(String optionName, boolean hasArgs) {
+    this.name = optionName;
     this.hasArgs = hasArgs;
-    this.name = name;
   }
 
   @Override
@@ -62,6 +62,6 @@ public class Option {
   }
 
   public String getName() {
-    return name;
+    return this.name;
   }
 }

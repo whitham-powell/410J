@@ -83,4 +83,21 @@ public class CommandLineParserTest {
   //TODO usage printer
 
   //TODO if parser is successful return a set of commands?
+
+  @Test
+  public void theParserReturnsASetOfCommandsToExecute() {
+    String[] args = {"-testNoArg", "-testArg", "an argument", "notAnOption"};
+    validOptions = new Options();
+    Option optionWithOutArgs = new Option("testNoArg", false, "this test option takes no arguments");
+    Option optionWithArg = new Option("testArg", true, "this option takes arguments");
+    validOptions.addOption(optionWithArg);
+    validOptions.addOption(optionWithOutArgs);
+    CommandLineParser clp = new CommandLineParser(validOptions, args);
+    Commands parsed = clp.parse(2, 2);
+    System.out.println(parsed.hasError() + " " + parsed.getErrorMessage());
+//    assertThat(parsed.hasOption(optionWithArg.getName()), is(true));
+    assertThat(parsed.hasOption("testNoArg"), is(true));
+    assertThat(parsed.hasOption("testArg"), is(true));
+  }
+
 }

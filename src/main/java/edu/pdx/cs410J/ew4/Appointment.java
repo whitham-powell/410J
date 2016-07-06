@@ -16,8 +16,7 @@ public class Appointment extends AbstractAppointment {
 
   /**
    * Creates a new <code>Appointment</code>
-   *
-   * @param appointmentInfo - an array of strings that will be stored into data fields
+   * @param appointmentInfo an array of strings that will be stored into data fields
    */
   public Appointment(String[] appointmentInfo) {
     this.description = appointmentInfo[0];
@@ -27,7 +26,6 @@ public class Appointment extends AbstractAppointment {
 
   /**
    * Creates a new <code>Appointment</code>
-   *
    * @param description     The appointment description, defaults to <code>" empty "</code>
    * @param beginTimeString The time and date the appointment begins as a <code>String</code>.
    * @param endTimeString   The time and date the appointment ends as a <code>String</code>.
@@ -50,7 +48,6 @@ public class Appointment extends AbstractAppointment {
 
   /**
    * Sets this <code>Appointment</code> beginning time as a <code>String</code>
-   *
    * @param beginTimeString - the time of an <code>Appointment</code> as a <code>String</code>
    * @throws IllegalArgumentException - if a null is passed in it raises exception.
    */
@@ -72,7 +69,6 @@ public class Appointment extends AbstractAppointment {
 
   /**
    * Sets this <code>Appointment</code> end time as a <code>String</code>
-   *
    * @param endTimeString - the end time of an <code>Appointment</code> as a <code>String</code>
    * @throws IllegalArgumentException - if a null is passed in it raises exception.
    */
@@ -94,7 +90,6 @@ public class Appointment extends AbstractAppointment {
 
   /**
    * Sets this <code>Appointment</code> end time as a <code>String</code>
-   *
    * @param description - the description of an <code>Appointment</code> as a <code>String</code>
    * @throws IllegalArgumentException - if a null is passed in it raises exception.
    */

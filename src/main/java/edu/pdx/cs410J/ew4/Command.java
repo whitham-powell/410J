@@ -6,14 +6,18 @@ package edu.pdx.cs410J.ew4;
 public class Command extends Option {
   private String argument;
 
-  public Command(String name, boolean hasArgs, String description, String argument) {
-    super(name, hasArgs, description);
+  public Command(String optionName, boolean hasArgs, String description, String argument) {
+    super(optionName, hasArgs, description);
     this.argument = argument;
   }
 
-  public Command(boolean hasArgs, String name, String argument) {
-    super(hasArgs, name);
+  public Command(String optionName, boolean hasArgs, String argument) {
+    super(optionName, hasArgs);
     this.argument = argument;
+  }
+
+  public Command(String optionName, boolean hasArgs) {
+    super(optionName, hasArgs);
   }
 
   public Command(String optionName, String argument) {
@@ -21,9 +25,14 @@ public class Command extends Option {
     this.argument = argument;
   }
 
-  public Command(String argument) {
-    this.argument = argument;
+  public Command(String optionName) {
+    super(optionName);
   }
+
+  public Command() {
+
+  }
+
 
   public String getArgument() {
     if (hasArgs()) {
