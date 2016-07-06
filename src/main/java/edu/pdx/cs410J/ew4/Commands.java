@@ -41,4 +41,9 @@ public class Commands {
   public boolean add(Command command) {
     return this.commands.add(command);
   }
+
+  public String getOptionValue(String optionName) {
+    int index = this.commands.indexOf(new Command(optionName));
+    return this.commands.get(index).getArgument();
+  }
 }

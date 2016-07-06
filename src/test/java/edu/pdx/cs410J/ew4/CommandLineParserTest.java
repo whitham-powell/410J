@@ -94,10 +94,9 @@ public class CommandLineParserTest {
     validOptions.addOption(optionWithOutArgs);
     CommandLineParser clp = new CommandLineParser(validOptions, args);
     Commands parsed = clp.parse(2, 2);
-    System.out.println(parsed.hasError() + " " + parsed.getErrorMessage());
-//    assertThat(parsed.hasOption(optionWithArg.getName()), is(true));
     assertThat(parsed.hasOption("testNoArg"), is(true));
     assertThat(parsed.hasOption("testArg"), is(true));
+    assertThat(parsed.getOptionValue("testArg"), containsString("an argument"));
   }
 
 }
