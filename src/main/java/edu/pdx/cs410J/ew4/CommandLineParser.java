@@ -91,9 +91,7 @@ public class CommandLineParser {
   // TODO document findInvalidOptions()
   private void findInvalidOptions() {
     for (String option : providedOptions) {
-      if (validOptions.getList().contains(option)) {
-        continue;
-      } else {
+      if (!validOptions.getList().contains(option)) {
         invalidOptions.add(option);
       }
     }
@@ -102,14 +100,14 @@ public class CommandLineParser {
   // TODO document errOut()
   private String errOut() {
     StringBuilder errMsg = new StringBuilder("Detected:");
-    errMsg.append("\n\tOptions:");
+    errMsg.append("\n\tDetected Options:");
     providedOptions
             .forEach(option -> errMsg
                     .append("\n\t\t")
                     .append(option)
                     .append(invalidOptions.contains(option) ? " <-Invalid" : ""));
 
-    errMsg.append("\n\tArguments: Expected ").append(this.validNumberOfArgs)
+    errMsg.append("\n\tArguments Expected: ").append(this.validNumberOfArgs)
             .append("Found: ").append(providedArgs.size());
 
     providedArgs
