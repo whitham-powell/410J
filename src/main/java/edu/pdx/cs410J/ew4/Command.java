@@ -3,6 +3,8 @@ package edu.pdx.cs410J.ew4;
 /**
  * Created by edub629 on 7/4/16.
  */
+
+//TODO make test class
 public class Command extends Option {
   private String argument;
 

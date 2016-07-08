@@ -9,6 +9,7 @@ import java.io.IOException;
  * Created by edub629 on 7/7/16.
  */
 
+
 public class TextDumper implements AppointmentBookDumper {
 
   /**

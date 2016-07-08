@@ -30,8 +30,8 @@ public class OptionsTest {
   }
 
   @Test
-  public void getListReturnsNullWithOutAddingAnOptionToOptions() {
-    assertThat(emptyOptionsList.getList(), is(nullValue()));
+  public void getListEmptyListAddingAnOptionToOptions() {
+    assertThat(emptyOptionsList.getList().isEmpty(), is(true));
   }
 
   @Test
@@ -49,5 +49,19 @@ public class OptionsTest {
     assertThat(options.count(), is(2));
   }
 
+
   //TODO print out list of options in the form of a usage list
+
+  @Test
+  public void canPrintAListOfOptionsWithTheirDescription() {
+    Options options = new Options(optionWithOutArgs, optionWithArg);
+    assertThat(options.toString(), containsString(optionWithArg.toString()));
+    assertThat(options.toString(), containsString(optionWithOutArgs.toString()));
+    System.out.print(options.toString());
+  }
+
+  @Test
+  public void attemptingToPrintAnEmptyOptionsListReturnsStringStatingItsEmpty() {
+    assertThat(emptyOptionsList.toString(), containsString("Options list is empty"));
+  }
 }

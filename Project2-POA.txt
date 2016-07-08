@@ -1,0 +1,8 @@
+Elijah Whitham-Powell
+7/10/2016
+CS410J
+Project 2
+Plan of Attack
+
+This phase of the project will involve a 5 "helper" objects I have implemented in order to help parse the command line
+and build a list of valid options which result in commands to executed by the main method of project 2.

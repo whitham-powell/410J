@@ -51,7 +51,12 @@ public class Option {
     } else {
       StringBuilder sb = new StringBuilder("-");
       sb.append(name);
-      sb.append("\t");
+      if (hasArgs) {
+        sb.append("\t< val >");
+      } else {
+        sb.append("\t\t");
+      }
+      sb.append("\t\t");
       sb.append(description);
       return sb.toString();
     }

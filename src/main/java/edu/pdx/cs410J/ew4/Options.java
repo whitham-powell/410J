@@ -47,4 +47,16 @@ class Options {
     int index = validOptions.indexOf(new Option(s));
     return validOptions.get(index);
   }
+
+  @Override
+  public String toString() {
+    if (validOptions.isEmpty()) {
+      return "Options list is empty.\n";
+    }
+    StringBuilder sb = new StringBuilder("");
+    for (Option option : validOptions) {
+      sb.append(option.toString()).append("\n");
+    }
+    return sb.toString().trim();
+  }
 }

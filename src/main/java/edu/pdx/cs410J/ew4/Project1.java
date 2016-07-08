@@ -48,7 +48,7 @@ public class Project1 {
    * @param appointmentInfo - array of Strings to validate.
    * @return int error code used to determine.
    */
-  private static int appointmentInfoValidator(String[] appointmentInfo) {
+  protected static int appointmentInfoValidator(String[] appointmentInfo) {
     StringBuilder errReason = new StringBuilder();
     int err = 0;
 
@@ -88,7 +88,7 @@ public class Project1 {
    * @return String - correctly formatted
    * @throws ParseException
    */
-  private static String appointmentCleaner(String timeAndDate) throws ParseException {
+  public static String appointmentCleaner(String timeAndDate) throws ParseException {
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
     try {
       Date date;
