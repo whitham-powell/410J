@@ -3,6 +3,7 @@ package edu.pdx.cs410J.ew4;
 import edu.pdx.cs410J.AbstractAppointmentBook;
 import edu.pdx.cs410J.AppointmentBookDumper;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -11,6 +12,14 @@ import java.io.IOException;
 
 
 public class TextDumper implements AppointmentBookDumper {
+
+  protected String fileName;
+  protected File file;
+
+  public TextDumper(String fileName) {
+    this.fileName = fileName;
+    this.file = new File(fileName);
+  }
 
   /**
    * Dumps an appointment book to some destination.
