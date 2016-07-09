@@ -1,6 +1,6 @@
 package edu.pdx.cs410J.ew4;
 
-/**
+/**TODO Document class
  * Created by edub629 on 7/4/16.
  */
 

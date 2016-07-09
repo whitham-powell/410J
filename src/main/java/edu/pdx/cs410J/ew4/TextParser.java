@@ -6,7 +6,7 @@ import edu.pdx.cs410J.ParserException;
 
 import java.io.*;
 
-/**
+/**TODO document class
  * Created by edub629 on 7/8/16.
  */
 public class TextParser implements AppointmentBookParser {
