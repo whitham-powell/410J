@@ -30,6 +30,9 @@ public class TextDumper implements AppointmentBookDumper {
     }
   }
 
+  public TextDumper() {
+  }
+
   /**
    * Dumps an appointment book to some destination.
    *
@@ -40,19 +43,24 @@ public class TextDumper implements AppointmentBookDumper {
   public void dump(AbstractAppointmentBook book) throws IOException {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.file))) {
       writer.write(book.getOwnerName() + "\n");
-      Appointment asAppointment;
-      StringBuilder sb = new StringBuilder();
-      for (Object o : book.getAppointments()) {
-        asAppointment = (Appointment) o;
-        sb.append("\"").append(asAppointment.getDescription()).append("\"").append("\n");
-        sb.append(asAppointment.getBeginTimeString()).append("\n");
-        sb.append(asAppointment.getEndTimeString()).append("\n");
-      }
-      writer.write(sb.toString());
+      String outString = getAppointmentsString(book);
+      writer.write(outString);
 //      writer.close();
     } catch (IOException e) {
       throw new IOException("failed to create buffered file writer" + this.file.exists());
     }
+  }
+
+  public String getAppointmentsString(AbstractAppointmentBook book) {
+    Appointment asAppointment;
+    StringBuilder sb = new StringBuilder();
+    for (Object o : book.getAppointments()) {
+      asAppointment = (Appointment) o;
+      sb.append("\"").append(asAppointment.getDescription()).append("\"").append("\n");
+      sb.append(asAppointment.getBeginTimeString()).append("\n");
+      sb.append(asAppointment.getEndTimeString()).append("\n");
+    }
+    return sb.toString();
   }
 
   public boolean fileExists() {

@@ -88,7 +88,7 @@ public class Project1 {
    * @return String - correctly formatted
    * @throws ParseException
    */
-  public static String appointmentCleaner(String timeAndDate) throws ParseException {
+  protected static String appointmentCleaner(String timeAndDate) throws ParseException {
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
     try {
       Date date;
