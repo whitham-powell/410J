@@ -30,9 +30,6 @@ public class TextDumper implements AppointmentBookDumper {
     }
   }
 
-  public TextDumper() {
-  }
-
   /**
    * Dumps an appointment book to some destination.
    *

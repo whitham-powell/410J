@@ -12,7 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class Project1IT extends InvokeMainTestCase {
 
-  private static final String README = "usage: java edu.pdx.edu.cs410J.<login-id>.Project1 [options] <args>\n" +
+  private static String README = "usage: java edu.pdx.edu.cs410J.<login-id>.Project1 [options] <args>\n" +
           "\targs are (in this order): \n" +
           "\t\towner The person whose owns the appt book\n" +
           "\t\tdescription A description of the appointment\n" +
