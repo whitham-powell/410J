@@ -58,4 +58,16 @@ public class AppointmentBook extends AbstractAppointmentBook<AbstractAppointment
   public void addAppointment(AbstractAppointment appointment) {
     appointments.add(appointment);
   }
+
+  /**
+   * Returns a brief textual description of this appointment book
+   */
+  @Override
+  public String toString() {
+    return getOwnerName();
+  }
+
+  public int size() {
+    return appointments.size();
+  }
 }
