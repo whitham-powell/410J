@@ -24,13 +24,13 @@ public class TextDumperTest {
 
   @Before
   public void setUp() {
-    testBook = new AppointmentBook("Evan");
+    testBook = new AppointmentBookTest().getTestBook();/*new AppointmentBook("Evan");
     testAppointment = new Appointment("Bang his own mother", "06/09/1993 12:22", "06/12/1993 13:22");
-    testAppointment2 = new Appointment("Lunch with his mother", "08/09/1993 12:22", "08/12/1993 13:22");
-    testAppointment3 = new Appointment("Dinner with his father", "7/20/2010 16:50", "07/20/2010 17:30");
+    testAppointment2 = new Appointment("Lunch with his mother", "08/09/1993 12:22", "06/12/1993 13:22");
+    testAppointment3 = new Appointment("Dinner with his father", "07/20/2010 16:50", "07/20/2010 17:30");
     testBook.addAppointment(testAppointment);
     testBook.addAppointment(testAppointment2);
-    testBook.addAppointment(testAppointment3);
+    testBook.addAppointment(testAppointment3);*/
   }
 
   @Test
@@ -64,7 +64,7 @@ public class TextDumperTest {
     }
 
     try (BufferedReader reader = new BufferedReader(new FileReader(textDumper.file))) {
-      String thisString = testBook.getOwnerName() + "\n" +
+      String thisString = testBook.getOwnerName() + "\n" + textDumper.makeAppointmentsString(testBook);/* +
               "\"" + testAppointment.getDescription() + "\"" + "\n" +
               testAppointment.getBeginTimeString() + "\n" +
               testAppointment.getEndTimeString() + "\n" +
@@ -73,7 +73,7 @@ public class TextDumperTest {
               testAppointment2.getEndTimeString() + "\n" +
               "\"" + testAppointment3.getDescription() + "\"" + "\n" +
               testAppointment3.getBeginTimeString() + "\n" +
-              testAppointment3.getEndTimeString() + "\n";
+              testAppointment3.getEndTimeString() + "\n";*/
       StringBuilder testString = new StringBuilder();
       while ((line = reader.readLine()) != null) {
         testString.append(line).append("\n");

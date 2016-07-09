@@ -40,9 +40,15 @@ public class AppointmentTest {
   }
 
   @Test
-  public void forProject1ItIsOkayIfGetBeginTimeReturnsNull() {
+  public void itIsOkayIfGetBeginTimeReturnsNullForEmptyAppointment() {
     AbstractAppointment appointment = new Appointment();
     assertThat(appointment.getBeginTime(), is(nullValue()));
+  }
+
+  @Test
+  public void itIsOkayIfGetEndTimeReturnsNullForEmptyAppointment() {
+    AbstractAppointment appointment = new Appointment();
+    assertThat(appointment.getEndTime(), is(nullValue()));
   }
 
   @Test

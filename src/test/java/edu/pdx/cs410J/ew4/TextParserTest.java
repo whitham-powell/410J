@@ -8,24 +8,15 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-/**
+/**TODO Document Test
  * Created by edub629 on 7/8/16.
  */
 public class TextParserTest {
   private AppointmentBook testBook;
-  private Appointment testAppointment;
-  private Appointment testAppointment2;
-  private Appointment testAppointment3;
 
   @Before
-  public void setUp() throws Exception {
-    testBook = new AppointmentBook("Evan");
-    testAppointment = new Appointment("Bang his own mother", "06/09/1993 12:22", "06/12/1993 13:22");
-    testAppointment2 = new Appointment("Lunch with his mother", "08/09/1993 12:22", "08/12/1993 13:22");
-    testAppointment3 = new Appointment("Dinner with his father", "7/20/2010 16:50", "07/20/2010 17:30");
-    testBook.addAppointment(testAppointment);
-    testBook.addAppointment(testAppointment2);
-    testBook.addAppointment(testAppointment3);
+  public void setUp() {
+    testBook = new AppointmentBookTest().getTestBook();
   }
 
   @Test

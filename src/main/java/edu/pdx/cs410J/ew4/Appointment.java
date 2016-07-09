@@ -2,8 +2,14 @@ package edu.pdx.cs410J.ew4;
 
 import edu.pdx.cs410J.AbstractAppointment;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * This class extends <code>AbstractAppointment</code> and implements a concrete <code>Appointment</code>.
+ *
  * @author Elijah Whitham-Powell
  */
 public class Appointment extends AbstractAppointment {
@@ -16,6 +22,7 @@ public class Appointment extends AbstractAppointment {
 
   /**
    * Creates a new <code>Appointment</code>
+   *
    * @param appointmentInfo an array of strings that will be stored into data fields
    */
   public Appointment(String[] appointmentInfo) {
@@ -26,6 +33,7 @@ public class Appointment extends AbstractAppointment {
 
   /**
    * Creates a new <code>Appointment</code>
+   *
    * @param description     The appointment description, defaults to <code>" empty "</code>
    * @param beginTimeString The time and date the appointment begins as a <code>String</code>.
    * @param endTimeString   The time and date the appointment ends as a <code>String</code>.
@@ -48,6 +56,7 @@ public class Appointment extends AbstractAppointment {
 
   /**
    * Sets this <code>Appointment</code> beginning time as a <code>String</code>
+   *
    * @param beginTimeString - the time of an <code>Appointment</code> as a <code>String</code>
    * @throws IllegalArgumentException - if a null is passed in it raises exception.
    */
@@ -69,6 +78,7 @@ public class Appointment extends AbstractAppointment {
 
   /**
    * Sets this <code>Appointment</code> end time as a <code>String</code>
+   *
    * @param endTimeString - the end time of an <code>Appointment</code> as a <code>String</code>
    * @throws IllegalArgumentException - if a null is passed in it raises exception.
    */
@@ -90,6 +100,7 @@ public class Appointment extends AbstractAppointment {
 
   /**
    * Sets this <code>Appointment</code> end time as a <code>String</code>
+   *
    * @param description - the description of an <code>Appointment</code> as a <code>String</code>
    * @throws IllegalArgumentException - if a null is passed in it raises exception.
    */
@@ -99,31 +110,35 @@ public class Appointment extends AbstractAppointment {
     this.description = description;
   }
 
-//  @Override
-//  public Date getBeginTime() {
-//    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-//    try {
-//      Date date;
-//      date = df.parse(this.beginTimeString);
-//      return date;
-//    } catch (ParseException e) {
-//      e.printStackTrace();
-//      return null;
-//    }
-//  }
-//
-//  @Override
-//  public Date getEndTime() {
-//    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-//    try {
-//      Date date;
-//      date = df.parse(this.endTimeString);
-//      return date;
-//    } catch (ParseException e) {
-//      e.printStackTrace();
-//      return null;
-//    }
-//  }
+  @Override
+  public Date getBeginTime() {
+    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+    try {
+      Date date;
+      date = df.parse(this.beginTimeString);
+      return date;
+    } catch (NullPointerException e) {
+      return null;
+    } catch (ParseException e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+
+  @Override
+  public Date getEndTime() {
+    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+    try {
+      Date date;
+      date = df.parse(this.endTimeString);
+      return date;
+    } catch (NullPointerException e) {
+      return null;
+    } catch (ParseException e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
 
 
 }

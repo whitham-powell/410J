@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-/**
+/**TODO Document Class
  * Created by edub629 on 7/7/16.
  */
 
@@ -43,7 +43,7 @@ public class TextDumper implements AppointmentBookDumper {
   public void dump(AbstractAppointmentBook book) throws IOException {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.file))) {
       writer.write(book.getOwnerName() + "\n");
-      String outString = getAppointmentsString(book);
+      String outString = makeAppointmentsString(book);
       writer.write(outString);
 //      writer.close();
     } catch (IOException e) {
@@ -51,7 +51,13 @@ public class TextDumper implements AppointmentBookDumper {
     }
   }
 
-  public String getAppointmentsString(AbstractAppointmentBook book) {
+  /**
+   * //TODO document makeAppointmentsString
+   *
+   * @param book
+   * @return
+   */
+  public String makeAppointmentsString(AbstractAppointmentBook book) {
     Appointment asAppointment;
     StringBuilder sb = new StringBuilder();
     for (Object o : book.getAppointments()) {
