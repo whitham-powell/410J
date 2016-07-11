@@ -54,9 +54,9 @@ public class Option {
       if (hasArgs) {
         sb.append("\t< val >");
       } else {
-        sb.append("\t\t");
+        sb.append("\t\t\t");
       }
-      sb.append("\t\t");
+      sb.append("\t");
       sb.append(description);
       return sb.toString();
     }

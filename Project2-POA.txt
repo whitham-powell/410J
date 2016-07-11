@@ -4,5 +4,28 @@ CS410J
 Project 2
 Plan of Attack
 
-    This phase of the project will involve a 5 "helper" objects I have implemented in order to help parse the command
-line and build a list of valid options which result in commands to executed by the main method of project 2.
+    This phase of the project will involve 5 "helper" objects I have implemented in order to help parse the command
+line and build a list of valid options. The result of which is a list of commands to be executed by the main method of
+project 2.
+
+    The CommandLineParser collects all of the arguments provided via the command line and stores them into an
+ArrayList for easier searching and manipulation. The parse method of this class sorts the command line arguments into
+various ArrayLists based on their expected meaning. Since the CommandLineParser takes in an Options object, it can
+compare the provided options with valid options. The parse method returns a Commands Object which is used to relay which
+options were triggered and if their are any errors.
+
+    The Commands object is equipped with a boolean indicating so and an error message detailing what went wrong. If
+nothing went wrong during parsing the Commands object holds a collection of Command objects. A Command object extends an
+Option object by adding a field to hold on to its argument if it is expected to have one. The Option object is a way to
+contain an option's name or trigger, its description, and whether or not it expects an argument. An Options object
+manages the collection of Option objects and allows for access to the list of options and their descriptions.
+
+    In order to test that Project 2 can still pass the original Project 1 tests that are still applicable, java reflection
+is used. Allowing my Project2IT class to run each of the tests through Method objects from Project1IT. This seemed to be
+the best way to reuse those tests without repeating code directly.
+
+    The two new classes that required implementation, TextDumper and TextParser, use File objects in conjunction with
+BufferedFileReader and BufferedFileWriter objects. It currently seeks and saves a file whose name is provided via the
+TextDumper and TextParser constructors. TextParser also detects malformatted text files and throws a parser error if
+encountered.
+

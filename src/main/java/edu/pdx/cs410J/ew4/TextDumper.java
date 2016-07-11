@@ -42,7 +42,7 @@ public class TextDumper implements AppointmentBookDumper {
       writer.write(book.getOwnerName() + "\n");
       String outString = makeAppointmentsString(book);
       writer.write(outString);
-//      writer.close();
+      writer.close();
     } catch (IOException e) {
       throw new IOException("failed to create buffered file writer" + this.file.exists());
     }

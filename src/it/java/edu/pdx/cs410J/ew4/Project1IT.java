@@ -1,7 +1,6 @@
 package edu.pdx.cs410J.ew4;
 
 import edu.pdx.cs410J.InvokeMainTestCase;
-import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -12,7 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class Project1IT extends InvokeMainTestCase {
 
-  private static String README = "usage: java edu.pdx.edu.cs410J.<login-id>.Project1 [options] <args>\n" +
+  private static String README1 = "usage: java edu.pdx.edu.cs410J.<login-id>.Project1 [options] <args>\n" +
           "\targs are (in this order): \n" +
           "\t\towner The person whose owns the appt book\n" +
           "\t\tdescription A description of the appointment\n" +
@@ -23,11 +22,13 @@ public class Project1IT extends InvokeMainTestCase {
           "\t\t-README Prints a README for this project and exits\n" +
           "\tDate and time should be in the format: mm/dd/yyyy hh:mm\n";
 
+  public Class mainClass = Project1.class;
+
   /**
    * Invokes the main method of {@link Project1} with the given arguments.
    */
   private MainMethodResult invokeMain(String... args) {
-    return invokeMain(Project1.class, args);
+    return invokeMain(mainClass, args);
   }
 
   /**
@@ -38,14 +39,14 @@ public class Project1IT extends InvokeMainTestCase {
     MainMethodResult result = invokeMain();
     assertThat(result.getExitCode(), equalTo(1));
     assertThat(result.getErr(), containsString("Missing command line arguments"));
-    assertThat(result.getOut(), containsString(README));
+//    assertThat(result.getOut(), containsString(README1));
   }
 
   @Test
   public void testOnlyReadMeCommand() {
     MainMethodResult result = invokeMain("-README");
     assertThat(result.getExitCode(), equalTo(0));
-    assertThat(result.getOut(), containsString(README));
+    assertThat(result.getOut(), containsString(README1));
   }
 
 //  @Test
@@ -85,7 +86,7 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getErr(), containsString("Bad formatting: "));
     assertThat(result.getErr(), containsString(" Date - beginTime"));
     assertThat(result.getErr(), containsString(" Date - endTime"));
-    assertThat(result.getErr(), CoreMatchers.not(containsString(" Time")));
+    assertThat(result.getErr(), not(containsString(" Time")));
   }
 
   @Test
@@ -95,7 +96,7 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getExitCode(), equalTo(1));
     assertThat(result.getErr(), containsString("Bad formatting:"));
     assertThat(result.getErr(), containsString("Date - beginTime"));
-    assertThat(result.getErr(), CoreMatchers.not(containsString(" endTime")));
+    assertThat(result.getErr(), not(containsString(" endTime")));
   }
 
   @Test
@@ -105,7 +106,7 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getExitCode(), equalTo(1));
     assertThat(result.getErr(), containsString("Bad formatting:"));
     assertThat(result.getErr(), containsString(" Date - endTime"));
-    assertThat(result.getErr(), CoreMatchers.not(containsString(" beginTime")));
+    assertThat(result.getErr(), not(containsString(" beginTime")));
   }
 
   @Test
@@ -116,7 +117,7 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getErr(), containsString("Bad formatting:"));
     assertThat(result.getErr(), containsString(" Time - beginTime"));
     assertThat(result.getErr(), containsString(" Time - endTime"));
-    assertThat(result.getErr(), CoreMatchers.not(containsString(" Date")));
+    assertThat(result.getErr(), not(containsString(" Date")));
   }
 
   @Test
@@ -126,7 +127,7 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getExitCode(), equalTo(1));
     assertThat(result.getErr(), containsString("Bad formatting:"));
     assertThat(result.getErr(), containsString(" Time - endTime"));
-    assertThat(result.getErr(), CoreMatchers.not(containsString(" Date")));
+    assertThat(result.getErr(), not(containsString(" Date")));
   }
 
   @Test
@@ -136,7 +137,7 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getExitCode(), equalTo(1));
     assertThat(result.getErr(), containsString("Bad formatting:"));
     assertThat(result.getErr(), containsString(" Time - beginTime"));
-    assertThat(result.getErr(), CoreMatchers.not(containsString(" Date")));
+    assertThat(result.getErr(), not(containsString(" Date")));
   }
 
   @Test
@@ -169,8 +170,8 @@ public class Project1IT extends InvokeMainTestCase {
   public void invalidOptionsResultInExitCodeOneAndErrOutput() {
     MainMethodResult result = invokeMain("-bad", "Steve", "Test Description", "06/29/2016", "04:00", "06/29/2016", "12:00");
     assertThat(result.getExitCode(), equalTo(1));
-    assertThat(result.getErr(), containsString("Invalid option:"));
-    assertThat(result.getOut(), containsString("-bad"));
+    assertThat(result.getErr(), containsString("Invalid option"));
+    assertThat(result.getErr(), containsString("-bad"));
   }
 //  @Test
 //  public void mainClassDetectsMultipleOptionsArguments() {

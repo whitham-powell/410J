@@ -145,7 +145,7 @@ public class Project1 {
     // Clean up options and if this is needed exit and print invalid option error
     if (providedOptions.retainAll(validOptions)) {
       System.err.println("Invalid option: ");
-      providedArgs.forEach(System.out::println);
+      providedArgs.forEach(System.err::println);
       doUsage = true;
       exitCode = 1;
     }
@@ -180,7 +180,7 @@ public class Project1 {
     if (providedInfo.size() > 6) {
       doUsage = true;
       exitCode = 1;
-      System.err.println("Too many command line arguments: " + args.length + " provided: \n");
+      System.err.println("Too many arguments provided: " + args.length + " provided: \n");
       for (String arg : args) {
         System.out.println("\t" + arg + "\n");
       }

@@ -53,10 +53,10 @@ class Options {
     if (validOptions.isEmpty()) {
       return "Options list is empty.\n";
     }
-    StringBuilder sb = new StringBuilder("");
+    StringBuilder sb = new StringBuilder(" options are (may appear in any order):\n");
     for (Option option : validOptions) {
-      sb.append(option.toString()).append("\n");
+      sb.append("   ").append(option.toString()).append("\n");
     }
-    return sb.toString().trim();
+    return sb.toString();
   }
 }
