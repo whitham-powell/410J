@@ -36,65 +36,45 @@ public class TextParser implements AppointmentBookParser {
   @Override
   public AbstractAppointmentBook parse() throws ParserException {
     try (BufferedReader reader = new BufferedReader(new FileReader(this.file))) {
-      String line = reader.readLine();
+      String ownerName = reader.readLine();
       List<String> lineListing = reader.lines().collect(Collectors.toList());
       ListIterator<String> iterator = lineListing.listIterator();
-      AppointmentBook theBook = new AppointmentBook(line);
-//      Appointment appointment = null;
-      int infoCount = 0;
+      AppointmentBook theBook = new AppointmentBook(ownerName);
 
       // If the line count is not divisible by 3 throw ParserException
       if (lineListing.size() % 3 != 0) {
         throw new ParserException("Bad Formatting: Line count indicates missing data");
       }
 
-
       //TODO bad time formatting throw exception
-
 
       String description;
       String beginTimeString;
       String endTimeString;
       while (iterator.hasNext()) {
         if (iterator.hasNext()) {
-          //TODO description missing quotes exception
           description = iterator.next();
           if (!description.startsWith("\"") || !description.endsWith("\"")) {
-            throw new ParserException("");
+            throw new ParserException("Bad Formatting - Missing \"\" around description");
           }
           description = description.substring(1, description.length() - 1);
         } else {
-          throw new ParserException("Hit end of file listing too soon - Expected an Appointment Description");
+          throw new ParserException("Hit end of file listing too soon - Expected an Appointment Description\n" +
+                  "Last read : " + iterator.previous());
         }
         if (iterator.hasNext()) {
           beginTimeString = iterator.next();
         } else {
-          throw new ParserException("Hit end of file listing too soon - Expected an Appointment Begin Time");
+          throw new ParserException("Hit end of file listing too soon - Expected an Appointment Begin Time\n" +
+                  "Last read : " + iterator.previous());
         }
         if (iterator.hasNext()) {
           endTimeString = iterator.next();
         } else {
-          throw new ParserException("Hit end of file listing too soon - Expected an Appointment End Time");
+          throw new ParserException("Hit end of file listing too soon - Expected an Appointment End Time\n" +
+                  "Last read : " + iterator.previous());
         }
-
         theBook.addAppointment(new Appointment(description, beginTimeString, endTimeString));
-      }
-      while ((line = reader.readLine()) != null) {
-//        if (infoCount == 0) {
-//          line = line.substring(1, line.length() - 1);
-//          appointment = new Appointment();
-//          appointment.setDescription(line);
-//        } else if (infoCount == 1) {
-//          appointment.setBeginTimeString(line);
-//        } else if (infoCount == 2) {
-//          appointment.setEndTimeString(line);
-//          theBook.addAppointment(appointment);
-//        }
-        if (infoCount < 2) {
-          ++infoCount;
-        } else {
-          infoCount = 0;
-        }
       }
       return theBook;
     } catch (FileNotFoundException e) {

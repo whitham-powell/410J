@@ -53,6 +53,10 @@ public class TextParserTest {
     }
 
     boolean caughtException;
+    File testFile = new File("tooFewLinesTest.txt");
+    assertThat("Existence of test file", testFile.exists(), is(true));
+    assertThat("Can read test file", testFile.canRead(), is(true));
+
     TextParser textParser = new TextParser("tooFewLinesTest.txt", "Evan");
     try {
       AbstractAppointmentBook parsedBook = textParser.parse();
