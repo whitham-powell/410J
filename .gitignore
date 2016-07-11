@@ -24,3 +24,5 @@ hs_err_pid*
 */target/
 /target/
 /test.txt
+/tooFewLinesTest.txt
+/missingQuotesOnDescription.txt
