@@ -16,6 +16,8 @@ public class Appointment extends AbstractAppointment {
   private String description = "< empty >";
   private String beginTimeString;
   private String endTimeString;
+  private Date beginTime;
+  private Date endTime;
 
   public Appointment() {
   }
@@ -27,8 +29,25 @@ public class Appointment extends AbstractAppointment {
    */
   public Appointment(String[] appointmentInfo) {
     this.description = appointmentInfo[0];
-    this.beginTimeString = appointmentInfo[1] + " " + appointmentInfo[2];
-    this.endTimeString = appointmentInfo[3] + " " + appointmentInfo[4];
+//    this.beginTimeString = appointmentInfo[1] + " " + appointmentInfo[2];
+//    this.endTimeString = appointmentInfo[3] + " " + appointmentInfo[4];
+    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+    try {
+      Date date;
+      date = df.parse(appointmentInfo[1] + " " + appointmentInfo[2]);
+      this.beginTime = date;
+      this.beginTimeString = df.format(this.beginTime);
+    } catch (ParseException e) {
+      this.beginTime = null;
+    }
+    try {
+      Date date;
+      date = df.parse(appointmentInfo[3] + " " + appointmentInfo[4]);
+      this.endTime = date;
+      this.endTimeString = df.format(this.endTime);
+    } catch (ParseException e) {
+      this.endTime = null;
+    }
   }
 
   /**
@@ -112,32 +131,34 @@ public class Appointment extends AbstractAppointment {
 
   @Override
   public Date getBeginTime() {
-    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-    try {
-      Date date;
-      date = df.parse(this.beginTimeString);
-      return date;
-    } catch (NullPointerException e) {
-      return null;
-    } catch (ParseException e) {
-      e.printStackTrace();
-      return null;
-    }
+//    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+//    try {
+//      Date date;
+//      date = df.parse(this.beginTimeString);
+//      return date;
+//    } catch (NullPointerException e) {
+//      return null;
+//    } catch (ParseException e) {
+//      e.printStackTrace();
+//      return null;
+//    }
+    return this.beginTime;
   }
 
   @Override
   public Date getEndTime() {
-    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-    try {
-      Date date;
-      date = df.parse(this.endTimeString);
-      return date;
-    } catch (NullPointerException e) {
-      return null;
-    } catch (ParseException e) {
-      e.printStackTrace();
-      return null;
-    }
+//    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+//    try {
+//      Date date;
+//      date = df.parse(this.endTimeString);
+//      return date;
+//    } catch (NullPointerException e) {
+//      return null;
+//    } catch (ParseException e) {
+//      e.printStackTrace();
+//      return null;
+//    }
+    return this.endTime;
   }
 
 

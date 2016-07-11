@@ -1,22 +1,32 @@
 package edu.pdx.cs410J.ew4;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
-/** TODO Document Class Methods
+/**
+ * TODO Document Class Methods
  * Created by edub629 on 7/3/16.
  */
 class Options {
   private ArrayList<Option> validOptions;
+  private int numWArgs = 0;
+  private int numWOArgs = 0;
 
-  public Options () {
+  public Options() {
     validOptions = new ArrayList<Option>();
   }
 
 
   public Options(Option... options) {
     this.validOptions = new ArrayList<Option>();
-    Collections.addAll(this.validOptions, options);
+    for (Option o : options) {
+      if (o.hasArgs()) {
+        ++numWArgs;
+      } else {
+        ++numWOArgs;
+      }
+      this.validOptions.add(o);
+    }
+//    Collections.addAll(this.validOptions, options);
   }
 
   public ArrayList<String> getList() {
@@ -36,16 +46,35 @@ class Options {
   }
 
   public boolean addOption(String option, boolean hasArg, String description) {
-    return validOptions.add(new Option(option, hasArg, description));
+    if (validOptions.add(new Option(option, hasArg, description))) {
+      if (hasArg) {
+        ++numWArgs;
+      } else {
+        ++numWOArgs;
+      }
+      return true;
+    }
+    return false;
   }
 
   public boolean addOption(Option option) {
-    return validOptions.add(option);
+    if (validOptions.add(option)) {
+      if (option.hasArgs()) {
+        ++numWArgs;
+      } else {
+        ++numWOArgs;
+      }
+      return true;
+    }
+    return false;
   }
 
   public Option getOption(String s) {
     int index = validOptions.indexOf(new Option(s));
-    return validOptions.get(index);
+    if (index != -1)
+      return validOptions.get(index);
+    else
+      return null;
   }
 
   @Override
@@ -58,5 +87,13 @@ class Options {
       sb.append("   ").append(option.toString()).append("\n");
     }
     return sb.toString();
+  }
+
+  public int numWArgs() {
+    return this.numWArgs;
+  }
+
+  public int numWOArgs() {
+    return this.numWOArgs;
   }
 }

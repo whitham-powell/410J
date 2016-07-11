@@ -15,9 +15,11 @@ public class CommandLineParser {
   private ArrayList<String> toParse;
   private ArrayList<String> providedOptions;
   private ArrayList<String> providedArgs;
+  private ArrayList<String> claimedArgs;
   private ArrayList<String> invalidOptions;
-  private int validNumberOfArgs;
+  private int minNumOfArgs;
   private Options validOptions;
+  private int maxNumOfArgs;
 
   public CommandLineParser(Options validOptions, String[] args) {
     this.validOptions = validOptions;
@@ -25,6 +27,7 @@ public class CommandLineParser {
     Collections.addAll(this.toParse, args);
     this.providedOptions = new ArrayList<>();
     this.providedArgs = new ArrayList<>();
+    this.claimedArgs = new ArrayList<>();
     this.invalidOptions = new ArrayList<>();
   }
 
@@ -32,13 +35,17 @@ public class CommandLineParser {
    * TODO Document parse function
    *
    * @param maxNumberOfOptions
-   * @param validNumberOfArgs
+   * @param maxNumberOfArgs
    * @return
    */
-  public Commands parse(int maxNumberOfOptions, int validNumberOfArgs) {
+  public Commands parse(int maxNumberOfOptions, int maxNumberOfArgs) {
+    Commands theCommands = new Commands(true, "never replaced within parse");
+
     // Commandline Argument Parsing
     int i = 0;
     int argsLength = toParse.size();
+    this.minNumOfArgs = maxNumberOfArgs - validOptions.numWArgs();
+    this.maxNumOfArgs = maxNumberOfArgs;
     for (; i < maxNumberOfOptions && i < argsLength; i++) {
       String arg = toParse.get(i);
       if (arg.startsWith("-")) {
@@ -50,24 +57,30 @@ public class CommandLineParser {
     for (; i < argsLength; i++) {
       providedArgs.add(toParse.get(i));
     }
-    this.validNumberOfArgs = validNumberOfArgs;
     if (toParse.isEmpty()) {
-      return new Commands(true, "Missing command line arguments: None Provided");
+      theCommands = new Commands(true, "Missing command line arguments: None Provided");
+      return theCommands;
+    } else {
+      if (providedOptions.contains("README")) {
+        theCommands = new Commands(false, "-README found in options");
+        theCommands.add(new Command("README"));
+        return theCommands;
+      } else {
+        if (findInvalidOptions()) {
+          theCommands = new Commands(true, "Invalid option detected: \n" + errOut());
+          return theCommands;
+        }
+        if (providedArgs.size() < this.minNumOfArgs) {
+          theCommands = new Commands(true, "Not enough arguments provided: \n" + errOut());
+        }
+        if (providedArgs.size() > this.maxNumOfArgs) {
+          theCommands = new Commands(true, "Too many arguments provided: \n" + errOut());
+        } else if (providedArgs.size() >= this.minNumOfArgs) {
+          theCommands = getCommands();
+        }
+      }
+      return theCommands;
     }
-    findInvalidOptions();
-    if (!invalidOptions.isEmpty()) {
-      return new Commands(true, "Invalid option detected: \n" + errOut());
-    }
-    if (providedArgs.size() < this.validNumberOfArgs) {
-      return new Commands(true, "Not enough arguments provided: \n" + errOut());
-    }
-    if (providedArgs.size() > this.validNumberOfArgs)
-      return new Commands(true, "Too many arguments provided: \n" + errOut());
-    if (providedArgs.size() == this.validNumberOfArgs) {
-      return getCommands();
-    }
-    // Unknown error catcher
-    return new Commands(true, "unknown error");
   }
 
   // TODO Document getCommands()
@@ -75,26 +88,31 @@ public class CommandLineParser {
     int i;
     Commands commands = new Commands(false, "no error");
     Option fromOptions;
-    Command toCommands = null;
+    Command toCommands;
     for (i = 0; i < providedOptions.size(); ++i) {
       fromOptions = validOptions.getOption(providedOptions.get(i));
-      if (fromOptions.hasArgs()) {
-        toCommands = new Command(fromOptions.getName(), fromOptions.hasArgs(), toParse.get(i + 1));
-      } else {
-        toCommands = new Command(fromOptions.getName(), fromOptions.hasArgs());
+      if (fromOptions != null) {
+        if (fromOptions.hasArgs()) {
+          toCommands = new Command(fromOptions.getName(), fromOptions.hasArgs(), toParse.get(i + 1));
+          claimedArgs.add(toParse.get(i + 1));
+          providedArgs.remove(toParse.get(i + 1));
+        } else {
+          toCommands = new Command(fromOptions.getName(), fromOptions.hasArgs());
+        }
+        commands.add(toCommands);
       }
-      commands.add(toCommands);
     }
     return commands;
   }
 
   // TODO document findInvalidOptions()
-  private void findInvalidOptions() {
+  private boolean findInvalidOptions() {
     for (String option : providedOptions) {
       if (!validOptions.getList().contains(option)) {
         invalidOptions.add(option);
       }
     }
+    return !invalidOptions.isEmpty();
   }
 
   // TODO document errOut()
@@ -107,8 +125,8 @@ public class CommandLineParser {
                     .append(option)
                     .append(invalidOptions.contains(option) ? " <-Invalid" : ""));
 
-    errMsg.append("\n\tArguments Expected: ").append(this.validNumberOfArgs)
-            .append("Found: ").append(providedArgs.size());
+    errMsg.append("\n\tArguments Expected: ").append(this.minNumOfArgs)
+            .append(" Found: ").append(providedArgs.size());
 
     providedArgs
             .forEach(arg -> errMsg
@@ -134,6 +152,10 @@ public class CommandLineParser {
 
   public ArrayList<String> getToParse() {
     return toParse;
+  }
+
+  public ArrayList<String> getClaimedArgs() {
+    return claimedArgs;
   }
 }
 

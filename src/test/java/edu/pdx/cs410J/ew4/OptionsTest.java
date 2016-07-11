@@ -57,11 +57,27 @@ public class OptionsTest {
     Options options = new Options(optionWithOutArgs, optionWithArg);
     assertThat(options.toString(), containsString(optionWithArg.toString()));
     assertThat(options.toString(), containsString(optionWithOutArgs.toString()));
-    System.out.print(options.toString());
+//    System.out.print(options.toString());
   }
 
   @Test
   public void attemptingToPrintAnEmptyOptionsListReturnsStringStatingItsEmpty() {
     assertThat(emptyOptionsList.toString(), containsString("Options list is empty"));
+  }
+
+  @Test
+  public void canTellHowManyOptionsHaveArguments() {
+    Options options = new Options(optionWithOutArgs, optionWithArg);
+    Options validOptions = new Options();
+    Option optionWithOutArgs = new Option("testNoArg", false, "this test option takes no arguments");
+    Option optionWithArg = new Option("testArg", true, "this option takes arguments");
+    validOptions.addOption(optionWithArg);
+    validOptions.addOption(optionWithOutArgs);
+    assertThat(emptyOptionsList.numWArgs(), equalTo(0));
+    assertThat(emptyOptionsList.numWOArgs(), equalTo(0));
+    assertThat(options.numWArgs(), equalTo(1));
+    assertThat(options.numWOArgs(), equalTo(1));
+    assertThat(validOptions.numWArgs(), equalTo(1));
+    assertThat(validOptions.numWOArgs(), equalTo(1));
   }
 }

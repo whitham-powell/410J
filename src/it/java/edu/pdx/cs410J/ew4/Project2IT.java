@@ -1,17 +1,17 @@
 package edu.pdx.cs410J.ew4;
 
 import edu.pdx.cs410J.InvokeMainTestCase;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 import static java.lang.System.err;
 import static java.lang.System.out;
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * TODO document test class
@@ -46,35 +46,46 @@ public class Project2IT extends InvokeMainTestCase {
     boolean passedProject1Tests = true;
     int numberOfPassingTests = 0;
     int totalNumberOfTest = 0;
+    int totalIgnoredTests = 0;
+    ArrayList<String> failedTests = new ArrayList<>();
     try {
       Method[] allMethods = p1IT.getClass().getDeclaredMethods();
       totalNumberOfTest = allMethods.length - 1; // less one helper function
+      out.format("Project 1 Unit Test: %n");
       for (Method m : allMethods) {
-        if (m.isAnnotationPresent(Test.class)) {
+        if (m.isAnnotationPresent(Ignore.class)) {
+          ++totalIgnoredTests;
+        }
+        if (m.isAnnotationPresent(Test.class) && !m.isAnnotationPresent(Ignore.class)) {
           String mName = m.getName();
-          out.format("Project 1 Unit Test: %s()%n", mName);
           try {
             m.setAccessible(true);
             m.invoke(p1IT);
-            out.format("%s passed %n", mName);
+            out.format("%s() PASSED %n", mName);
             ++numberOfPassingTests;
             // Handle any exceptions thrown by method to be invoked.
           } catch (InvocationTargetException x) {
             Throwable cause = x.getCause();
-            err.format("%s failed: %s%n",
+            err.format("%s() %n FAILED: %s%n",
                     mName, cause.getMessage());
             passedProject1Tests = false;
+            failedTests.add(mName);
           }
         }
-        out.format("%d out of %d tests passing%n", numberOfPassingTests, totalNumberOfTest);
       }
     } catch (IllegalAccessException e) {
       Throwable cause = e.getCause();
       err.format("Exception thrown: %s %n Caused by: %s %n",
               e.getMessage(), cause.getMessage());
     }
+    out.format("%d out of %d tests passing%n (ignored %d)"
+            , numberOfPassingTests, totalNumberOfTest, totalIgnoredTests);
+    if (numberOfPassingTests < totalNumberOfTest - totalIgnoredTests) {
+      err.println("failed tests: ");
+      failedTests.forEach(err::println);
+    }
     assertTrue("failed one or more project1 tests", passedProject1Tests);
-    assertEquals(numberOfPassingTests, totalNumberOfTest);
+    assertEquals(numberOfPassingTests, totalNumberOfTest - totalIgnoredTests);
   }
 
   @Test
@@ -85,4 +96,9 @@ public class Project2IT extends InvokeMainTestCase {
     assertThat(result.getOut(), containsString("Dates and times should be in the format: mm/dd/yyyy hh:mm\n"));
 
   }
+
+  //TODO detects multiple options
+  //TODO detects tooManyArguments
+  //TODO detects option after appointment info
+
 }

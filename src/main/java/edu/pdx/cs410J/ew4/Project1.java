@@ -169,7 +169,7 @@ public class Project1 {
     }
 
     if (providedInfo.size() < 6 && providedInfo.size() > 0) {
-      System.err.println("Missing command line arguments: " + args.length + " provided: \n");
+      System.err.println("Not enough arguments: " + args.length + " provided: \n");
       for (String arg : args) {
         System.out.println("\t" + arg + "\n");
       }

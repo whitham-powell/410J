@@ -82,8 +82,6 @@ public class CommandLineParserTest {
 
   //TODO usage printer
 
-  //TODO if parser is successful return a set of commands?
-
   @Test
   public void theParserReturnsASetOfCommandsToExecute() {
     String[] args = {"-testNoArg", "-testArg", "an argument", "notAnOption"};
@@ -99,4 +97,39 @@ public class CommandLineParserTest {
     assertThat(parsed.getOptionValue("testArg"), containsString("an argument"));
   }
 
+  @Test
+  public void commandLineParserGetArgumentsReturnsCorrectSizedList() {
+    String[] args = {"-testNoArg", "-testArg", "an argument", "notAnOption", "another non option argument"};
+    validOptions = new Options();
+    Option optionWithOutArgs = new Option("testNoArg", false, "this test option takes no arguments");
+    Option optionWithArg = new Option("testArg", true, "this option takes arguments");
+    validOptions.addOption(optionWithArg);
+    validOptions.addOption(optionWithOutArgs);
+    CommandLineParser clp = new CommandLineParser(validOptions, args);
+    Commands parsed = clp.parse(2, 3);
+    assertThat(clp.getProvidedArgs().isEmpty(), is(false));
+    assertThat(clp.getToParse().size(), equalTo(5));
+    assertThat(clp.getProvidedOptions().size(), equalTo(2));
+    assertThat(clp.getClaimedArgs().size(), equalTo(1));
+    assertThat(clp.getProvidedArgs().size(), equalTo(2));
+  }
+
+  @Test
+  public void commandLineParserCanDecideHowManyArgumentsShouldExistBasedOnNumberOfOptionsWithArguments() {
+    String[] args = {"-testNoArg", "notAnOption", "another non option argument"};
+    validOptions = new Options();
+    Option optionWithOutArgs = new Option("testNoArg", false, "this test option takes no arguments");
+    Option optionWithArg = new Option("testArg", true, "this option takes arguments");
+    validOptions.addOption(optionWithArg);
+    validOptions.addOption(optionWithOutArgs);
+//    System.out.println(validOptions.count());
+//    System.out.println(validOptions.numWArgs());
+    CommandLineParser clp = new CommandLineParser(validOptions, args);
+    Commands parsed = clp.parse(2, 3);
+    assertThat(clp.getProvidedArgs().isEmpty(), is(false));
+//    System.out.print(parsed.getErrorMessage());
+    assertThat(parsed.hasError(), is(false));
+    assertThat(parsed.hasOption("testNoArg"), is(true));
+    assertThat(parsed.hasOption("testArg"), is(false));
+  }
 }
