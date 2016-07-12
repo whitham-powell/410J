@@ -83,4 +83,61 @@ public class TextParserTest {
     }
     assertThat("Exception was not caught", caughtException);
   }
+
+  @Test
+  public void badFormattingOfDate() {
+    String testFileName = "badDateFormat.txt";
+    File testFile = new File(testFileName);
+    assertThat("Existence of test file", testFile.exists(), is(true));
+    assertThat("Can read test file", testFile.canRead(), is(true));
+    TextParser textParser = new TextParser(testFileName, "Evan");
+    boolean caughtException = false;
+    try {
+      AbstractAppointmentBook parsedBook = textParser.parse();
+    } catch (ParserException e) {
+      caughtException = true;
+//      System.out.println(e.getMessage());
+      assertThat(e.getMessage(), containsString("Invalid formatting"));
+      assertThat(e.getMessage(), containsString("Bad Date"));
+      assertThat(e.getMessage(), containsString("7"));
+    }
+    assertThat("Exception was not caught", caughtException);
+  }
+
+  @Test
+  public void badFormattingOfTime() {
+    String testFileName = "badTimeFormat.txt";
+    File testFile = new File(testFileName);
+    assertThat("Existence of test file", testFile.exists(), is(true));
+    assertThat("Can read test file", testFile.canRead(), is(true));
+    TextParser textParser = new TextParser(testFileName, "Evan");
+    boolean caughtException = false;
+    try {
+      AbstractAppointmentBook parsedBook = textParser.parse();
+    } catch (ParserException e) {
+      caughtException = true;
+//      System.out.println(e.getMessage());
+      assertThat(e.getMessage(), containsString("Invalid formatting"));
+      assertThat(e.getMessage(), containsString("Bad Time"));
+      assertThat(e.getMessage(), containsString("9"));
+    }
+    assertThat("Exception was not caught", caughtException);
+  }
+
+  @Test
+  public void parsingEndedSuddenlyMissingDataButCorrectFormatting() {
+    String testFileName = "parseEndsSoonerThanExpected.txt";
+    File testFile = new File(testFileName);
+    assertThat("Existence of test file", testFile.exists(), is(true));
+    assertThat("Can read test file", testFile.canRead(), is(true));
+    TextParser textParser = new TextParser(testFileName, "Evan");
+    boolean caughtException = false;
+    try {
+      AbstractAppointmentBook parsedBook = textParser.parse();
+    } catch (ParserException e) {
+      caughtException = true;
+      System.out.println(e.getMessage());
+    }
+    assertThat("Exception was not caught", caughtException);
+  }
 }

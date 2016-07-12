@@ -63,6 +63,7 @@ public class TextDumper implements AppointmentBookDumper {
       sb.append(asAppointment.getBeginTimeString()).append("\n");
       sb.append(asAppointment.getEndTimeString()).append("\n");
     }
+    //TODO fix inconsitancy of date and time string format
     return sb.toString();
   }
 

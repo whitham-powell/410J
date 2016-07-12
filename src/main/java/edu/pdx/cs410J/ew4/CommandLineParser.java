@@ -63,7 +63,7 @@ public class CommandLineParser {
     } else {
       if (providedOptions.contains("README")) {
         theCommands = new Commands(false, "-README found in options");
-        theCommands.add(new Command("README"));
+        theCommands.add(new Commands.Command("README"));
         return theCommands;
       } else {
         if (findInvalidOptions()) {
@@ -87,17 +87,17 @@ public class CommandLineParser {
   private Commands getCommands() {
     int i;
     Commands commands = new Commands(false, "no error");
-    Option fromOptions;
-    Command toCommands;
+    Options.Option fromOptions;
+    Commands.Command toCommands;
     for (i = 0; i < providedOptions.size(); ++i) {
       fromOptions = validOptions.getOption(providedOptions.get(i));
       if (fromOptions != null) {
         if (fromOptions.hasArgs()) {
-          toCommands = new Command(fromOptions.getName(), fromOptions.hasArgs(), toParse.get(i + 1));
+          toCommands = new Commands.Command(fromOptions.getName(), fromOptions.hasArgs(), toParse.get(i + 1));
           claimedArgs.add(toParse.get(i + 1));
           providedArgs.remove(toParse.get(i + 1));
         } else {
-          toCommands = new Command(fromOptions.getName(), fromOptions.hasArgs());
+          toCommands = new Commands.Command(fromOptions.getName(), fromOptions.hasArgs());
         }
         commands.add(toCommands);
       }

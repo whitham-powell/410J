@@ -12,14 +12,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class OptionsTest {
   private Options emptyOptionsList;
-  private Option optionWithArg;
-  private Option optionWithOutArgs;
+  private Options.Option optionWithArg;
+  private Options.Option optionWithOutArgs;
 
 
   @Before
   public void setUp() {
-    optionWithOutArgs = new Option("testNoArg", false, "this test option takes no arguments");
-    optionWithArg = new Option("testArg", true, "this option takes arguments");
+    optionWithOutArgs = new Options.Option("testNoArg", false, "this test option takes no arguments");
+    optionWithArg = new Options.Option("testArg", true, "this option takes arguments");
     emptyOptionsList = new Options();
   }
 
@@ -36,7 +36,7 @@ public class OptionsTest {
 
   @Test
   public void optionsCountReturnsCorrectNumberOfOptions() {
-    Options options = new Options(optionWithArg, optionWithOutArgs, new Option("optionThree"));
+    Options options = new Options(optionWithArg, optionWithOutArgs, new Options.Option("optionThree"));
     assertThat(emptyOptionsList.count(), is(0));
     assertThat(options.count(), is(3));
   }
@@ -69,8 +69,8 @@ public class OptionsTest {
   public void canTellHowManyOptionsHaveArguments() {
     Options options = new Options(optionWithOutArgs, optionWithArg);
     Options validOptions = new Options();
-    Option optionWithOutArgs = new Option("testNoArg", false, "this test option takes no arguments");
-    Option optionWithArg = new Option("testArg", true, "this option takes arguments");
+    Options.Option optionWithOutArgs = new Options.Option("testNoArg", false, "this test option takes no arguments");
+    Options.Option optionWithArg = new Options.Option("testArg", true, "this option takes arguments");
     validOptions.addOption(optionWithArg);
     validOptions.addOption(optionWithOutArgs);
     assertThat(emptyOptionsList.numWArgs(), equalTo(0));

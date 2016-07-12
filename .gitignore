@@ -26,3 +26,6 @@ hs_err_pid*
 /test.txt
 /tooFewLinesTest.txt
 /missingQuotesOnDescription.txt
+/badDateFormat.txt
+/badTimeFormat.txt
+/parseEndsSoonerThanExpected.txt

@@ -12,12 +12,12 @@ public class CommandsTest {
 
   @Test
   public void commandsClassCanBeBuiltUsingVarArgOptions() {
-    Option optionWithOutArgs = new Option("testNoArg", false, "this test option takes no arguments");
-    Option optionWithArg = new Option("testArg", true, "this option takes arguments");
+    Options.Option optionWithOutArgs = new Options.Option("testNoArg", false, "this test option takes no arguments");
+    Options.Option optionWithArg = new Options.Option("testArg", true, "this option takes arguments");
     Options emptyOptionsList = new Options();
     Commands commands;
-    Command c1 = new Command(optionWithArg.getName(), optionWithArg.hasArgs());
-    Command c2 = new Command(optionWithOutArgs.getName(), optionWithOutArgs.hasArgs());
+    Commands.Command c1 = new Commands.Command(optionWithArg.getName(), optionWithArg.hasArgs());
+    Commands.Command c2 = new Commands.Command(optionWithOutArgs.getName(), optionWithOutArgs.hasArgs());
     commands = new Commands(c1, c2);
     assertThat(commands.hasOption("testNoArg"), is(true));
   }

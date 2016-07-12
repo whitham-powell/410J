@@ -3,7 +3,7 @@ package edu.pdx.cs410J.ew4;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
+/** //TODO document commands class
  * Created by edub629 on 7/4/16.
  */
 public class Commands {
@@ -45,5 +45,50 @@ public class Commands {
   public String getOptionValue(String optionName) {
     int index = this.commands.indexOf(new Command(optionName));
     return this.commands.get(index).getArgument();
+  }
+
+  /**
+   * TODO Document Command Class
+   * Created by edub629 on 7/4/16.
+   */
+
+  //TODO make test class
+  public static class Command extends Options.Option {
+    private String argument;
+
+    public Command(String optionName, boolean hasArgs, String description, String argument) {
+      super(optionName, hasArgs, description);
+      this.argument = argument;
+    }
+
+    public Command(String optionName, boolean hasArgs, String argument) {
+      super(optionName, hasArgs);
+      this.argument = argument;
+    }
+
+    public Command(String optionName, boolean hasArgs) {
+      super(optionName, hasArgs);
+    }
+
+    public Command(String optionName, String argument) {
+      super(optionName);
+      this.argument = argument;
+    }
+
+    public Command(String optionName) {
+      super(optionName);
+    }
+
+    public Command() {
+
+    }
+
+    public String getArgument() {
+      if (hasArgs()) {
+        return argument;
+      } else {
+        return null;
+      }
+    }
   }
 }

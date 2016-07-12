@@ -39,21 +39,27 @@ public class TextParser implements AppointmentBookParser {
       String ownerName = reader.readLine();
       List<String> lineListing = reader.lines().collect(Collectors.toList());
       ListIterator<String> iterator = lineListing.listIterator();
+
+      //TODO check mismatch of supplied owner vs. found in file.
       AppointmentBook theBook = new AppointmentBook(ownerName);
+      InfoValidator validator;
 
       // If the line count is not divisible by 3 throw ParserException
       if (lineListing.size() % 3 != 0) {
         throw new ParserException("Bad Formatting: Line count indicates missing data");
       }
 
-      //TODO bad time formatting throw exception
 
       String description;
       String beginTimeString;
       String endTimeString;
+      int lineNumber = 1;
+
+      // Iterator through the files contents
       while (iterator.hasNext()) {
         if (iterator.hasNext()) {
           description = iterator.next();
+          ++lineNumber;
           if (!description.startsWith("\"") || !description.endsWith("\"")) {
             throw new ParserException("Bad Formatting - Missing \"\" around description");
           }
@@ -64,12 +70,24 @@ public class TextParser implements AppointmentBookParser {
         }
         if (iterator.hasNext()) {
           beginTimeString = iterator.next();
+          ++lineNumber;
+          validator = new InfoValidator().validate(beginTimeString);
+          if (validator.hasFailed()) {
+            throw new ParserException(validator.getErrMsg() + " On line : " + lineNumber +
+                    "\n" + beginTimeString);
+          }
         } else {
           throw new ParserException("Hit end of file listing too soon - Expected an Appointment Begin Time\n" +
                   "Last read : " + iterator.previous());
         }
         if (iterator.hasNext()) {
           endTimeString = iterator.next();
+          ++lineNumber;
+          validator = new InfoValidator().validate(endTimeString);
+          if (validator.hasFailed()) {
+            throw new ParserException(validator.getErrMsg() + " On line : " + lineNumber +
+                    "\n" + endTimeString);
+          }
         } else {
           throw new ParserException("Hit end of file listing too soon - Expected an Appointment End Time\n" +
                   "Last read : " + iterator.previous());

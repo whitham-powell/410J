@@ -86,8 +86,8 @@ public class CommandLineParserTest {
   public void theParserReturnsASetOfCommandsToExecute() {
     String[] args = {"-testNoArg", "-testArg", "an argument", "notAnOption"};
     validOptions = new Options();
-    Option optionWithOutArgs = new Option("testNoArg", false, "this test option takes no arguments");
-    Option optionWithArg = new Option("testArg", true, "this option takes arguments");
+    Options.Option optionWithOutArgs = new Options.Option("testNoArg", false, "this test option takes no arguments");
+    Options.Option optionWithArg = new Options.Option("testArg", true, "this option takes arguments");
     validOptions.addOption(optionWithArg);
     validOptions.addOption(optionWithOutArgs);
     CommandLineParser clp = new CommandLineParser(validOptions, args);
@@ -101,8 +101,8 @@ public class CommandLineParserTest {
   public void commandLineParserGetArgumentsReturnsCorrectSizedList() {
     String[] args = {"-testNoArg", "-testArg", "an argument", "notAnOption", "another non option argument"};
     validOptions = new Options();
-    Option optionWithOutArgs = new Option("testNoArg", false, "this test option takes no arguments");
-    Option optionWithArg = new Option("testArg", true, "this option takes arguments");
+    Options.Option optionWithOutArgs = new Options.Option("testNoArg", false, "this test option takes no arguments");
+    Options.Option optionWithArg = new Options.Option("testArg", true, "this option takes arguments");
     validOptions.addOption(optionWithArg);
     validOptions.addOption(optionWithOutArgs);
     CommandLineParser clp = new CommandLineParser(validOptions, args);
@@ -118,8 +118,8 @@ public class CommandLineParserTest {
   public void commandLineParserCanDecideHowManyArgumentsShouldExistBasedOnNumberOfOptionsWithArguments() {
     String[] args = {"-testNoArg", "notAnOption", "another non option argument"};
     validOptions = new Options();
-    Option optionWithOutArgs = new Option("testNoArg", false, "this test option takes no arguments");
-    Option optionWithArg = new Option("testArg", true, "this option takes arguments");
+    Options.Option optionWithOutArgs = new Options.Option("testNoArg", false, "this test option takes no arguments");
+    Options.Option optionWithArg = new Options.Option("testArg", true, "this option takes arguments");
     validOptions.addOption(optionWithArg);
     validOptions.addOption(optionWithOutArgs);
 //    System.out.println(validOptions.count());

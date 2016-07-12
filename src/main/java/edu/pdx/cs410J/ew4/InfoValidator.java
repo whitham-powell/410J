@@ -30,6 +30,10 @@ public class InfoValidator {
     return aL.toArray(new String[info.length]);
   }
 
+  public InfoValidator() {
+    this.info = null;
+  }
+
   public InfoValidator(String[] info) {
     this.info = info;
     StringBuilder errReason = new StringBuilder();
@@ -101,5 +105,27 @@ public class InfoValidator {
 
   public boolean hasFailed() {
     return hasFailed;
+  }
+
+  public InfoValidator validate(String toValidate) {
+    StringBuilder errReason = new StringBuilder("Invalid formatting :");
+
+    // Check date formatting of beginTimeString
+    if (!(toValidate.split(" "))[0].matches("\\d{1,2}\\/\\d{1,2}\\/\\d{4}")) {
+      errReason.append(" Bad Date \n");
+      this.errCode = 1;
+      this.hasFailed = true;
+    }
+
+    // Check time formatting of beginTimeString
+    if (!(toValidate.split(" "))[1].matches("\\d{1,2}\\:\\d{2}")) {
+      errReason.append(" Bad Time \n");
+      this.errCode = 1;
+      this.hasFailed = true;
+    }
+
+    this.errMsg = errReason.toString();
+
+    return this;
   }
 }

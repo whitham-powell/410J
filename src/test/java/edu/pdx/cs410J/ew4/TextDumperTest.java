@@ -55,16 +55,7 @@ public class TextDumperTest {
     }
 
     try (BufferedReader reader = new BufferedReader(new FileReader(textDumper.file))) {
-      String thisString = testBook.getOwnerName() + "\n" + textDumper.makeAppointmentsString(testBook);/* +
-              "\"" + testAppointment.getDescription() + "\"" + "\n" +
-              testAppointment.getBeginTimeString() + "\n" +
-              testAppointment.getEndTimeString() + "\n" +
-              "\"" + testAppointment2.getDescription() + "\"" + "\n" +
-              testAppointment2.getBeginTimeString() + "\n" +
-              testAppointment2.getEndTimeString() + "\n" +
-              "\"" + testAppointment3.getDescription() + "\"" + "\n" +
-              testAppointment3.getBeginTimeString() + "\n" +
-              testAppointment3.getEndTimeString() + "\n";*/
+      String thisString = testBook.getOwnerName() + "\n" + textDumper.makeAppointmentsString(testBook);
       StringBuilder testString = new StringBuilder();
       while ((line = reader.readLine()) != null) {
         testString.append(line).append("\n");
