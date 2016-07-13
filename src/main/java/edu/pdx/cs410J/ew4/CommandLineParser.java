@@ -2,6 +2,8 @@ package edu.pdx.cs410J.ew4;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.stream.Collectors;
 
 /**
@@ -88,15 +90,16 @@ public class CommandLineParser {
           theCommands = new Commands(true, "Invalid option detected: \n" + errOut());
           return theCommands;
         }
-
-
-        if (providedArgs.size() < this.minNumOfArgs) {
+        theCommands = getCommands();
+        if (theCommands.hasError()) {
+          return theCommands;
+        }
+        if (providedArgs.size() + claimedArgs.size() < this.minNumOfArgs) {
           theCommands = new Commands(true, "Not enough arguments provided: \n" + errOut());
         }
-        if (providedArgs.size() > this.maxNumOfArgs) {
-
+        if (providedArgs.size() + claimedArgs.size() > this.maxNumOfArgs) {
           theCommands = new Commands(true, "Too many arguments provided: \n" + errOut());
-        } else if (providedArgs.size() >= this.minNumOfArgs) {
+        } else if (providedArgs.size() + claimedArgs.size() >= this.minNumOfArgs) {
           theCommands = getCommands();
         }
       }
@@ -128,15 +131,15 @@ public class CommandLineParser {
         commands.add(toCommands);
       }
     }
-//    if ((providedArgs.size() + providedOptions.size() + claimedArgs.size() ) < toParse.size()) {
-//      StringBuilder sb = new StringBuilder();
-//      List<String> extraCmdLineStrings = toParse.subList(0, toParse.size());
-//      ListIterator<String> li = extraCmdLineStrings.listIterator(argsEndedHere);
-//      while (li.hasNext()) {
-//        sb.append(li.next());
-//      }
-//      return new Commands(true, "Erroneous option or argument at end of command line\n" + sb.toString());
-//    }
+    if ((providedArgs.size() + providedOptions.size() + claimedArgs.size()) < toParse.size()) {
+      StringBuilder sb = new StringBuilder();
+      List<String> extraCmdLineStrings = toParse.subList(0, toParse.size());
+      ListIterator<String> li = extraCmdLineStrings.listIterator(argsEndedHere);
+      while (li.hasNext()) {
+        sb.append(li.next());
+      }
+      return new Commands(true, "Erroneous option or argument at end of command line\n" + sb.toString());
+    }
     return commands;
   }
 

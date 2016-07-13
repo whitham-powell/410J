@@ -103,7 +103,7 @@ public class Project2IT extends InvokeMainTestCase {
     String[] testArgs = {"Steve", "Test", "Description", "06/29/2016", "4:00", "06/29/2016", "16:00"};
     MainMethodResult result = invokeMain(testArgs);
     assertThat(result.getExitCode(), is(1));
-    System.out.println(result.getErr());
+//    System.out.println(result.getErr());
 
   }
 

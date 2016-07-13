@@ -55,6 +55,10 @@ public class Project2 extends Project1 {
     CommandLineParser commandLine = new CommandLineParser(options, args);
     Commands commands = commandLine.parse(numberOfOptions, numberOfExpectedArguments);
 
+//    err.println(numberOfExpectedArguments);
+//    err.println(commandLine.getProvidedArgs().size());
+//    err.println(commandLine.getProvidedOptions().size());
+
     // Check for README flag special case to exit
     if (commands.hasOption("README")) {
       out.print(README + "\n" + USAGE + "Dates and times should be in the format: mm/dd/yyyy hh:mm\n");
