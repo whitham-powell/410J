@@ -105,8 +105,8 @@ public class TextParserTest {
   public void badFormattingOfTime() {
     String testFileName = "badTimeFormat.txt";
     File testFile = new File(testFileName);
-    assertThat("Existence of test file", testFile.exists(), is(true));
     assertThat("Can read test file", testFile.canRead(), is(true));
+    assertThat("Existence of test file", testFile.exists(), is(true));
     TextParser textParser = new TextParser(testFileName, "Evan");
     boolean caughtException = false;
     try {
@@ -137,4 +137,22 @@ public class TextParserTest {
     }
     assertThat("Exception was not caught", caughtException);
   }
+
+  @Test
+  public void invalidOwnerNameResultsInParsingException() {
+    String testFileName = "badTimeFormat.txt";
+    File testFile = new File(testFileName);
+    assertThat("Can read test file", testFile.canRead(), is(true));
+    assertThat("Existence of test file", testFile.exists(), is(true));
+    TextParser textParser = new TextParser(testFileName, "Not Evan");
+    boolean caughtException = false;
+    try {
+      AbstractAppointmentBook parsedBook = textParser.parse();
+    } catch (ParserException e) {
+      caughtException = true;
+      assertThat(e.getMessage(), containsString("Owners name does not match."));
+    }
+    assertThat("Exception was not caught", caughtException);
+  }
+
 }

@@ -10,8 +10,9 @@ import java.util.ListIterator;
 import java.util.stream.Collectors;
 
 /**
- * TODO document class
- * Created by edub629 on 7/8/16.
+ * This class opens text file reading in data to be added to an <code>AppointmentBook</code>
+ * This implements <code>AppointmentBookParser</code> interface.
+ * @author Elijah Whitham-Powell
  */
 public class TextParser implements AppointmentBookParser {
   private String bookOwner;
@@ -19,6 +20,12 @@ public class TextParser implements AppointmentBookParser {
   private String fileName;
   private File file;
 
+  /**
+   * Instantiates a new Text parser.
+   *
+   * @param fileName  the file name
+   * @param bookOwner the book owner
+   */
   public TextParser(String fileName, String bookOwner) {
     this.fileName = fileName;
     this.file = new File(fileName);
@@ -40,7 +47,10 @@ public class TextParser implements AppointmentBookParser {
       List<String> lineListing = reader.lines().collect(Collectors.toList());
       ListIterator<String> iterator = lineListing.listIterator();
 
-      //TODO check mismatch of supplied owner vs. found in file.
+      if (!ownerName.contentEquals(this.bookOwner)) {
+        throw new ParserException("Owners name does not match.");
+      }
+
       AppointmentBook theBook = new AppointmentBook(ownerName);
       InfoValidator validator;
 
@@ -48,7 +58,6 @@ public class TextParser implements AppointmentBookParser {
       if (lineListing.size() % 3 != 0) {
         throw new ParserException("Bad Formatting: Line count indicates missing data");
       }
-
 
       String description;
       String beginTimeString;
@@ -96,12 +105,9 @@ public class TextParser implements AppointmentBookParser {
       }
       return theBook;
     } catch (FileNotFoundException e) {
-      return new AppointmentBook();
+      return new AppointmentBook(bookOwner);
     } catch (IOException e) {
       throw new ParserException(e.getCause().getMessage());
     }
   }
 }
-
-
-//TODO The owner name given on the command line is different than the one found in the text file

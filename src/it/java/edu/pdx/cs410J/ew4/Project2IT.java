@@ -28,7 +28,7 @@ public class Project2IT extends InvokeMainTestCase {
                   "   endTime      When the appt ends (24-hour time)\n";
   private static String OPTIONS =
           " options are (may appear in any order):\n" +
-                  "   -textFile" + "\t" + "< val >" + "\t" + "Where to read/write the appointment book\n" +
+                  "   -textFile" + " <file>" + "\t" + "Where to read/write the appointment book\n" +
                   "   -print" + "\t\t\t\t" + "Prints a description of the new appointment\n" +
                   "   -README" + "\t\t\t\t" + "Prints a README for this project along with the usage and exits\n";
 

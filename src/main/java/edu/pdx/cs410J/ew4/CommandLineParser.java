@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 /**
  * This handle the parsing of the command line and manages them information gathered in
  * <code>ArrayList</code> collections.
+ *
  * @author Elijah Whitham-Powell
  */
 
@@ -24,6 +25,12 @@ public class CommandLineParser {
   private Options validOptions;
   private int maxNumOfArgs;
 
+  /**
+   * Instantiates a new Command line parser.
+   *
+   * @param validOptions the valid options
+   * @param args         the args
+   */
   public CommandLineParser(Options validOptions, String[] args) {
     this.validOptions = validOptions;
     toParse = new ArrayList<>();
@@ -37,12 +44,15 @@ public class CommandLineParser {
   /**
    * Does the actual work of parsing the command line. This method uses its parameters to decide where in the command
    * line, the options and arguments should be located.
+   *
    * @param maxNumberOfOptions controls the loop to find options in the command line.
-   * @param maxNumberOfArgs controls the loop to find arguments in the command line.
+   * @param maxNumberOfArgs    controls the loop to find arguments in the command line.
    * @return {@link Commands} object either containing a collection of commands or the error that occurred while parsing.
    */
   public Commands parse(int maxNumberOfOptions, int maxNumberOfArgs) {
+
     Commands theCommands = new Commands(true, "never replaced within parse");
+
     // Commandline Argument Parsing
     int i = 0;
     int argsLength = toParse.size();
@@ -153,41 +163,44 @@ public class CommandLineParser {
     return errMsg.toString();
   }
 
+  /**
+   * Gets provided args.
+   *
+   * @return the provided args
+   */
   public ArrayList<String> getProvidedArgs() {
     return providedArgs;
   }
 
+  /**
+   * Gets provided options.
+   *
+   * @return the provided options
+   */
   public ArrayList<String> getProvidedOptions() {
     return providedOptions;
   }
 
+  /**
+   * Gets to parse.
+   *
+   * @return the to parse
+   */
   public ArrayList<String> getToParse() {
     return toParse;
   }
 
+  /**
+   * Gets claimed args.
+   *
+   * @return the claimed args
+   */
   public ArrayList<String> getClaimedArgs() {
     return claimedArgs;
   }
 }
 
-//
-//  public boolean isReadMe() {
-//    return providedOptions.contains("-README");
-//  }
-//
-//  public boolean isPrint() {
-//    return providedOptions.contains("-print");
-//  }
-//
-//
-//  public void invoke() {
-//
-//
-//    if (providedOptions.contains("-print")) {
-//      doPrint = true;
-//    }
-//
-//
+
 
 
 

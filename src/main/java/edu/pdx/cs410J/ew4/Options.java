@@ -68,6 +68,27 @@ class Options {
    *
    * @param optionName  the option
    * @param hasArg      the has argName
+   * @param arg         the arg
+   * @param description the description  @return the boolean
+   * @return the boolean
+   */
+  public boolean addOption(String optionName, boolean hasArg, String arg, String description) {
+    if (validOptions.add(new Option(optionName, hasArg, arg, description))) {
+      if (hasArg) {
+        ++numWArgs;
+      } else {
+        ++numWOArgs;
+      }
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Add option boolean.
+   *
+   * @param optionName  the option name
+   * @param hasArg      the has arg
    * @param description the description
    * @return the boolean
    */
@@ -194,8 +215,8 @@ class Options {
      *
      * @param name        the name
      * @param hasArgs     the has args
-     * @param description the description
      * @param argName     the argument name
+     * @param description the description
      */
     public Option(String name, boolean hasArgs, String argName, String description) {
       this.name = name;
@@ -236,7 +257,7 @@ class Options {
         StringBuilder sb = new StringBuilder("-");
         sb.append(name);
         if (hasArgs) {
-          sb.append("\t").append(this.argName);
+          sb.append(" <").append(this.argName).append(">\t");
         } else {
           sb.append("\t\t\t");
         }

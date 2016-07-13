@@ -2,7 +2,9 @@ package edu.pdx.cs410J.ew4;
 
 import edu.pdx.cs410J.AbstractAppointment;
 import edu.pdx.cs410J.AbstractAppointmentBook;
+import edu.pdx.cs410J.ParserException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static java.lang.System.err;
@@ -29,8 +31,9 @@ public class Project2 extends Project1 {
                   "Description: This project is a commandline application that creates an Appointment\n" +
                   "\t\t\t and adds it to an AppointmentBook based on the arguments provided via the\n" +
                   "\t\t\t command line. Appointment descriptions should be provided in double quotes. \n" +
-                  "\t\t\t The rest of the arguments should be provided separated by spaces.\n"
-                  + USAGE;
+                  "\t\t\t The rest of the arguments should be provided separated by spaces. \n" +
+                  "\t\t\t The appointment book can also be created from and saved to a text file provided\n" +
+                  "\t\t\t via the options list\n";
 
   public static void main(String[] args) {
     Project2 p2 = new Project2();
@@ -42,7 +45,7 @@ public class Project2 extends Project1 {
 
     // Set up list of Options
     Options options = new Options();
-    options.addOption("textFile", true, "Where to read/write the appointment book");
+    options.addOption("textFile", true, "file", "Where to read/write the appointment book");
     options.addOption("print", false, "Prints a description of the new appointment");
     options.addOption("README", false, "Prints a README for this project along with the usage and exits");
     int numberOfOptions = options.count();
@@ -54,7 +57,7 @@ public class Project2 extends Project1 {
 
     // Check for README flag special case to exit
     if (commands.hasOption("README")) {
-      out.print(README + USAGE);
+      out.print(README + "\n" + USAGE + "Dates and times should be in the format: mm/dd/yyyy hh:mm\n");
       out.print(options);
       System.exit(0);
     }
@@ -84,27 +87,35 @@ public class Project2 extends Project1 {
       err.print(validator.getErrMsg());
     }
 
-    // Clean up Appointment Dates and Times
-//    appointmentInfo = validator.cleanse();
-//    try {
-//      ((Appointment) appointment).setBeginTimeString(appointmentCleaner(appointment.getBeginTimeString()));
-//      ((Appointment) appointment).setEndTimeString(appointmentCleaner(appointment.getEndTimeString()));
-//    } catch(NullPointerException e) {
-//      err.println(e.getMessage() + " appointment date and time string was null before cleaning date and time");
-//    } catch (ParseException e) {
-//      err.println(e.getMessage() + " error attempting to clean appointment times");
-//    }
-
-    // Add Appointment to Owner's book
+    // Build new Appointment
     appointment = new Appointment(appointmentInfo);
-    appointmentBook = new AppointmentBook(appointmentOwner);
-    appointmentBook.addAppointment(appointment);
 
+    if (useFile) {
+      String fileName = commands.getOptionValue("textFile");
+      TextParser tp = new TextParser(fileName, appointmentOwner);
+
+      try {
+        appointmentBook = (AppointmentBook) tp.parse();
+        appointmentBook.addAppointment(appointment);
+      } catch (ParserException e) {
+        err.println(e.getMessage());
+      }
+      try {
+        TextDumper td = new TextDumper(fileName);
+        td.dump(appointmentBook);
+      } catch (IOException e) {
+        err.println(e.getMessage());
+      }
+    } else {
+
+      // Add Appointment to Owner's book
+      appointmentBook = new AppointmentBook(appointmentOwner);
+      appointmentBook.addAppointment(appointment);
+
+    }
     if (doPrint) {
       out.format("Owner: %s %nNewly Added Appointment: %n %s", appointmentBook.getOwnerName(), appointment);
     }
-    // TODO Add TextParser
-    // TODO Add TextDumper
     System.exit(exitCode);
   }
 
