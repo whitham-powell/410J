@@ -7,8 +7,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * TODO Document OptionsTest
- * Created by edub629 on 7/3/16.
+ * Unit tests for {@link Options} class.
  */
 public class OptionsTest {
   private Options emptyOptionsList;
@@ -70,7 +69,7 @@ public class OptionsTest {
     Options options = new Options(optionWithOutArgs, optionWithArg);
     Options validOptions = new Options();
     Options.Option optionWithOutArgs = new Options.Option("testNoArg", false, "this test option takes no arguments");
-    Options.Option optionWithArg = new Options.Option("testArg", true, "this option takes arguments");
+    Options.Option optionWithArg = new Options.Option("testArg", true, "", "this option takes arguments");
     validOptions.addOption(optionWithArg);
     validOptions.addOption(optionWithOutArgs);
     assertThat(emptyOptionsList.numWArgs(), equalTo(0));
@@ -80,4 +79,5 @@ public class OptionsTest {
     assertThat(validOptions.numWArgs(), equalTo(1));
     assertThat(validOptions.numWOArgs(), equalTo(1));
   }
+
 }

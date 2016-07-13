@@ -102,3 +102,6 @@ public class TextParser implements AppointmentBookParser {
     }
   }
 }
+
+
+//TODO The owner name given on the command line is different than the one found in the text file

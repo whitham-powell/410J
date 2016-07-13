@@ -2,21 +2,31 @@ package edu.pdx.cs410J.ew4;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
- * TODO Document Class Methods of Options
- * Created by edub629 on 7/3/16.
+ * Manages a collection of options to look for while parsing the command line.
+ *
+ * @author Elijah Whitham-Powell
  */
 class Options {
   private ArrayList<Option> validOptions;
   private int numWArgs = 0;
   private int numWOArgs = 0;
 
+  /**
+   * Instantiates a new Options.
+   */
   public Options() {
     validOptions = new ArrayList<Option>();
   }
 
 
+  /**
+   * Instantiates a new Options.
+   *
+   * @param options the options
+   */
   public Options(Option... options) {
     this.validOptions = new ArrayList<Option>();
     for (Option o : options) {
@@ -27,27 +37,42 @@ class Options {
       }
       this.validOptions.add(o);
     }
-//    Collections.addAll(this.validOptions, options);
   }
 
+  /**
+   * Gets list.
+   *
+   * @return the list
+   */
   public ArrayList<String> getList() {
     ArrayList<String> listOfOptionsString = new ArrayList<>();
     if (this.validOptions.isEmpty()) {
       return listOfOptionsString;
     } else {
-      for (Option thatValid : this.validOptions) {
-        listOfOptionsString.add(thatValid.getName());
-      }
+      listOfOptionsString.addAll(this.validOptions.stream().map(Option::getName).collect(Collectors.toList()));
       return listOfOptionsString;
     }
   }
 
+  /**
+   * Count int.
+   *
+   * @return the int
+   */
   public int count() {
     return this.validOptions.size();
   }
 
-  public boolean addOption(String option, boolean hasArg, String description) {
-    if (validOptions.add(new Option(option, hasArg, description))) {
+  /**
+   * Add option boolean.
+   *
+   * @param optionName  the option
+   * @param hasArg      the has argName
+   * @param description the description
+   * @return the boolean
+   */
+  public boolean addOption(String optionName, boolean hasArg, String description) {
+    if (validOptions.add(new Option(optionName, hasArg, description))) {
       if (hasArg) {
         ++numWArgs;
       } else {
@@ -58,6 +83,12 @@ class Options {
     return false;
   }
 
+  /**
+   * Add option boolean.
+   *
+   * @param option the option to be added.
+   * @return the boolean
+   */
   public boolean addOption(Option option) {
     if (validOptions.add(option)) {
       if (option.hasArgs()) {
@@ -70,6 +101,12 @@ class Options {
     return false;
   }
 
+  /**
+   * Gets option.
+   *
+   * @param s the option name to get.
+   * @return the option
+   */
   public Option getOption(String s) {
     int index = validOptions.indexOf(new Option(s));
     if (index != -1)
@@ -90,39 +127,89 @@ class Options {
     return sb.toString();
   }
 
+  /**
+   * Number of options with arguments.
+   *
+   * @return the int
+   */
   public int numWArgs() {
     return this.numWArgs;
   }
 
+  /**
+   * Number of options without arguments.
+   *
+   * @return the int
+   */
   public int numWOArgs() {
     return this.numWOArgs;
   }
 
   /**
-   * TODO Document Class Methods of Option
-   * Created by edub629 on 7/3/16.
+   * Inner class of <code>Options</code> manages the information for a single <code>Option</code>.
+   * Each option has a name, boolean of whether it takes an argument or not and a description.
+   *
+   * @author Elijah Whitham-Powell
    */
   public static class Option {
     private String name;
     private boolean hasArgs;
     private String description;
+    private String argName;
 
+    /**
+     * Instantiates a new Option.
+     */
     public Option() {
       this.name = null;
       this.hasArgs = false;
       this.description = null;
+      this.argName = null;
     }
 
+    /**
+     * Instantiates a new Option.
+     *
+     * @param optionName the option name
+     */
     public Option(String optionName) {
       this.name = optionName;
     }
 
+    /**
+     * Instantiates a new Option.
+     *
+     * @param optionName  the option name
+     * @param hasArgs     the has args
+     * @param description the description
+     */
     public Option(String optionName, boolean hasArgs, String description) {
       this.name = optionName;
       this.hasArgs = hasArgs;
       this.description = description;
     }
 
+    /**
+     * Instantiates a new Option.
+     *
+     * @param name        the name
+     * @param hasArgs     the has args
+     * @param description the description
+     * @param argName     the argument name
+     */
+    public Option(String name, boolean hasArgs, String argName, String description) {
+      this.name = name;
+      this.hasArgs = hasArgs;
+      this.argName = argName;
+      this.description = description;
+    }
+
+    /**
+     * Instantiates a new Option.
+     *
+     * @param optionName the option name
+     * @param hasArgs    the has args
+     */
     public Option(String optionName, boolean hasArgs) {
       this.name = optionName;
       this.hasArgs = hasArgs;
@@ -149,7 +236,7 @@ class Options {
         StringBuilder sb = new StringBuilder("-");
         sb.append(name);
         if (hasArgs) {
-          sb.append("\t< val >");
+          sb.append("\t").append(this.argName);
         } else {
           sb.append("\t\t\t");
         }
@@ -159,12 +246,31 @@ class Options {
       }
     }
 
+    /**
+     * Has arguments boolean.
+     *
+     * @return the boolean
+     */
     public boolean hasArgs() {
       return this.hasArgs;
     }
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
       return this.name;
+    }
+
+    /**
+     * Gets argument name.
+     *
+     * @return the argName
+     */
+    public String getArgName() {
+      return this.argName;
     }
   }
 }

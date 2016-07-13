@@ -3,11 +3,10 @@ package edu.pdx.cs410J.ew4;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * TODO Document
- * Created by edub629 on 7/3/16.
+ * Unit tests for {@link CommandLineParser}.
  */
 public class CommandLineParserTest {
   private Options validOptions;
@@ -80,7 +79,6 @@ public class CommandLineParserTest {
     assertThat(clp.parse(1, 2).getErrorMessage(), containsString("Missing command line arguments: "));
   }
 
-  //TODO usage printer
 
   @Test
   public void theParserReturnsASetOfCommandsToExecute() {
@@ -132,4 +130,7 @@ public class CommandLineParserTest {
     assertThat(parsed.hasOption("testNoArg"), is(true));
     assertThat(parsed.hasOption("testArg"), is(false));
   }
+
+  //TODO option placed at end of arg list raises failure
 }
+//TODO usage printer

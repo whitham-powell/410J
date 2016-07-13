@@ -14,7 +14,7 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
 
 /**
- * TODO document test class
+ * Integration tests for {@link Project2} main class.
  * Created by edub629 on 7/9/16
  */
 public class Project2IT extends InvokeMainTestCase {

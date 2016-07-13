@@ -8,8 +8,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-/**TODO Document Class
- * Created by edub629 on 7/7/16.
+/**
+ * The <code>TextDumper</code> class regulates the loading and creation of a file.
+ *
+ * @author Elijah Whitham-Powell
  */
 
 
@@ -19,14 +21,13 @@ public class TextDumper implements AppointmentBookDumper {
   protected String fileName;
   protected File file;
 
-  public TextDumper(String fileName) {
+  public TextDumper(String fileName) throws IOException {
     this.fileName = fileName;
     this.file = new File(fileName);
     try {
       this.didCreate = this.file.createNewFile();
     } catch (IOException e) {
-      e.printStackTrace();
-      this.didCreate = false;
+      throw new IOException("Failed to create file" + e.getMessage());
     }
   }
 
@@ -44,14 +45,14 @@ public class TextDumper implements AppointmentBookDumper {
       writer.write(outString);
       writer.close();
     } catch (IOException e) {
-      throw new IOException("failed to create buffered file writer" + this.file.exists());
+      throw new IOException("failed to create buffered file writer" + this.fileName);
     }
   }
 
   /**
-   * //TODO document makeAppointmentsString
+   * Collects all of the appointments of a book and builds a string formatted for dumping
    *
-   * @param book
+   * @param book <code>AppointmentBook</code> containing appointments to dump.
    * @return
    */
   public String makeAppointmentsString(AbstractAppointmentBook book) {
@@ -63,7 +64,6 @@ public class TextDumper implements AppointmentBookDumper {
       sb.append(asAppointment.getBeginTimeString()).append("\n");
       sb.append(asAppointment.getEndTimeString()).append("\n");
     }
-    //TODO fix inconsitancy of date and time string format
     return sb.toString();
   }
 

@@ -2,9 +2,12 @@ package edu.pdx.cs410J.ew4;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 /**
- * TODO Document Class Methods
+ * This handle the parsing of the command line and manages them information gathered in
+ * <code>ArrayList</code> collections.
+ * @author Elijah Whitham-Powell
  */
 
 
@@ -32,15 +35,14 @@ public class CommandLineParser {
   }
 
   /**
-   * TODO Document parse function
-   *
-   * @param maxNumberOfOptions
-   * @param maxNumberOfArgs
-   * @return
+   * Does the actual work of parsing the command line. This method uses its parameters to decide where in the command
+   * line, the options and arguments should be located.
+   * @param maxNumberOfOptions controls the loop to find options in the command line.
+   * @param maxNumberOfArgs controls the loop to find arguments in the command line.
+   * @return {@link Commands} object either containing a collection of commands or the error that occurred while parsing.
    */
   public Commands parse(int maxNumberOfOptions, int maxNumberOfArgs) {
     Commands theCommands = new Commands(true, "never replaced within parse");
-
     // Commandline Argument Parsing
     int i = 0;
     int argsLength = toParse.size();
@@ -83,7 +85,12 @@ public class CommandLineParser {
     }
   }
 
-  // TODO Document getCommands()
+  /**
+   * Helper method to the main Parse method. builds a Commands object from the command line including grabbing Commands
+   * that themselves take an argument
+   *
+   * @return {@link Commands} object either containing a collection of commands or the error that occurred while parsing.
+   */
   private Commands getCommands() {
     int i;
     Commands commands = new Commands(false, "no error");
@@ -105,25 +112,29 @@ public class CommandLineParser {
     return commands;
   }
 
-  // TODO document findInvalidOptions()
+  /**
+   * Helper method to traverse the providedOptions looking for invalid options.
+   * @return boolean of found invalid options
+   */
   private boolean findInvalidOptions() {
-    for (String option : providedOptions) {
-      if (!validOptions.getList().contains(option)) {
-        invalidOptions.add(option);
-      }
-    }
+    invalidOptions.addAll(providedOptions
+            .stream()
+            .filter(option -> !validOptions.getList().contains(option))
+            .collect(Collectors.toList()));
     return !invalidOptions.isEmpty();
   }
 
-  // TODO document errOut()
+  /**
+   * Builds a string indicating what went wrong while parsing the command line
+   * @return String error message
+   */
   private String errOut() {
     StringBuilder errMsg = new StringBuilder("Detected:");
     errMsg.append("\n\tDetected Options:");
-    providedOptions
-            .forEach(option -> errMsg
-                    .append("\n\t\t")
-                    .append(option)
-                    .append(invalidOptions.contains(option) ? " <-Invalid" : ""));
+    providedOptions.forEach(option -> errMsg
+            .append("\n\t\t")
+            .append(option)
+            .append(invalidOptions.contains(option) ? " <-Invalid" : ""));
 
     errMsg.append("\n\tArguments Expected: ").append(this.minNumOfArgs)
             .append(" Found: ").append(providedArgs.size());

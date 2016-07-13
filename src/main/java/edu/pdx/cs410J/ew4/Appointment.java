@@ -58,19 +58,43 @@ public class Appointment extends AbstractAppointment {
    * @param endTimeString   The time and date the appointment ends as a <code>String</code>.
    */
   public Appointment(String description, String beginTimeString, String endTimeString) {
+    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+    try {
+      Date date;
+      date = df.parse(beginTimeString);
+      this.beginTime = date;
+      this.beginTimeString = df.format(this.beginTime);
+    } catch (ParseException e) {
+      this.beginTime = null;
+    }
+    try {
+      Date date;
+      date = df.parse(beginTimeString);
+      this.endTime = date;
+      this.endTimeString = df.format(this.endTime);
+    } catch (ParseException e) {
+      this.endTime = null;
+    }
     this.description = description;
-    this.beginTimeString = beginTimeString;
-    this.endTimeString = endTimeString;
+//    this.beginTimeString = beginTimeString;
+//    this.endTimeString = endTimeString;
   }
 
   @Override
   /**
    * Returns the beginning time and date of an <code>Appointment</code> as a <code>String</code>
+   *
    * @param none
    * @return      <code>this.beginTimeString</code>
    */
   public String getBeginTimeString() {
-    return this.beginTimeString;
+    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+    try {
+      df.format(this.beginTime);
+      return df.format(this.beginTime);
+    } catch (NullPointerException e) {
+      return "";
+    }
   }
 
   /**
@@ -88,11 +112,17 @@ public class Appointment extends AbstractAppointment {
   @Override
   /**
    * Returns the ending time and date of an <code>Appointment</code> as a <code>String</code>
-   * @param none
-   * @return      <code>this.endTimeString</code>
+   *
+   *  @return      <code>this.endTimeString</code>
    */
   public String getEndTimeString() {
-    return this.endTimeString;
+    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+    try {
+      df.format(this.endTime);
+      return df.format(this.endTime);
+    } catch (NullPointerException e) {
+      return "";
+    }
   }
 
   /**
@@ -110,6 +140,7 @@ public class Appointment extends AbstractAppointment {
   @Override
   /**
    * Returns the description of an <code>Appointment</code> as a <code>String</code>
+   *
    * @param none
    * @return      <code>this.description</code>
    */
@@ -130,36 +161,20 @@ public class Appointment extends AbstractAppointment {
   }
 
   @Override
+  /**
+   * Returns the Appointment beginning time as a Date object.
+   */
   public Date getBeginTime() {
-//    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-//    try {
-//      Date date;
-//      date = df.parse(this.beginTimeString);
-//      return date;
-//    } catch (NullPointerException e) {
-//      return null;
-//    } catch (ParseException e) {
-//      e.printStackTrace();
-//      return null;
-//    }
     return this.beginTime;
   }
 
+
   @Override
+  /**
+   * Returns the Appointment ending time as a Date object.
+   */
   public Date getEndTime() {
-//    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-//    try {
-//      Date date;
-//      date = df.parse(this.endTimeString);
-//      return date;
-//    } catch (NullPointerException e) {
-//      return null;
-//    } catch (ParseException e) {
-//      e.printStackTrace();
-//      return null;
-//    }
     return this.endTime;
   }
-
 
 }

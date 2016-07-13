@@ -2,11 +2,11 @@ package edu.pdx.cs410J.ew4;
 
 import org.junit.Test;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * Created by edub629 on 7/5/16.
+ * Unit tests for {@link Commands} class.
  */
 public class CommandsTest {
 

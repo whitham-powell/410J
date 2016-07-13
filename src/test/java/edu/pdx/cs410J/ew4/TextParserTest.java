@@ -10,14 +10,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * TODO Document Test
- * Created by edub629 on 7/8/16.
+ * Unit test for {@link TextParser} class.
  */
 public class TextParserTest {
   private AppointmentBook testBook;

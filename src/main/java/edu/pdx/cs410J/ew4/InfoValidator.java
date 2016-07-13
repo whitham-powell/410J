@@ -3,13 +3,15 @@ package edu.pdx.cs410J.ew4;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 /**
- * TODO document info validator class
- * Created by edub629 on 7/10/16.
+ * This class validates the date and time strings for use with:
+ * {@link Appointment}
+ * {@link TextParser}
+ * {@link Project2}
+ *
+ * @author Elijah Whitham-Powell
  */
 public class InfoValidator {
   private int errCode = 0;
@@ -17,23 +19,12 @@ public class InfoValidator {
   private boolean hasFailed = false;
   private String[] info;
 
-  public String[] cleanse() {
-    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-    List<String> aL = Arrays.asList(info);
-    String[] split;
-    split = df.format(getBeginDate()).split(" ");
-    aL.set(1, df.format(split[0]));
-    aL.set(2, df.format(split[1]));
-    split = df.format(getEndDate()).split(" ");
-    aL.set(3, df.format(split[0]));
-    aL.set(4, df.format(split[1]));
-    return aL.toArray(new String[info.length]);
-  }
 
-  public InfoValidator() {
-    this.info = null;
-  }
-
+  /**
+   * Instantiates a new Info validator.
+   *
+   * @param info the <code>Appointment</code> information to validate.
+   */
   public InfoValidator(String[] info) {
     this.info = info;
     StringBuilder errReason = new StringBuilder();
@@ -67,6 +58,17 @@ public class InfoValidator {
     }
   }
 
+  /**
+   * Instantiates a new Info validator.
+   */
+  public InfoValidator() {
+  }
+
+  /**
+   * Returns the <code>Appointment</code> end time after being converted to a <code>Date</code> object.
+   *
+   * @return
+   */
   private Date getBeginDate() {
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
     try {
@@ -81,6 +83,11 @@ public class InfoValidator {
     }
   }
 
+  /**
+   * Returns the <code>Appointment</code> end time after being converted to a <code>Date</code> object.
+   *
+   * @return
+   */
   private Date getEndDate() {
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
     try {
@@ -95,18 +102,39 @@ public class InfoValidator {
     }
   }
 
+  /**
+   * Gets errCode.
+   *
+   * @return the error code
+   */
   public int getErrCode() {
     return errCode;
   }
 
+  /**
+   * Gets errMsg.
+   *
+   * @return the error message
+   */
   public String getErrMsg() {
     return errMsg;
   }
 
+  /**
+   * Has failed boolean.
+   *
+   * @return the boolean
+   */
   public boolean hasFailed() {
     return hasFailed;
   }
 
+  /**
+   * Determines if a string provided in the correct format
+   *
+   * @param toValidate the string to validate.
+   * @return an instance of an InfoValidator.
+   */
   public InfoValidator validate(String toValidate) {
     StringBuilder errReason = new StringBuilder("Invalid formatting :");
 

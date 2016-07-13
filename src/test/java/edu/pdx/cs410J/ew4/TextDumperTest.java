@@ -25,7 +25,7 @@ public class TextDumperTest {
   }
 
   @Test
-  public void canOpenAFileViaConstructor() {
+  public void canOpenAFileViaConstructor() throws IOException {
     TextDumper textDumper = new TextDumper("test.txt");
     assertThat(textDumper.fileName, equalTo("test.txt"));
     assertThat(textDumper.fileExists(), is(true));

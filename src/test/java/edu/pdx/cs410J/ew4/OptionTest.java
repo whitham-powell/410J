@@ -9,8 +9,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * TODO Document OptionTest
- * Created by edub629 on 7/3/16.
+ * Unit tests for the {@link edu.pdx.cs410J.ew4.Options.Option} class.
  */
 public class OptionTest {
 
@@ -72,5 +71,13 @@ public class OptionTest {
   public void optionHasArgsReturnsTrueOrFalse() {
     assertThat(optionWithOutArgs.hasArgs(), is(false));
     assertThat(optionWithArgs.hasArgs(), is(true));
+  }
+
+  @Test
+  public void canSetAArgumentNameForOptionsThatTakeArguments() {
+    Options.Option optionWithOutArgs = new Options.Option("testNoArg", false, "this test option takes no arguments");
+    Options.Option optionWithArg = new Options.Option("testArg", true, "arg", "this option takes arguments");
+    assertThat(optionWithArg.getArgName(), is("arg"));
+    assertThat(optionWithOutArgs.getArgName(), is(nullValue()));
   }
 }
