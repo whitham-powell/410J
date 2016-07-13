@@ -123,14 +123,34 @@ public class CommandLineParserTest {
 //    System.out.println(validOptions.count());
 //    System.out.println(validOptions.numWArgs());
     CommandLineParser clp = new CommandLineParser(validOptions, args);
-    Commands parsed = clp.parse(2, 3);
+    Commands parsed = clp.parse(2, 2);
     assertThat(clp.getProvidedArgs().isEmpty(), is(false));
 //    System.out.print(parsed.getErrorMessage());
     assertThat(parsed.hasError(), is(false));
     assertThat(parsed.hasOption("testNoArg"), is(true));
     assertThat(parsed.hasOption("testArg"), is(false));
   }
-
   //TODO option placed at end of arg list raises failure
+
+  @Test
+  public void optionPlacedAtTheEndOfTheArgumentListShouldReturnAnErroredCommandsObject() {
+    String[] args = {"-testNoArg", "-testArg", "<arg>", "notAnOption", "another non option argument", "-print"};
+    validOptions = new Options();
+    Options.Option optionWithOutArgs = new Options.Option("testNoArg", false, "this test option takes no arguments");
+    Options.Option optionWithArg = new Options.Option("testArg", true, "this option takes arguments");
+    Options.Option badOptionPlacement = new Options.Option("print", false, "this was placed at end after arguments");
+    validOptions.addOption(optionWithArg);
+    validOptions.addOption(optionWithOutArgs);
+    validOptions.addOption(badOptionPlacement);
+    CommandLineParser clp = new CommandLineParser(validOptions, args);
+    Commands parsed = clp.parse(3, 3);
+    System.out.println(clp.getProvidedArgs());
+    System.out.println(clp.getClaimedArgs());
+    System.out.println(clp.getToParse());
+    System.out.println(clp.getProvidedOptions());
+    assertThat(parsed.hasError(), is(true));
+    System.out.println(parsed.getErrorMessage());
+
+  }
 }
 //TODO usage printer

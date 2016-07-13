@@ -24,6 +24,8 @@ public class CommandLineParser {
   private int minNumOfArgs;
   private Options validOptions;
   private int maxNumOfArgs;
+  private int argsEndedHere;
+  private int optionsEndedHere;
 
   /**
    * Instantiates a new Command line parser.
@@ -63,12 +65,16 @@ public class CommandLineParser {
       if (arg.startsWith("-")) {
         providedOptions.add(arg.substring(1));
       } else {
+        optionsEndedHere = i;
         break;
       }
     }
-    for (; i < argsLength; i++) {
+    for (; /*i < maxNumberOfArgs &&*/ i < argsLength; i++) {
       providedArgs.add(toParse.get(i));
+      argsEndedHere = i;
     }
+
+
     if (toParse.isEmpty()) {
       theCommands = new Commands(true, "Missing command line arguments: None Provided");
       return theCommands;
@@ -82,10 +88,13 @@ public class CommandLineParser {
           theCommands = new Commands(true, "Invalid option detected: \n" + errOut());
           return theCommands;
         }
+
+
         if (providedArgs.size() < this.minNumOfArgs) {
           theCommands = new Commands(true, "Not enough arguments provided: \n" + errOut());
         }
         if (providedArgs.size() > this.maxNumOfArgs) {
+
           theCommands = new Commands(true, "Too many arguments provided: \n" + errOut());
         } else if (providedArgs.size() >= this.minNumOfArgs) {
           theCommands = getCommands();
@@ -102,11 +111,11 @@ public class CommandLineParser {
    * @return {@link Commands} object either containing a collection of commands or the error that occurred while parsing.
    */
   private Commands getCommands() {
-    int i;
+    int i = 0;
     Commands commands = new Commands(false, "no error");
     Options.Option fromOptions;
     Commands.Command toCommands;
-    for (i = 0; i < providedOptions.size(); ++i) {
+    for (; i < providedOptions.size(); ++i) {
       fromOptions = validOptions.getOption(providedOptions.get(i));
       if (fromOptions != null) {
         if (fromOptions.hasArgs()) {
@@ -119,11 +128,21 @@ public class CommandLineParser {
         commands.add(toCommands);
       }
     }
+//    if ((providedArgs.size() + providedOptions.size() + claimedArgs.size() ) < toParse.size()) {
+//      StringBuilder sb = new StringBuilder();
+//      List<String> extraCmdLineStrings = toParse.subList(0, toParse.size());
+//      ListIterator<String> li = extraCmdLineStrings.listIterator(argsEndedHere);
+//      while (li.hasNext()) {
+//        sb.append(li.next());
+//      }
+//      return new Commands(true, "Erroneous option or argument at end of command line\n" + sb.toString());
+//    }
     return commands;
   }
 
   /**
    * Helper method to traverse the providedOptions looking for invalid options.
+   *
    * @return boolean of found invalid options
    */
   private boolean findInvalidOptions() {
@@ -136,6 +155,7 @@ public class CommandLineParser {
 
   /**
    * Builds a string indicating what went wrong while parsing the command line
+   *
    * @return String error message
    */
   private String errOut() {

@@ -38,10 +38,10 @@ public class Project2 extends Project1 {
   public static void main(String[] args) {
     Project2 p2 = new Project2();
 
-    String appointmentOwner = null;
-    String[] appointmentInfo = null;
+    String appointmentOwner;
+    String[] appointmentInfo;
     AbstractAppointmentBook<AbstractAppointment> appointmentBook = null;
-    AbstractAppointment appointment = null;
+    AbstractAppointment appointment;
 
     // Set up list of Options
     Options options = new Options();

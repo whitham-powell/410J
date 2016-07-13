@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import static java.lang.System.err;
 import static java.lang.System.out;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 /**
@@ -92,13 +93,20 @@ public class Project2IT extends InvokeMainTestCase {
   public void project2NewUsageOutputsOnAnError() {
     MainMethodResult result = invokeMain();
     assertThat(result.getOut(), containsString(USAGE));
-    assertThat(result.getOut(), containsString(OPTIONS));
+//    assertThat(result.getOut(), containsString(OPTIONS));
     assertThat(result.getOut(), containsString("Dates and times should be in the format: mm/dd/yyyy hh:mm\n"));
 
   }
 
-  //TODO detects multiple options
-  //TODO detects tooManyArguments
+  @Test
+  public void rejectsTooManyArguments() {
+    String[] testArgs = {"Steve", "Test", "Description", "06/29/2016", "4:00", "06/29/2016", "16:00"};
+    MainMethodResult result = invokeMain(testArgs);
+    assertThat(result.getExitCode(), is(1));
+    System.out.println(result.getErr());
+
+  }
+
   //TODO detects option after appointment info
 
 }
