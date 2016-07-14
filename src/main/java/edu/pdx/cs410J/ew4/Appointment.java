@@ -88,7 +88,8 @@ public class Appointment extends AbstractAppointment {
    * @return      <code>this.beginTimeString</code>
    */
   public String getBeginTimeString() {
-    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+//    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
     try {
       df.format(this.beginTime);
       return df.format(this.beginTime);
@@ -116,7 +117,8 @@ public class Appointment extends AbstractAppointment {
    *  @return      <code>this.endTimeString</code>
    */
   public String getEndTimeString() {
-    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+//    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
     try {
       df.format(this.endTime);
       return df.format(this.endTime);
