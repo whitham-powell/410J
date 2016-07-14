@@ -11,8 +11,7 @@ import static java.lang.System.err;
 import static java.lang.System.out;
 
 /**
- * TODO dodcument class
- * Created by edub629 on 7/7/16.
+ * Main class to run Project2 command line processes.
  */
 public class Project2 extends Project1 {
 
@@ -35,6 +34,11 @@ public class Project2 extends Project1 {
                   "\t\t\t The appointment book can also be created from and saved to a text file provided\n" +
                   "\t\t\t via the options list\n";
 
+  /**
+   * The entry point of application.
+   *
+   * @param args the input arguments
+   */
   public static void main(String[] args) {
     Project2 p2 = new Project2();
 
