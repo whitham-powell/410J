@@ -162,7 +162,7 @@ public class CommandLineParser {
    * @return String error message
    */
   private String errOut() {
-    StringBuilder errMsg = new StringBuilder("Detected:");
+    StringBuffer errMsg = new StringBuffer("Detected:");
     errMsg.append("\n\tDetected Options:");
     providedOptions.forEach(option -> errMsg
             .append("\n\t\t")

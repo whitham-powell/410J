@@ -27,7 +27,7 @@ public class InfoValidator {
    */
   public InfoValidator(String[] info) {
     this.info = info;
-    StringBuilder errReason = new StringBuilder();
+    StringBuffer errReason = new StringBuffer();
 
     // Check date formatting of beginTimeString
     if (!info[1].matches("\\d{1,2}\\/\\d{1,2}\\/\\d{4}")) {
@@ -136,7 +136,7 @@ public class InfoValidator {
    * @return an instance of an InfoValidator.
    */
   public InfoValidator validate(String toValidate) {
-    StringBuilder errReason = new StringBuilder("Invalid formatting :");
+    StringBuffer errReason = new StringBuffer("Invalid formatting :");
 
     // Check date formatting of beginTimeString
     if (!(toValidate.split(" "))[0].matches("\\d{1,2}\\/\\d{1,2}\\/\\d{4}")) {

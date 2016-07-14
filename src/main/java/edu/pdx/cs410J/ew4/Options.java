@@ -141,7 +141,7 @@ class Options {
     if (validOptions.isEmpty()) {
       return "Options list is empty.\n";
     }
-    StringBuilder sb = new StringBuilder(" options are (may appear in any order):\n");
+    StringBuffer sb = new StringBuffer(" options are (may appear in any order):\n");
     for (Option option : validOptions) {
       sb.append("   ").append(option.toString()).append("\n");
     }
@@ -254,7 +254,7 @@ class Options {
       if (name == null || description == null) {
         return null;
       } else {
-        StringBuilder sb = new StringBuilder("-");
+        StringBuffer sb = new StringBuffer("-");
         sb.append(name);
         if (hasArgs) {
           sb.append(" <").append(this.argName).append(">\t");

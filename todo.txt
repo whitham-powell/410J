@@ -1,1 +1,5 @@
+//TODO make project thread safe replacing all StringBuilders with StringBuffers.
+
+//TODO rename project1 from apptbook to apptbook-cmdline
+
 
