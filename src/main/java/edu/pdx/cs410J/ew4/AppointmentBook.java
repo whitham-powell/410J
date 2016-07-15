@@ -5,28 +5,48 @@ import edu.pdx.cs410J.AbstractAppointmentBook;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 
 /**
  * This class extends <code>AbstractAppointmentBook</code> and implements a concrete <code>AppointmentBook</code>
+ *
  * @author Elijah Whitham-Powell
  */
 public class AppointmentBook extends AbstractAppointmentBook<AbstractAppointment> {
-  private String ownerName = "< unspecified >";
   final private Collection<AbstractAppointment> appointments;
+  private String ownerName = "< unspecified >";
 
+  /**
+   * Instantiates a new Appointment book.
+   */
   public AppointmentBook() {
-    appointments = new ArrayList<>();
+    this.appointments = new ArrayList<>();
   }
 
   /**
    * Creates an instance of an <code>AppointmentBook</code> stores a <code>Collection</code> of {@link Appointment} objects
-   * @param ownerName
-   *          The name of the owner of <code>AppointmentBook</code>. Of type <code>String</code>
+   *
+   * @param ownerName The name of the owner of <code>AppointmentBook</code>. Of type <code>String</code>
    */
   public AppointmentBook(String ownerName) {
     this.ownerName = ownerName;
-    appointments = new ArrayList<>();
+    this.appointments = new ArrayList<>();
+  }
+
+  /**
+   * Gets sorted set.
+   *
+   * @return the sorted set
+   */
+  public SortedSet<Appointment> getSortedSet() {
+    SortedSet<Appointment> sortedAppointments = new TreeSet<Appointment>(Appointment::compareTo);
+    for (Object fromCollection : this.appointments) {
+      Appointment toSorted = (Appointment) fromCollection;
+      sortedAppointments.add(toSorted);
+    }
+    return sortedAppointments;
   }
 
   @Override
@@ -43,7 +63,7 @@ public class AppointmentBook extends AbstractAppointmentBook<AbstractAppointment
    * returns <code>null</code>
    */
   public Collection<AbstractAppointment> getAppointments() {
-    if(appointments.isEmpty()) {
+    if (appointments.isEmpty()) {
       return null;
     } else {
       return this.appointments;
@@ -53,7 +73,7 @@ public class AppointmentBook extends AbstractAppointmentBook<AbstractAppointment
   @Override
   /**
    * Adds an <code>AbstractAppointment</code> object to the collection of appointments.
-   * @param appointment - an <code>AbstractAppointment</code> object to be added to the collection.
+   * @param appointment an <code>AbstractAppointment</code> object to be added to the collection.
    */
   public void addAppointment(AbstractAppointment appointment) {
     appointments.add(appointment);
@@ -67,7 +87,14 @@ public class AppointmentBook extends AbstractAppointmentBook<AbstractAppointment
     return getOwnerName();
   }
 
+  /**
+   * Size int.
+   *
+   * @return the int
+   */
   public int size() {
     return appointments.size();
   }
+
 }
+

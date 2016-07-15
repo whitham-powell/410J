@@ -67,4 +67,16 @@ public class AppointmentBookTest {
     testBook.addAppointment(testAppointment2);
     assertThat(testBook.size(), is(5));
   }
+
+  @Test
+  public void appointmentBookCanReturnASortedSetOfAppointments() {
+    AppointmentBook aBook = new AppointmentBook("Evee");
+    aBook.addAppointment(testAppointment3);
+    aBook.addAppointment(testAppointment);
+    aBook.addAppointment(testAppointment2);
+
+    assertThat(aBook.getSortedSet(), not(aBook.getAppointments()));
+    assertThat(aBook.getSortedSet().toString(), is(equalTo(testBook.getAppointments().toString())));
+    assertThat(aBook.getAppointments().toString(), not(equalTo(testBook.getAppointments().toString())));
+  }
 }

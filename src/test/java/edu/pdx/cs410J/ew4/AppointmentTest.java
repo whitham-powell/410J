@@ -140,6 +140,24 @@ public class AppointmentTest {
     assertThat(exception, containsString("description cannot be null"));
   }
 
+  @Test
+  public void appointmentCompareToFunctionsAsExpected() {
+    Appointment w = new Appointment("Bcd", "06/29/2016 10:00", "07/29/2016 14:00");
+    Appointment x = new Appointment("Abc", "06/29/2016 10:00", "07/29/2016 14:00");
+    Appointment y = new Appointment("Abc", "06/29/2016 10:00", "07/29/2016 14:00");
+    Appointment z = new Appointment("Aab", "06/29/2016 10:00", "07/29/2016 14:00");
+    if ((w.compareTo(y) > 0 && y.compareTo(z) > 0)) {
+      assertThat(w.compareTo(z) > 0, is(true));
+    }
+    assertThat(x.compareTo(y), is(0));
+    assertThat((1 * (x.compareTo(y))) == (-1 * (y.compareTo(x))), is(true));
+
+    boolean signChange = (1 * (x.compareTo(w))) == (-1 * (w.compareTo(x)));
+    assertThat(signChange, is(true));
+    boolean compareToAndEquals = x.compareTo(y) == 0 && x.equals(y);
+    assertThat(compareToAndEquals, is(true));
+  }
+
     private Appointment makeTestAppointment() {
     return new Appointment("Test description", "10:00", "14:00");
   }
