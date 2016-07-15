@@ -1,4 +1,5 @@
 
 //TODO rename project1 from apptbook to apptbook-cmdline
+//TODO new intergration test using pretty print
 
 

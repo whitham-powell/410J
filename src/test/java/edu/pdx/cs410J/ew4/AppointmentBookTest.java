@@ -21,8 +21,8 @@ public class AppointmentBookTest {
 
   public AppointmentBookTest() {
     testBook = new AppointmentBook("Evan");
-    testAppointment = new Appointment("Bang his own mother", "06/09/1993 12:22", "06/12/1993 13:22");
-    testAppointment2 = new Appointment("Lunch with his mother", "08/09/1993 12:22", "08/12/1993 13:22");
+    testAppointment = new Appointment("Bang his own mother", "06/09/1993 12:22", "06/12/1993 13:50");
+    testAppointment2 = new Appointment("Lunch with his mother", "08/09/1993 12:22", "08/09/1993 17:50");
     testAppointment3 = new Appointment("Dinner with his father", "7/20/2010 16:50", "07/20/2010 17:30");
     testBook.addAppointment(testAppointment);
     testBook.addAppointment(testAppointment2);
@@ -78,5 +78,7 @@ public class AppointmentBookTest {
     assertThat(aBook.getSortedSet(), not(aBook.getAppointments()));
     assertThat(aBook.getSortedSet().toString(), is(equalTo(testBook.getAppointments().toString())));
     assertThat(aBook.getAppointments().toString(), not(equalTo(testBook.getAppointments().toString())));
+
+    System.out.print(aBook.getSortedSet().toString());
   }
 }

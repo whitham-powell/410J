@@ -7,6 +7,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * The <code>TextDumper</code> class regulates the loading and creation of a file.
@@ -57,12 +59,14 @@ public class TextDumper implements AppointmentBookDumper {
    */
   public String makeAppointmentsString(AbstractAppointmentBook book) {
     Appointment asAppointment;
-    StringBuilder sb = new StringBuilder();
+    StringBuffer sb = new StringBuffer();
+    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
     for (Object o : book.getAppointments()) {
       asAppointment = (Appointment) o;
       sb.append("\"").append(asAppointment.getDescription()).append("\"").append("\n");
-      sb.append(asAppointment.getBeginTimeString()).append("\n");
-      sb.append(asAppointment.getEndTimeString()).append("\n");
+
+      sb.append(df.format(asAppointment.getBeginTime())).append("\n");
+      sb.append(df.format(asAppointment.getEndTime())).append("\n");
     }
     return sb.toString();
   }

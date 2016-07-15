@@ -80,17 +80,14 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
       this.endTime = null;
     }
     this.description = description;
-//    this.beginTimeString = beginTimeString;
-//    this.endTimeString = endTimeString;
   }
 
-  @Override
   /**
    * Returns the beginning time and date of an <code>Appointment</code> as a <code>String</code>
    *
-   * @param none
    * @return      <code>this.beginTimeString</code>
    */
+  @Override
   public String getBeginTimeString() {
 //    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
@@ -103,29 +100,24 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
   }
 
   /**
-   * Sets begin time string.
-   *
-   * @param beginTimeString the begin time string
-   */
-  @Deprecated
-  /**
    * Sets this <code>Appointment</code> beginning time as a <code>String</code>
    *
    * @param beginTimeString - the time of an <code>Appointment</code> as a <code>String</code>
    * @throws IllegalArgumentException - if a null is passed in it raises exception.
    */
+  @Deprecated
   void setBeginTimeString(String beginTimeString) {
     if (beginTimeString == null)
       throw new IllegalArgumentException("beginTimeString cannot be null");
     this.beginTimeString = beginTimeString;
   }
 
-  @Override
   /**
    * Returns the ending time and date of an <code>Appointment</code> as a <code>String</code>
    *
    *  @return      <code>this.endTimeString</code>
    */
+  @Override
   public String getEndTimeString() {
 //    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
@@ -143,29 +135,23 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
    * @param endTimeString - the end time of an <code>Appointment</code> as a <code>String</code>
    * @throws IllegalArgumentException - if a null is passed in it raises exception.
    */
+  @Deprecated
   void setEndTimeString(String endTimeString) {
     if (endTimeString == null)
       throw new IllegalArgumentException("endTimeString cannot be null");
     this.endTimeString = endTimeString;
   }
 
-  @Override
   /**
-   * Returns the description of an <code>Appointment</code> as a <code>String</code>
-   *
-   * @param none
+   * Returns the description of an <code>Appointment</code> as a <code>String</code>*
    * @return      <code>this.description</code>
    */
+  @Override
   public String getDescription() {
     return this.description;
   }
 
-  /**
-   * Sets description.
-   *
-   * @param description the description
-   */
-  @Deprecated
+
   /**
    * Sets this <code>Appointment</code> end time as a <code>String</code>
    *
@@ -178,22 +164,23 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
     this.description = description;
   }
 
-  @Override
   /**
    * Returns the Appointment beginning time as a Date object.
    */
+  @Override
   public Date getBeginTime() {
     return this.beginTime;
   }
 
 
-  @Override
   /**
    * Returns the Appointment ending time as a Date object.
    */
+  @Override
   public Date getEndTime() {
     return this.endTime;
   }
+
 
   @Override
   public boolean equals(Object o) {
@@ -257,9 +244,6 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
     if (that == null) {
       throw new NullPointerException("Cannot compare null appointment");
     }
-//    if (!(that instanceof Appointment)) {
-//      throw new ClassCastException("Expected an Appointment got: " + that.getClass());
-//    }
     if (this.beginTime.compareTo(that.beginTime) == 0) {
       if (this.endTime.compareTo(that.endTime) == 0) {
         return this.description.compareTo(that.description);
