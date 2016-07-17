@@ -23,6 +23,9 @@ public class Project1IT extends InvokeMainTestCase {
           "\t\t-README Prints a README for this project and exits\n" +
           "\tDate and time should be in the format: mm/dd/yyyy hh:mm\n";
 
+  /**
+   * The Main class.
+   */
   public Class mainClass = Project2.class;
 
   /**
@@ -43,6 +46,9 @@ public class Project1IT extends InvokeMainTestCase {
 //    assertThat(result.getOut(), containsString(README1));
   }
 
+  /**
+   * Test only read me command.
+   */
   @Test
   public void testOnlyReadMeCommand() {
     MainMethodResult result = invokeMain("-README");
@@ -50,6 +56,9 @@ public class Project1IT extends InvokeMainTestCase {
 //    assertThat(result.getOut(), containsString(README1));
   }
 
+  /**
+   * Test not enough command line arguments issues an error and displays readme.
+   */
   @Test
   public void testNotEnoughCommandLineArgumentsIssuesAnErrorAndDisplaysReadme() {
     MainMethodResult result = invokeMain("Steve", "06/29/2016", "14:00", "06/29/2016", "16:00");
@@ -58,6 +67,9 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getErr(), containsString("5"));
   }
 
+  /**
+   * Test valid command line argument list length exit is zero.
+   */
   @Test
   public void testValidCommandLineArgumentListLengthExitIsZero() {
     MainMethodResult result = invokeMain("Steve", "Test Description", "06/29/2016", "14:00", "06/29/2016", "16:00");
@@ -65,6 +77,9 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getErr(), is(""));
   }
 
+  /**
+   * Main class can print a newly added appointment with the print command.
+   */
   @Test
   public void mainClassCanPrintANewlyAddedAppointmentWithThePRINTCommand() {
     String[] testArgs = {"-print", "Steve", "Test Description", "06/29/2016", "14:00", "06/29/2016", "16:00"};
@@ -76,6 +91,9 @@ public class Project1IT extends InvokeMainTestCase {
 //    assertThat(result.getOut(), containsString("06/29/2016 16:00"));
   }
 
+  /**
+   * Main class rejects badly formatted dates.
+   */
   @Test
   public void mainClassRejectsBadlyFormattedDates() {
     String[] testArgs = {"Steve", "Test Description", "6/29/16", "14:00", "06/29/16", "16:00"};
@@ -87,6 +105,9 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getErr(), not(containsString(" Time")));
   }
 
+  /**
+   * Main class rejects badly formatted begin date.
+   */
   @Test
   public void mainClassRejectsBadlyFormattedBeginDate() {
     String[] testArgs = {"-print", "Steve", "Test Description", "06/29/16", "14:00", "6/29/2016", "16:00"};
@@ -97,6 +118,9 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getErr(), not(containsString(" endTime")));
   }
 
+  /**
+   * Main class rejects badly formatted end date.
+   */
   @Test
   public void mainClassRejectsBadlyFormattedEndDate() {
     String[] testArgs = {"-print", "Steve", "Test Description", "6/29/2016", "14:00", "06/29/16", "16:00"};
@@ -107,6 +131,9 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getErr(), not(containsString(" beginTime")));
   }
 
+  /**
+   * Main class rejects badly formatted times.
+   */
   @Test
   public void mainClassRejectsBadlyFormattedTimes() {
     String[] testArgs = {"-print", "Steve", "Test Description", "06/29/2016", "400", "06/29/2016", "1600"};
@@ -118,6 +145,9 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getErr(), not(containsString(" Date")));
   }
 
+  /**
+   * Main class rejects badly formatted end time.
+   */
   @Test
   public void mainClassRejectsBadlyFormattedEndTime() {
     String[] testArgs = {"-print", "Steve", "Test Description", "06/29/2016", "4:00", "06/29/2016", "1600"};
@@ -128,6 +158,9 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getErr(), not(containsString(" Date")));
   }
 
+  /**
+   * Main class rejects badly formatted begin time.
+   */
   @Test
   public void mainClassRejectsBadlyFormattedBeginTime() {
     String[] testArgs = {"-print", "Steve", "Test Description", "06/29/2016", "400", "06/29/2016", "16:00"};
@@ -138,6 +171,9 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getErr(), not(containsString(" Date")));
   }
 
+  /**
+   * Too many arguments provided gets rejected.
+   */
   @Ignore
   @Test
   public void tooManyArgumentsProvidedGetsRejected() {
@@ -149,6 +185,9 @@ public class Project1IT extends InvokeMainTestCase {
 
   }
 
+  /**
+   * Fails if print is at end of valid arguments.
+   */
   @Ignore
   @Test
   public void failsIfPrintIsAtEndOfValidArguments() {
@@ -157,6 +196,9 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getErr(), containsString("Too many arguments"));
   }
 
+  /**
+   * Appointment date and time go in as one or two digits and come out as two.
+   */
   @Test
   public void appointmentDateAndTimeGoInAsOneOrTwoDigitsAndComeOutAsTwo() {
     MainMethodResult result = invokeMain("-print", "Steve", "Test Description", "6/29/2016", "4:00", "6/29/2016", "6:00");
@@ -167,6 +209,9 @@ public class Project1IT extends InvokeMainTestCase {
 //    assertThat(result.getOut(), containsString("06/29/2016 06:00"));
   }
 
+  /**
+   * Invalid options result in exit code one and err output.
+   */
   @Test
   public void invalidOptionsResultInExitCodeOneAndErrOutput() {
     MainMethodResult result = invokeMain("-bad", "Steve", "Test Description", "06/29/2016", "04:00", "06/29/2016", "12:00");

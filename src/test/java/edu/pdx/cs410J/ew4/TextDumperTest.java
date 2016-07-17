@@ -19,11 +19,19 @@ public class TextDumperTest {
 
   private AppointmentBook testBook;
 
+  /**
+   * Sets up.
+   */
   @Before
   public void setUp() {
     testBook = new AppointmentBookTest().getTestBook();
   }
 
+  /**
+   * Can open a file via constructor.
+   *
+   * @throws IOException the io exception
+   */
   @Test
   public void canOpenAFileViaConstructor() throws IOException {
     TextDumper textDumper = new TextDumper("test.txt");
@@ -31,6 +39,11 @@ public class TextDumperTest {
     assertThat(textDumper.fileExists(), is(true));
   }
 
+  /**
+   * Save an owner name to a text file.
+   *
+   * @throws IOException the io exception
+   */
   @Test
   public void saveAnOwnerNameToATextFile() throws IOException {
     TextDumper textDumper = new TextDumper("test.txt");
@@ -43,6 +56,11 @@ public class TextDumperTest {
     assertThat(reader.readLine(), equalTo(testBook.getOwnerName()));
   }
 
+  /**
+   * Saves an appointment book to file and its appointments.
+   *
+   * @throws IOException the io exception
+   */
   @Test
   public void savesAnAppointmentBookToFileAndItsAppointments() throws IOException {
     TextDumper textDumper = new TextDumper("test.txt");

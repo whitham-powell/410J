@@ -10,6 +10,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class CommandsTest {
 
+  /**
+   * Commands class can be built using var arg options.
+   */
   @Test
   public void commandsClassCanBeBuiltUsingVarArgOptions() {
     Options.Option optionWithOutArgs = new Options.Option("testNoArg", false, "this test option takes no arguments");
@@ -22,6 +25,5 @@ public class CommandsTest {
     assertThat(commands.hasOption("testNoArg"), is(true));
   }
 
-  //TODO if option has an argument what is it?
 
 }

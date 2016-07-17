@@ -82,6 +82,13 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
     this.description = description;
   }
 
+  /**
+   * Instantiates a new Appointment.
+   *
+   * @param description the description
+   * @param beginTime   the begin time
+   * @param endTime     the end time
+   */
   public Appointment(String description, Date beginTime, Date endTime) {
     this.description = description;
     this.beginTime = beginTime;
@@ -91,7 +98,7 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
   /**
    * Returns the beginning time and date of an <code>Appointment</code> as a <code>String</code>
    *
-   * @return      <code>this.beginTimeString</code>
+   * @return <code>this.beginTimeString</code>
    */
   @Override
   public String getBeginTimeString() {
@@ -121,7 +128,7 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
   /**
    * Returns the ending time and date of an <code>Appointment</code> as a <code>String</code>
    *
-   *  @return      <code>this.endTimeString</code>
+   * @return <code>this.endTimeString</code>
    */
   @Override
   public String getEndTimeString() {
@@ -150,7 +157,8 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
 
   /**
    * Returns the description of an <code>Appointment</code> as a <code>String</code>*
-   * @return      <code>this.description</code>
+   *
+   * @return <code>this.description</code>
    */
   @Override
   public String getDescription() {

@@ -11,12 +11,18 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class CommandLineParserTest {
   private Options validOptions;
 
+  /**
+   * Empty valid options will not raise null pointer exception.
+   */
   @Test
   public void emptyValidOptionsWillNotRaiseNullPointerException() {
     String[] args = {"-option", "-another", "-help", "an argument", "notAnOption"};
     CommandLineParser clp = new CommandLineParser(validOptions, args);
   }
 
+  /**
+   * Can separate arguments from options.
+   */
   @Test
   public void canSeparateArgumentsFromOptions() {
     String[] args = {"-option", "-another", "-help", "an argument", "notAnOption"};
@@ -33,6 +39,9 @@ public class CommandLineParserTest {
     assertThat(clp.getProvidedOptions().contains("help"), is(true));
   }
 
+  /**
+   * Not enough arguments returns an error.
+   */
   @Test
   public void notEnoughArgumentsReturnsAnError() {
     String[] args = {"-option", "-another", "an argument", "notAnOption"};
@@ -45,6 +54,9 @@ public class CommandLineParserTest {
   }
 
 
+  /**
+   * Too many arguments provided.
+   */
   @Test
   public void tooManyArgumentsProvided() {
     String[] args = {"-option", "-another", "-help", "an argument", "notAnOption"};
@@ -56,6 +68,9 @@ public class CommandLineParserTest {
     assertThat(clp.parse(3, 1).hasError(), is(true));
   }
 
+  /**
+   * Invalid options are detected and result in an error.
+   */
   @Test
   public void invalidOptionsAreDetectedAndResultInAnError() {
     String[] args = {"-option", "-another", "-help", "an argument", "notAnOption"};
@@ -68,6 +83,9 @@ public class CommandLineParserTest {
     assertThat(line.getErrorMessage(), containsString("help <-Invalid"));
   }
 
+  /**
+   * Empty argument list results in error.
+   */
   @Test
   public void emptyArgumentListResultsInError() {
     String[] args = {};
@@ -80,6 +98,9 @@ public class CommandLineParserTest {
   }
 
 
+  /**
+   * The parser returns a set of commands to execute.
+   */
   @Test
   public void theParserReturnsASetOfCommandsToExecute() {
     String[] args = {"-testNoArg", "-testArg", "an argument", "notAnOption"};
@@ -95,6 +116,9 @@ public class CommandLineParserTest {
     assertThat(parsed.getOptionValue("testArg"), containsString("an argument"));
   }
 
+  /**
+   * Command line parser get arguments returns correct sized list.
+   */
   @Test
   public void commandLineParserGetArgumentsReturnsCorrectSizedList() {
     String[] args = {"-testNoArg", "-testArg", "an argument", "notAnOption", "another non option argument"};
@@ -112,6 +136,9 @@ public class CommandLineParserTest {
     assertThat(clp.getProvidedArgs().size(), equalTo(2));
   }
 
+  /**
+   * Command line parser can decide how many arguments should exist based on number of options with arguments.
+   */
   @Test
   public void commandLineParserCanDecideHowManyArgumentsShouldExistBasedOnNumberOfOptionsWithArguments() {
     String[] args = {"-testNoArg", "notAnOption", "another non option argument"};
@@ -130,8 +157,10 @@ public class CommandLineParserTest {
     assertThat(parsed.hasOption("testNoArg"), is(true));
     assertThat(parsed.hasOption("testArg"), is(false));
   }
-  //TODO option placed at end of arg list raises failure
 
+  /**
+   * Option placed at the end of the argument list should return an errored commands object.
+   */
   @Test
   public void optionPlacedAtTheEndOfTheArgumentListShouldReturnAnErroredCommandsObject() {
     String[] args = {"-testNoArg", "-testArg", "<arg>", "notAnOption", "another non option argument", "-print"};
@@ -153,4 +182,3 @@ public class CommandLineParserTest {
 
   }
 }
-//TODO usage printer

@@ -9,6 +9,7 @@ import java.util.Collections;
  * {@link CommandLineParser}
  * {@link Options}
  * {@link Command}
+ *
  * @author Elijah Whitham-Powell
  */
 public class Commands {
@@ -100,6 +101,7 @@ public class Commands {
 
   /**
    * Inner class of <code>Commands</code> extends {@link edu.pdx.cs410J.ew4.Options.Option}
+   *
    * @author Elijah Whitham-Powell
    */
   public static class Command extends Options.Option {

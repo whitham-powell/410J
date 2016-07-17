@@ -40,6 +40,9 @@ public class Project2IT extends InvokeMainTestCase {
     return invokeMain(Project2.class, args);
   }
 
+  /**
+   * Passes old project 1 tests.
+   */
   @Test
   public void passesOldProject1Tests() {
     Project1IT p1IT = new Project1IT();
@@ -89,6 +92,9 @@ public class Project2IT extends InvokeMainTestCase {
     assertEquals(numberOfPassingTests, totalNumberOfTest - totalIgnoredTests);
   }
 
+  /**
+   * Project 2 new usage outputs on an error.
+   */
   @Test
   public void project2NewUsageOutputsOnAnError() {
     MainMethodResult result = invokeMain();
@@ -98,6 +104,9 @@ public class Project2IT extends InvokeMainTestCase {
 
   }
 
+  /**
+   * Rejects too many arguments.
+   */
   @Test
   public void rejectsTooManyArguments() {
     String[] testArgs = {"Steve", "Test", "Description", "06/29/2016", "4:00", "06/29/2016", "16:00"};
@@ -107,6 +116,5 @@ public class Project2IT extends InvokeMainTestCase {
 
   }
 
-  //TODO detects option after appointment info
 
 }

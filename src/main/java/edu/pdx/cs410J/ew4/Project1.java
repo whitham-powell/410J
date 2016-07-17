@@ -12,10 +12,9 @@ import java.util.Date;
 
 
 /**
- * @author Elijah Whitham-Powell
+ * The type Project 1.
  *
- * The main class for the CS410J appointment book Project takes in command line arguments and
- * builds an {@link Appointment} and {@link AppointmentBook} based on the supplied arguments.
+ * @author Elijah Whitham-Powell         <p>         The main class for the CS410J appointment book Project takes in command line arguments and         builds an {@link Appointment} and {@link AppointmentBook} based on the supplied arguments.
  */
 public class Project1 {
 
@@ -84,9 +83,10 @@ public class Project1 {
 
   /**
    * Formats a supplied time and date string.
+   *
    * @param timeAndDate - date and time to format/clean
    * @return String - correctly formatted
-   * @throws ParseException
+   * @throws ParseException the parse exception
    */
   protected static String appointmentCleaner(String timeAndDate) throws ParseException {
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
@@ -102,6 +102,7 @@ public class Project1 {
 
   /**
    * Interprets and parses the command line arguments to do the work.
+   *
    * @param args - Command Line supplied arguments.
    */
   public static void main(String[] args) {

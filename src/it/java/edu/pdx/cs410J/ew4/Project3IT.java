@@ -34,6 +34,9 @@ public class Project3IT extends InvokeMainTestCase {
     return invokeMain(Project3.class, args);
   }
 
+  /**
+   * Passes old project 1 tests.
+   */
   @Test
   public void passesOldProject1Tests() {
 //    Project1IT p1IT = new Project1IT();
@@ -83,6 +86,9 @@ public class Project3IT extends InvokeMainTestCase {
 //    assertEquals(numberOfPassingTests, totalNumberOfTest - totalIgnoredTests);
   }
 
+  /**
+   * Project 2 new usage outputs on an error.
+   */
   @Test
   public void project2NewUsageOutputsOnAnError() {
     MainMethodResult result = invokeMain();
@@ -92,6 +98,9 @@ public class Project3IT extends InvokeMainTestCase {
 
   }
 
+  /**
+   * Rejects too many arguments.
+   */
   @Test
   public void rejectsTooManyArguments() {
     String[] testArgs = {"Steve", "Test", "Description", "06/29/2016", "4:00", "06/29/2016", "16:00"};
@@ -100,6 +109,9 @@ public class Project3IT extends InvokeMainTestCase {
 //    System.out.println(result.getErr());
   }
 
+  /**
+   * New date format from command line.
+   */
   @Test
   public void newDateFormatFromCommandLine() {
     String[] testArgs = {"Steve", "Test Description", "06/29/2016", "4:00", "AM", "06/29/2016", "4:00", "PM"};
@@ -107,6 +119,5 @@ public class Project3IT extends InvokeMainTestCase {
     assertThat(result.getExitCode(), is(0));
   }
 
-  //TODO detects option after appointment info
 
 }

@@ -34,6 +34,9 @@ public class PrettyPrinterTest {
 
   }
 
+  /**
+   * Can print to standard out.
+   */
   @Test
   public void canPrintToStandardOut() {
     try {

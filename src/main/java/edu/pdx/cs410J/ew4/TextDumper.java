@@ -19,10 +19,25 @@ import java.text.SimpleDateFormat;
 
 public class TextDumper implements AppointmentBookDumper {
 
+  /**
+   * The Did create.
+   */
   protected boolean didCreate;
+  /**
+   * The File name.
+   */
   protected String fileName;
+  /**
+   * The File.
+   */
   protected File file;
 
+  /**
+   * Instantiates a new Text dumper.
+   *
+   * @param fileName the file name
+   * @throws IOException the io exception
+   */
   public TextDumper(String fileName) throws IOException {
     this.fileName = fileName;
     this.file = new File(fileName);
@@ -55,7 +70,7 @@ public class TextDumper implements AppointmentBookDumper {
    * Collects all of the appointments of a book and builds a string formatted for dumping
    *
    * @param book <code>AppointmentBook</code> containing appointments to dump.
-   * @return
+   * @return string
    */
   public String makeAppointmentsString(AbstractAppointmentBook book) {
     Appointment asAppointment;
@@ -71,6 +86,11 @@ public class TextDumper implements AppointmentBookDumper {
     return sb.toString();
   }
 
+  /**
+   * File exists boolean.
+   *
+   * @return the boolean
+   */
   public boolean fileExists() {
     return this.file.exists();
   }

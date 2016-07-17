@@ -15,6 +15,9 @@ public class OptionsTest {
   private Options.Option optionWithOutArgs;
 
 
+  /**
+   * Sets up.
+   */
   @Before
   public void setUp() {
     optionWithOutArgs = new Options.Option("testNoArg", false, "this test option takes no arguments");
@@ -22,17 +25,26 @@ public class OptionsTest {
     emptyOptionsList = new Options();
   }
 
+  /**
+   * Can add options to the list via constructor.
+   */
   @Test
   public void canAddOptionsToTheListViaConstructor() {
     Options options = new Options(optionWithArg, optionWithOutArgs);
     assertThat(options.getList(), is(notNullValue()));
   }
 
+  /**
+   * Gets list empty list adding an option to options.
+   */
   @Test
   public void getListEmptyListAddingAnOptionToOptions() {
     assertThat(emptyOptionsList.getList().isEmpty(), is(true));
   }
 
+  /**
+   * Options count returns correct number of options.
+   */
   @Test
   public void optionsCountReturnsCorrectNumberOfOptions() {
     Options options = new Options(optionWithArg, optionWithOutArgs, new Options.Option("optionThree"));
@@ -40,6 +52,9 @@ public class OptionsTest {
     assertThat(options.count(), is(3));
   }
 
+  /**
+   * Can add options via method add options.
+   */
   @Test
   public void canAddOptionsViaMethodAddOptions() {
     Options options = new Options();
@@ -49,8 +64,9 @@ public class OptionsTest {
   }
 
 
-  //TODO print out list of options in the form of a usage list
-
+  /**
+   * Can print a list of options with their description.
+   */
   @Test
   public void canPrintAListOfOptionsWithTheirDescription() {
     Options options = new Options(optionWithOutArgs, optionWithArg);
@@ -59,11 +75,17 @@ public class OptionsTest {
 //    System.out.print(options.toString());
   }
 
+  /**
+   * Attempting to print an empty options list returns string stating its empty.
+   */
   @Test
   public void attemptingToPrintAnEmptyOptionsListReturnsStringStatingItsEmpty() {
     assertThat(emptyOptionsList.toString(), containsString("Options list is empty"));
   }
 
+  /**
+   * Can tell how many options have arguments.
+   */
   @Test
   public void canTellHowManyOptionsHaveArguments() {
     Options options = new Options(optionWithOutArgs, optionWithArg);

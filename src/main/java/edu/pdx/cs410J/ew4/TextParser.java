@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 /**
  * This class opens text file reading in data to be added to an <code>AppointmentBook</code>
  * This implements <code>AppointmentBookParser</code> interface.
+ *
  * @author Elijah Whitham-Powell
  */
 public class TextParser implements AppointmentBookParser {

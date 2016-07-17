@@ -1,5 +1,3 @@
-
-
 package edu.pdx.cs410J.ew4;
 
 
@@ -19,6 +17,9 @@ public class AppointmentBookTest {
   private Appointment testAppointment2;
   private Appointment testAppointment3;
 
+  /**
+   * Instantiates a new Appointment book test.
+   */
   public AppointmentBookTest() {
     testBook = new AppointmentBook("Evan");
     testAppointment = new Appointment("Bang his own mother", "06/09/1993 12:22", "06/12/1993 13:50");
@@ -29,28 +30,45 @@ public class AppointmentBookTest {
     testBook.addAppointment(testAppointment3);
   }
 
+  /**
+   * Gets test book.
+   *
+   * @return the test book
+   */
   public AppointmentBook getTestBook() {
     return testBook;
   }
 
+  /**
+   * Gets owner name returns same owner if unspecified.
+   */
   @Test
   public void getOwnerNameReturnsSameOwnerIfUnspecified() {
     AbstractAppointmentBook<AbstractAppointment> appointmentBook = new AppointmentBook();
     assertThat(appointmentBook.getOwnerName(), is("< unspecified >"));
   }
 
+  /**
+   * Verify that owner of appointment book created via constructor can be retrieved.
+   */
   @Test
   public void verifyThatOwnerOfAppointmentBookCreatedViaConstructorCanBeRetrieved() {
     AbstractAppointmentBook<AbstractAppointment> appointmentBook = new AppointmentBook("Test Owner");
     assertThat(appointmentBook.getOwnerName(), is("Test Owner"));
   }
 
+  /**
+   * Gets appointments from empty appointment book returns null.
+   */
   @Test
   public void getAppointmentsFromEmptyAppointmentBookReturnsNull() {
     AbstractAppointmentBook<AbstractAppointment> appointmentBook = new AppointmentBook("Test Owner");
     assertThat(appointmentBook.getAppointments(), is(nullValue()));
   }
 
+  /**
+   * Can an appointment be added to the appointment collection.
+   */
   @Test
   public void canAnAppointmentBeAddedToTheAppointmentCollection() {
     AbstractAppointmentBook<AbstractAppointment> appointmentBook = new AppointmentBook("Test Owner");
@@ -60,6 +78,9 @@ public class AppointmentBookTest {
     assertThat(appointmentBook.getAppointments().toString(), containsString("Test appointment description"));
   }
 
+  /**
+   * Can add multiple appoints to the appointment book and recall the correct number of appointments.
+   */
   @Test
   public void canAddMultipleAppointsToTheAppointmentBookAndRecallTheCorrectNumberOfAppointments() {
     assertThat(testBook.size(), is(3));
@@ -68,6 +89,9 @@ public class AppointmentBookTest {
     assertThat(testBook.size(), is(5));
   }
 
+  /**
+   * Appointment book can return a sorted set of appointments.
+   */
   @Test
   public void appointmentBookCanReturnASortedSetOfAppointments() {
     AppointmentBook aBook = new AppointmentBook("Evee");

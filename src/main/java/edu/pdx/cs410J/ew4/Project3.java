@@ -105,7 +105,7 @@ public class Project3 extends Project1 {
     // Make new appointment
     appointment = new Appointment(description, beginTime, endTime);
 
-
+    // Use a text file
     if (useFile) {
       String fileName = commands.getOptionValue("textFile");
       TextParser tp = new TextParser(fileName, appointmentOwner);
@@ -130,6 +130,7 @@ public class Project3 extends Project1 {
       appointmentBook.addAppointment(appointment);
     }
 
+    // output a pretty printed version of appointment book
     if (doPretty) {
       String prettyFile = commands.getOptionValue("pretty");
       PrettyPrinter pp;
@@ -150,7 +151,6 @@ public class Project3 extends Project1 {
       out.format("Owner: %s %nNewly Added Appointment: %n %s", appointmentBook.getOwnerName(), appointment);
     }
 
-    // TODO add pretty print feature in main
     System.exit(exitCode);
   }
 

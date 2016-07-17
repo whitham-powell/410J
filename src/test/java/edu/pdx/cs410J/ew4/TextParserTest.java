@@ -19,11 +19,17 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class TextParserTest {
   private AppointmentBook testBook;
 
+  /**
+   * Sets up.
+   */
   @Before
   public void setUp() {
     testBook = new AppointmentBookTest().getTestBook();
   }
 
+  /**
+   * Can load an appointment book from a file.
+   */
   @Test
   public void canLoadAnAppointmentBookFromAFile() {
     TextParser textParser = new TextParser("test.txt", "Evan");
@@ -41,6 +47,9 @@ public class TextParserTest {
     assertThat(appointmentBook.getAppointments().toString(), equalTo(testBook.getAppointments().toString()));
   }
 
+  /**
+   * Bad formatting not enough lines of text in file.
+   */
   @Test
   public void badFormattingNotEnoughLinesOfTextInFile() {
     try {
@@ -65,6 +74,9 @@ public class TextParserTest {
     assertThat(caughtException, is(true));
   }
 
+  /**
+   * Bad formatting missing quotes on description.
+   */
   @Test
   public void badFormattingMissingQuotesOnDescription() {
     File testFile = new File("missingQuotesOnDescription.txt");
@@ -81,6 +93,9 @@ public class TextParserTest {
     assertThat("Exception was not caught", caughtException);
   }
 
+  /**
+   * Bad formatting of date.
+   */
   @Test
   public void badFormattingOfDate() {
     String testFileName = "badDateFormat.txt";
@@ -101,6 +116,9 @@ public class TextParserTest {
     assertThat("Exception was not caught", caughtException);
   }
 
+  /**
+   * Bad formatting of time.
+   */
   @Test
   public void badFormattingOfTime() {
     String testFileName = "badTimeFormat.txt";
@@ -121,6 +139,9 @@ public class TextParserTest {
     assertThat("Exception was not caught", caughtException);
   }
 
+  /**
+   * Parsing ended suddenly missing data but correct formatting.
+   */
   @Test
   public void parsingEndedSuddenlyMissingDataButCorrectFormatting() {
     String testFileName = "parseEndsSoonerThanExpected.txt";
@@ -138,6 +159,9 @@ public class TextParserTest {
     assertThat("Exception was not caught", caughtException);
   }
 
+  /**
+   * Invalid owner name results in parsing exception.
+   */
   @Test
   public void invalidOwnerNameResultsInParsingException() {
     String testFileName = "badTimeFormat.txt";
