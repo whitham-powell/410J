@@ -18,19 +18,7 @@ import java.text.SimpleDateFormat;
 
 
 public class TextDumper implements AppointmentBookDumper {
-
-  /**
-   * The Did create.
-   */
-  protected boolean didCreate;
-  /**
-   * The File name.
-   */
-  protected String fileName;
-  /**
-   * The File.
-   */
-  protected File file;
+  private BufferedWriter bw;
 
   /**
    * Instantiates a new Text dumper.
@@ -39,13 +27,35 @@ public class TextDumper implements AppointmentBookDumper {
    * @throws IOException the io exception
    */
   public TextDumper(String fileName) throws IOException {
-    this.fileName = fileName;
-    this.file = new File(fileName);
-    try {
-      this.didCreate = this.file.createNewFile();
-    } catch (IOException e) {
-      throw new IOException("Failed to create file" + e.getMessage());
-    }
+    this(new File(fileName));
+  }
+
+  /**
+   * Instantiates a new Text dumper.
+   *
+   * @param file the file
+   * @throws IOException the io exception
+   */
+  public TextDumper(File file) throws IOException {
+    this(new FileWriter(file));
+  }
+
+  /**
+   * Instantiates a new Text dumper.
+   *
+   * @param fileWriter the file writer
+   */
+  public TextDumper(FileWriter fileWriter) {
+    this(new BufferedWriter(fileWriter));
+  }
+
+  /**
+   * Instantiates a new Text dumper.
+   *
+   * @param bufferedWriter the buffered writer
+   */
+  public TextDumper(BufferedWriter bufferedWriter) {
+    this.bw = bufferedWriter;
   }
 
   /**
@@ -56,14 +66,10 @@ public class TextDumper implements AppointmentBookDumper {
    */
   @Override
   public void dump(AbstractAppointmentBook book) throws IOException {
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.file))) {
-      writer.write(book.getOwnerName() + "\n");
-      String outString = makeAppointmentsString(book);
-      writer.write(outString);
-      writer.close();
-    } catch (IOException e) {
-      throw new IOException("failed to create buffered file writer" + this.fileName);
-    }
+    this.bw.write(book.getOwnerName() + "\n");
+    String outString = makeAppointmentsString(book);
+    this.bw.write(outString);
+    this.bw.close();
   }
 
   /**
@@ -84,14 +90,5 @@ public class TextDumper implements AppointmentBookDumper {
       sb.append(df.format(asAppointment.getEndTime())).append("\n");
     }
     return sb.toString();
-  }
-
-  /**
-   * File exists boolean.
-   *
-   * @return the boolean
-   */
-  public boolean fileExists() {
-    return this.file.exists();
   }
 }

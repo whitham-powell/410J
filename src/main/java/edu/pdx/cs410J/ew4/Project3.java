@@ -98,7 +98,7 @@ public class Project3 extends Project1 {
       beginTime = df.parse(infoIterator.next() + infoIterator.next() + infoIterator.next());
       endTime = df.parse(infoIterator.next() + infoIterator.next() + infoIterator.next());
     } catch (ParseException e) {
-      err.println("Bad formatting of the time and or date");
+      err.println("Bad formatting of the time and/or date");
       out.println("Dates and times should be in the format: mm/dd/yyyy hh:mm am/pm\n");
     }
 
@@ -113,14 +113,13 @@ public class Project3 extends Project1 {
       try {
         appointmentBook = (AppointmentBook) tp.parse();
         appointmentBook.addAppointment(appointment);
+        try {
+          TextDumper td = new TextDumper(fileName);
+          td.dump(appointmentBook);
+        } catch (IOException e) {
+          err.println(e.getMessage());
+        }
       } catch (ParserException e) {
-        err.println(e.getMessage());
-      }
-
-      try {
-        TextDumper td = new TextDumper(fileName);
-        td.dump(appointmentBook);
-      } catch (IOException e) {
         err.println(e.getMessage());
       }
 
@@ -148,7 +147,8 @@ public class Project3 extends Project1 {
     }
 
     if (doPrint) {
-      out.format("Owner: %s %nNewly Added Appointment: %n %s", appointmentBook.getOwnerName(), appointment);
+      String ownerName = appointmentBook != null ? appointmentBook.getOwnerName() : null;
+      out.format("Owner: %s %nNewly Added Appointment: %n %s", ownerName, appointment);
     }
 
     System.exit(exitCode);

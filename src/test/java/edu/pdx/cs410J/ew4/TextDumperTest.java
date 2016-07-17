@@ -3,17 +3,13 @@ package edu.pdx.cs410J.ew4;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * Created by edub629 on 7/7/16.
+ * Unit test for {@link TextDumper} class.
  */
 public class TextDumperTest {
 
@@ -27,17 +23,6 @@ public class TextDumperTest {
     testBook = new AppointmentBookTest().getTestBook();
   }
 
-  /**
-   * Can open a file via constructor.
-   *
-   * @throws IOException the io exception
-   */
-  @Test
-  public void canOpenAFileViaConstructor() throws IOException {
-    TextDumper textDumper = new TextDumper("test.txt");
-    assertThat(textDumper.fileName, equalTo("test.txt"));
-    assertThat(textDumper.fileExists(), is(true));
-  }
 
   /**
    * Save an owner name to a text file.
@@ -52,7 +37,7 @@ public class TextDumperTest {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    BufferedReader reader = new BufferedReader(new FileReader(textDumper.file));
+    BufferedReader reader = new BufferedReader(new FileReader(new File("test.txt")));
     assertThat(reader.readLine(), equalTo(testBook.getOwnerName()));
   }
 
@@ -72,7 +57,7 @@ public class TextDumperTest {
       e.printStackTrace();
     }
 
-    try (BufferedReader reader = new BufferedReader(new FileReader(textDumper.file))) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(new File("test.txt")))) {
       String thisString = testBook.getOwnerName() + "\n" + textDumper.makeAppointmentsString(testBook);
       StringBuilder testString = new StringBuilder();
       while ((line = reader.readLine()) != null) {

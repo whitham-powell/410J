@@ -41,7 +41,7 @@ public class AppointmentBook extends AbstractAppointmentBook<AbstractAppointment
    * @return the sorted set
    */
   public SortedSet<Appointment> getSortedSet() {
-    SortedSet<Appointment> sortedAppointments = new TreeSet<Appointment>(Appointment::compareTo);
+    SortedSet<Appointment> sortedAppointments = new TreeSet<>(Appointment::compareTo);
     for (Object fromCollection : this.appointments) {
       Appointment toSorted = (Appointment) fromCollection;
       sortedAppointments.add(toSorted);

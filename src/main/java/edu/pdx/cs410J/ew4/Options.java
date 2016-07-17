@@ -18,7 +18,7 @@ class Options {
    * Instantiates a new Options.
    */
   public Options() {
-    validOptions = new ArrayList<Option>();
+    validOptions = new ArrayList<>();
   }
 
 
@@ -28,7 +28,7 @@ class Options {
    * @param options the options
    */
   public Options(Option... options) {
-    this.validOptions = new ArrayList<Option>();
+    this.validOptions = new ArrayList<>();
     for (Option o : options) {
       if (o.hasArgs()) {
         ++numWArgs;

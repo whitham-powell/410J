@@ -19,14 +19,14 @@ public class PrettyPrinter implements AppointmentBookDumper {
   private BufferedWriter bw;
 
   /**
-   * Instantiates a new Pretty printer.
+   * Instantiates a new Pretty printer.for writing to Standard Out.
    */
   public PrettyPrinter() {
     this(new BufferedWriter(new OutputStreamWriter(System.out)));
   }
 
   /**
-   * Instantiates a new Pretty printer.
+   * Instantiates a new Pretty printer from String.
    *
    * @param fileName the file name
    * @throws IOException the io exception
@@ -36,7 +36,7 @@ public class PrettyPrinter implements AppointmentBookDumper {
   }
 
   /**
-   * Instantiates a new Pretty printer.
+   * Instantiates a new Pretty printer from File.
    *
    * @param file the file
    * @throws IOException the io exception
@@ -46,7 +46,7 @@ public class PrettyPrinter implements AppointmentBookDumper {
   }
 
   /**
-   * Instantiates a new Pretty printer.
+   * Instantiates a new Pretty printer from FileWriter
    *
    * @param fileWriter the file writer
    */
