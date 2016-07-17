@@ -67,7 +67,7 @@ public class InfoValidator {
   /**
    * Returns the <code>Appointment</code> end time after being converted to a <code>Date</code> object.
    *
-   * @return
+   * @return Date
    */
   private Date getBeginDate() {
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
@@ -86,7 +86,7 @@ public class InfoValidator {
   /**
    * Returns the <code>Appointment</code> end time after being converted to a <code>Date</code> object.
    *
-   * @return
+   * @return Date
    */
   private Date getEndDate() {
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
