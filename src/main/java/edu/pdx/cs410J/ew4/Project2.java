@@ -2,9 +2,7 @@ package edu.pdx.cs410J.ew4;
 
 import edu.pdx.cs410J.AbstractAppointment;
 import edu.pdx.cs410J.AbstractAppointmentBook;
-import edu.pdx.cs410J.ParserException;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import static java.lang.System.err;
@@ -98,29 +96,29 @@ public class Project2 extends Project1 {
     // Build new Appointment
     appointment = new Appointment(appointmentInfo);
 
-    if (useFile) {
-      String fileName = commands.getOptionValue("textFile");
-      TextParser tp = new TextParser(fileName, appointmentOwner);
-
-      try {
-        appointmentBook = (AppointmentBook) tp.parse();
-        appointmentBook.addAppointment(appointment);
-      } catch (ParserException e) {
-        err.println(e.getMessage());
-      }
-      try {
-        TextDumper td = new TextDumper(fileName);
-        td.dump(appointmentBook);
-      } catch (IOException e) {
-        err.println(e.getMessage());
-      }
-    } else {
-
-      // Add Appointment to Owner's book
-      appointmentBook = new AppointmentBook(appointmentOwner);
-      appointmentBook.addAppointment(appointment);
-
-    }
+//    if (useFile) {
+//      String fileName = commands.getOptionValue("textFile");
+//      TextParser tp = new TextParser(fileName, appointmentOwner);
+//
+//      try {
+//        appointmentBook = (AppointmentBook) tp.parse();
+//        appointmentBook.addAppointment(appointment);
+//      } catch (ParserException e) {
+//        err.println(e.getMessage());
+//      }
+//      try {
+//        TextDumper td = new TextDumper(fileName);
+//        td.dump(appointmentBook);
+//      } catch (IOException e) {
+//        err.println(e.getMessage());
+//      }
+//    } else {
+//
+//      // Add Appointment to Owner's book
+//      appointmentBook = new AppointmentBook(appointmentOwner);
+//      appointmentBook.addAppointment(appointment);
+//
+//    }
     if (doPrint) {
       out.format("Owner: %s %nNewly Added Appointment: %n %s", appointmentBook.getOwnerName(), appointment);
     }

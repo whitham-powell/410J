@@ -34,4 +34,14 @@ public class PrettyPrinterTest {
 
   }
 
+  @Test
+  public void canPrintToStandardOut() {
+    try {
+      PrettyPrinter prettyPrinter = new PrettyPrinter();
+      prettyPrinter.dump(testBook);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
 }

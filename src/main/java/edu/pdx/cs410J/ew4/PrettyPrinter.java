@@ -3,22 +3,27 @@ package edu.pdx.cs410J.ew4;
 import edu.pdx.cs410J.AbstractAppointmentBook;
 import edu.pdx.cs410J.AppointmentBookDumper;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.text.DateFormat;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.SortedSet;
 
+
 /**
- * TODO document class
- * Created by edub629 on 7/14/16.
+ * Pretty Prints an {@link AppointmentBook} to a text file, or standard out if no file name provided.
+ * Output is sorted.
  */
 public class PrettyPrinter implements AppointmentBookDumper {
   private BufferedWriter bw;
+
+  /**
+   * Instantiates a new Pretty printer.
+   */
+  public PrettyPrinter() {
+    this(new BufferedWriter(new OutputStreamWriter(System.out)));
+  }
 
   /**
    * Instantiates a new Pretty printer.
@@ -58,6 +63,7 @@ public class PrettyPrinter implements AppointmentBookDumper {
     this.bw = bufferedWriter;
   }
 
+
   /**
    * Dumps an appointment book to some destination.
    *
@@ -84,12 +90,7 @@ public class PrettyPrinter implements AppointmentBookDumper {
       Date endTime = appointment.getEndTime();
 
       // If either is null duration is 0
-//      Duration d = null;
       if (beginTime != null && endTime != null) {
-//        d = Duration.between(beginTime.toInstant(), endTime.toInstant());
-//        LocalDate begin = beginTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//        LocalDate end = endTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//        Period p = Period.between(begin, end);
         long hours = ChronoUnit.HOURS.between(beginTime.toInstant(), endTime.toInstant());
         long minutes = ChronoUnit.MINUTES.between(beginTime.toInstant(), endTime.toInstant());
         sb.append("From: ").append(df.format(beginTime)).append("\n")

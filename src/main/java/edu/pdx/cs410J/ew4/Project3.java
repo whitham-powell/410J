@@ -5,7 +5,12 @@ import edu.pdx.cs410J.AbstractAppointmentBook;
 import edu.pdx.cs410J.ParserException;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.ListIterator;
 
 import static java.lang.System.err;
 import static java.lang.System.out;
@@ -41,10 +46,8 @@ public class Project3 extends Project1 {
    * @param args the input arguments
    */
   public static void main(String[] args) {
-    Project3 p2 = new Project3();
 
     String appointmentOwner;
-    String[] appointmentInfo;
     AbstractAppointmentBook<AbstractAppointment> appointmentBook = null;
     AbstractAppointment appointment;
 
@@ -55,15 +58,11 @@ public class Project3 extends Project1 {
     options.addOption("print", false, "Prints a description of the new appointment");
     options.addOption("README", false, "Prints a README for this project along with the usage and exits");
     int numberOfOptions = options.count();
-    int numberOfExpectedArguments = 8;
+    int numberOfExpectedArguments = 10;
 
     // Parse the command line and get the commands
     CommandLineParser commandLine = new CommandLineParser(options, args);
     Commands commands = commandLine.parse(numberOfOptions, numberOfExpectedArguments);
-
-//    err.println(numberOfExpectedArguments);
-//    err.println(commandLine.getProvidedArgs().size());
-//    err.println(commandLine.getProvidedOptions().size());
 
     // Check for README flag special case to exit
     if (commands.hasOption("README")) {
@@ -77,28 +76,35 @@ public class Project3 extends Project1 {
     if (commands.hasError()) {
       err.print(commands.getErrorMessage());
       out.print(USAGE + options + "Dates and times should be in the format: mm/dd/yyyy hh:mm\n");
-//      exitCode = 1;
       System.exit(1);
     }
 
     // No errors in creating of commands set action flags
     boolean doPrint = commands.hasOption("print");
     boolean useFile = commands.hasOption("textFile");
+    boolean doPretty = commands.hasOption("pretty");
 
     // Grab Appointment Owner and Appointment from Command Line
     ArrayList<String> pArgs = commandLine.getProvidedArgs();
-    appointmentOwner = pArgs.get(0);
-    appointmentInfo = pArgs.subList(1, 6).toArray(new String[5]);
+    ListIterator<String> infoIterator = pArgs.listIterator();
+    appointmentOwner = infoIterator.next();
+    String description = infoIterator.next();
 
-    // Validate Appointment Dates and Times
-    InfoValidator validator = new InfoValidator(appointmentInfo);
-    exitCode = validator.getErrCode();
-    if (validator.hasFailed()) {
-      err.print(validator.getErrMsg());
+    // Parse the date
+    DateFormat df = new SimpleDateFormat("MM/dd/yyyyhh:mma");
+    Date beginTime = null;
+    Date endTime = null;
+    try {
+      beginTime = df.parse(infoIterator.next() + infoIterator.next() + infoIterator.next());
+      endTime = df.parse(infoIterator.next() + infoIterator.next() + infoIterator.next());
+    } catch (ParseException e) {
+      err.println("Bad formatting of the time and or date");
+      out.println("Dates and times should be in the format: mm/dd/yyyy hh:mm am/pm\n");
     }
 
-    // Build new Appointment
-    appointment = new Appointment(appointmentInfo);
+    // Make new appointment
+    appointment = new Appointment(description, beginTime, endTime);
+
 
     if (useFile) {
       String fileName = commands.getOptionValue("textFile");
@@ -110,19 +116,36 @@ public class Project3 extends Project1 {
       } catch (ParserException e) {
         err.println(e.getMessage());
       }
+
       try {
         TextDumper td = new TextDumper(fileName);
         td.dump(appointmentBook);
       } catch (IOException e) {
         err.println(e.getMessage());
       }
-    } else {
 
+    } else {
       // Add Appointment to Owner's book
       appointmentBook = new AppointmentBook(appointmentOwner);
       appointmentBook.addAppointment(appointment);
+    }
+
+    if (doPretty) {
+      String prettyFile = commands.getOptionValue("pretty");
+      PrettyPrinter pp;
+      try {
+        if (prettyFile.equalsIgnoreCase("-")) {
+          pp = new PrettyPrinter();
+        } else {
+          pp = new PrettyPrinter(commands.getOptionValue("pretty"));
+        }
+        pp.dump(appointmentBook);
+      } catch (IOException e) {
+        err.println(e.getMessage());
+      }
 
     }
+
     if (doPrint) {
       out.format("Owner: %s %nNewly Added Appointment: %n %s", appointmentBook.getOwnerName(), appointment);
     }

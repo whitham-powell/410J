@@ -82,6 +82,12 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
     this.description = description;
   }
 
+  public Appointment(String description, Date beginTime, Date endTime) {
+    this.description = description;
+    this.beginTime = beginTime;
+    this.endTime = endTime;
+  }
+
   /**
    * Returns the beginning time and date of an <code>Appointment</code> as a <code>String</code>
    *
