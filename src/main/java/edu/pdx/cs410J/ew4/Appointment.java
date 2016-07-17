@@ -73,7 +73,7 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
     }
     try {
       Date date;
-      date = df.parse(beginTimeString);
+      date = df.parse(endTimeString);
       this.endTime = date;
       this.endTimeString = df.format(this.endTime);
     } catch (ParseException e) {
