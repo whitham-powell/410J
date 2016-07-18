@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.ListIterator;
 
@@ -16,9 +15,9 @@ import static java.lang.System.err;
 import static java.lang.System.out;
 
 /**
- * Main class to run Project2 command line processes.
+ * Main class to run Project3 command line processes.
  */
-public class Project3 extends Project1 {
+public class Project3 {
 
   private static String USAGE =
           "usage: java edu.pdx.edu.cs410J.<login-id>.Project3 [options] <args> \n" +
@@ -85,8 +84,8 @@ public class Project3 extends Project1 {
     boolean doPretty = commands.hasOption("pretty");
 
     // Grab Appointment Owner and Appointment from Command Line
-    ArrayList<String> pArgs = commandLine.getProvidedArgs();
-    ListIterator<String> infoIterator = pArgs.listIterator();
+//    ArrayList<String> pArgs = commandLine.getProvidedArgs();
+    ListIterator<String> infoIterator = commandLine.getProvidedArgs().listIterator();
     appointmentOwner = infoIterator.next();
     String description = infoIterator.next();
 
@@ -100,6 +99,7 @@ public class Project3 extends Project1 {
     } catch (ParseException e) {
       err.println("Bad formatting of the time and/or date");
       out.println("Dates and times should be in the format: mm/dd/yyyy hh:mm am/pm\n");
+      exitCode = 1;
     }
 
     // Make new appointment
@@ -118,9 +118,11 @@ public class Project3 extends Project1 {
           td.dump(appointmentBook);
         } catch (IOException e) {
           err.println(e.getMessage());
+          exitCode = 1;
         }
       } catch (ParserException e) {
         err.println(e.getMessage());
+        exitCode = 1;
       }
 
     } else {
@@ -129,7 +131,7 @@ public class Project3 extends Project1 {
       appointmentBook.addAppointment(appointment);
     }
 
-    // output a pretty printed version of appointment book
+    // Output a pretty printed version of appointment book
     if (doPretty) {
       String prettyFile = commands.getOptionValue("pretty");
       PrettyPrinter pp;
@@ -142,6 +144,7 @@ public class Project3 extends Project1 {
         pp.dump(appointmentBook);
       } catch (IOException e) {
         err.println(e.getMessage());
+        exitCode = 1;
       }
 
     }

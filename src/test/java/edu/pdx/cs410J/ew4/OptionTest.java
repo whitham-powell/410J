@@ -68,8 +68,8 @@ public class OptionTest {
    */
   @Test
   public void toStringReturnsOptionNameFollowedByTabFollowedByDescription() {
-    assertThat(optionWithArgs.toString(), containsString("testArg\t"));
-    assertThat(optionWithOutArgs.toString(), containsString("testNoArg\t"));
+    assertThat(optionWithArgs.toString(), containsString("-testArg"));
+    assertThat(optionWithOutArgs.toString(), containsString("-testNoArg"));
   }
 
   /**

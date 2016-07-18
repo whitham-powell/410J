@@ -1,0 +1,33 @@
+Elijah Whitham-Powell
+7/17/2016
+CS410J
+Project 3
+Plan of Attack
+
+    This phase of the project required one new class to be created. The PrettyPrinter class implements the AppointmentBookDumper
+interface just like the TextDumper class from the previous project. Other improvements and refactorings were done to
+streamline the logic and better delegate the work of each object. There was also a bug in the way Project2 handled a failed
+parsing of a text file that lead to a NullPointerException that had to be fixed.
+
+    The PrettyPrinter class was implemented in a way that I believe to be cleaner and closer to the Java style than the
+way I had implemented the TextDumper class. I decided to use the DateFormat.LONG to print the dates. To get the elapsed
+time for each appointment, I used ChronoUnit and the Temporal package. To handle the pretty printing to StandardOut, I
+created a special constructor that took no arguments and creates a BufferedWriter from an OutputStreamWriter passed
+System.out via its constructor. In main if the user supplied "-" on the command line after the "-pretty" flag as the
+file name, it takes that as a clue to print to StandardOut via the special constructor. Otherwise main creates a new
+PrettyPrinter object with the supplied file name from the command line. Since I already have a set of tools in place to
+parse the command line I merely created and added a new Option to the Options class instantiated in main.
+
+    The AppointmentBook class needed a way to get a sorted list of Appointments so that the PrettyPrinter would be able
+to present an organized view of the AppointmentBook. So a method that returned a SortedSet of Appointments was created
+for this task. In order for the Appointments to be sorted, it required implementing the Comparable interface with the
+Appointment class. Which requires an @Override of toCompare(). Along with this override a new constructor was added to
+the Appointment class that took in a String description and Date objects for the beginning and end times. Which then allows
+main to handle the building and parsing of the Date objects instead of the Appointment class itself. This also meant that
+my InfoValidator class was no longer needed as the DateFormat class could do all of the String parsing and verifying for
+me.
+
+    The bug from Project2 was the result of not properly using try/catch blocks. If the parsing failed, it would result
+in a null AppointmentBook and thus a NullPointerException within the TextDumper. To fix this, instead of having the two
+try/catch blocks running consecutively (one for the parser, one for the dumper), nesting the dumper try/catch within
+the parsers try section eliminated this particular bug.

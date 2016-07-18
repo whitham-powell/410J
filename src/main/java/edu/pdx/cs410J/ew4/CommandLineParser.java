@@ -100,7 +100,7 @@ public class CommandLineParser {
         if (providedArgs.size() + claimedArgs.size() > this.maxNumOfArgs) {
           theCommands = new Commands(true, "Too many arguments provided: \n" + errOut());
         } else if (providedArgs.size() + claimedArgs.size() >= this.minNumOfArgs) {
-          theCommands = getCommands();
+          return theCommands;
         }
       }
       return theCommands;

@@ -132,6 +132,8 @@ public class CommandLineParserTest {
     assertThat(clp.getProvidedArgs().isEmpty(), is(false));
     assertThat(clp.getToParse().size(), equalTo(5));
     assertThat(clp.getProvidedOptions().size(), equalTo(2));
+    System.out.println(clp.getClaimedArgs());
+
     assertThat(clp.getClaimedArgs().size(), equalTo(1));
     assertThat(clp.getProvidedArgs().size(), equalTo(2));
   }
