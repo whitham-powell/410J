@@ -136,7 +136,7 @@ public class Project3 {
       String prettyFile = commands.getOptionValue("pretty");
       PrettyPrinter pp;
       try {
-        if (prettyFile.equalsIgnoreCase("-")) {
+        if (/*commandLine.getProvidedArgs().contains(prettyFile)*/prettyFile.equalsIgnoreCase("-")) {
           pp = new PrettyPrinter();
         } else {
           pp = new PrettyPrinter(commands.getOptionValue("pretty"));
