@@ -49,19 +49,19 @@ public class AppointmentBook extends AbstractAppointmentBook<AbstractAppointment
     return sortedAppointments;
   }
 
-  @Override
   /**
    * Returns the the owner of the <code>AppointmentBook</code> as a <code>String</code>
    */
+  @Override
   public String getOwnerName() {
     return this.ownerName;
   }
 
-  @Override
   /**
    * Returns the collection of <code>AbstractAppointments</code> if it is not empty otherwise
    * returns <code>null</code>
    */
+  @Override
   public Collection<AbstractAppointment> getAppointments() {
     if (appointments.isEmpty()) {
       return null;
@@ -70,11 +70,11 @@ public class AppointmentBook extends AbstractAppointmentBook<AbstractAppointment
     }
   }
 
-  @Override
   /**
    * Adds an <code>AbstractAppointment</code> object to the collection of appointments.
    * @param appointment an <code>AbstractAppointment</code> object to be added to the collection.
    */
+  @Override
   public void addAppointment(AbstractAppointment appointment) {
     appointments.add(appointment);
   }

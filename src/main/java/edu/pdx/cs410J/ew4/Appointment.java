@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -103,9 +104,9 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
   @Override
   public String getBeginTimeString() {
 //    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+    DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.US);
     try {
-      df.format(this.beginTime);
+//      df.format(this.beginTime);
       return df.format(this.beginTime);
     } catch (NullPointerException e) {
       return "";
@@ -133,9 +134,9 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
   @Override
   public String getEndTimeString() {
 //    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+    DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.US);
     try {
-      df.format(this.endTime);
+//      df.format(this.endTime);
       return df.format(this.endTime);
     } catch (NullPointerException e) {
       return "";

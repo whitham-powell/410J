@@ -84,7 +84,6 @@ public class Project3 {
     boolean doPretty = commands.hasOption("pretty");
 
     // Grab Appointment Owner and Appointment from Command Line
-//    ArrayList<String> pArgs = commandLine.getProvidedArgs();
     ListIterator<String> infoIterator = commandLine.getProvidedArgs().listIterator();
     appointmentOwner = infoIterator.next();
     String description = infoIterator.next();
